@@ -8,4 +8,11 @@
 	</buildSpec>
 	<natures>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/core/src/edu/udel/cisc275_15S/themis/res</name>
+			<type>2</type>
+			<location>/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/android/assets</location>
+		</link>
+	</linkedResources>
 </projectDescription>
