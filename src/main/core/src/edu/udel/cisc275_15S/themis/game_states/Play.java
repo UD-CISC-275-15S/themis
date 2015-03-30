@@ -65,7 +65,7 @@ public class Play extends GameState {
 //	      player.render();
 //	      npcs.render();
 //	      cam follows the player
-//		  cam.setPosition(player.getPosition().x + Themis.WIDTH / 4, Themis.HEIGHT / 2);
+//		  cam.setPosition(player.getPosition().x + Themis.WIDTH / 2, Themis.HEIGHT / 2);
 	}
 
 	@Override
