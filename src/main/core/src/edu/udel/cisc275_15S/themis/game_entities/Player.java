@@ -23,8 +23,11 @@ public class Player extends Character {
 //		if (TouchInputHandler.isClicked() && player is not reaching bounds of map
 //				TouchInputHandler.x ><= defined threshold 
 //				update x;
+//				update dir
 //				TouchInputHandler.y ><= defined threshold 
 //				update y;
+//				update dir
+//				sprite = Direction[1] 
 	}
 	public void update(){
 		handleInput();
@@ -39,6 +42,7 @@ public class Player extends Character {
 //		Read file, load XY
 //		x = 
 //		y = 
+//		dir = 
 	}
 //	public Backpack setUserBag() {
 //		Backpack bag = new Backpack(sprite, x, x)

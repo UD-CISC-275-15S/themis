@@ -56,6 +56,9 @@ public class Play extends GameState {
 //	Load the tile map, surface layers
 //	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
 	private void createSurface() {
+//		When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
+//		and check to be sure
+//		Not sure why my try/catch creates a nullpointer
 //		try {
 			TiledMap tileMap = new TmxMapLoader().load("maps/UDmap.tmx");	
 //		}

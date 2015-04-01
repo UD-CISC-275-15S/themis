@@ -15,7 +15,8 @@ public class Character {
 	public static final int DOWN = 1111;
 	public static final int LEFT = 2222;
 	public static final int RIGHT = 3333;
-	
+//	This should be from a png file that contains 4 sprites: an up, down, left, and right direction facing sprite
+//	Make sure each sprite file has the same order of directions to make it simple 
 	TextureRegion[] sprite;
 	private float x;
 	private float y;
@@ -31,7 +32,14 @@ public class Character {
 	}
 	public void render(SpriteBatch sb) {
 		sb.begin();
-		sb.draw(sprite[1], x, y);
+//		if (dir == UP)
+		sb.draw(sprite[0], x, y);
+//		if (dir == DOWN)
+//		sb.draw(sprite[1], x, y);
+//		if (dir == LEFT)
+//		sb.draw(sprite[2], x, y);
+//		if (dir == RIGHT)
+//		sb.draw(sprite[3], x, y);
 		sb.end();
 	}
 	public void touchHandler() {
