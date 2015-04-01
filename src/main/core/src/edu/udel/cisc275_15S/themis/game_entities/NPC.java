@@ -1,7 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 //	NPC's are nonplayable characters which can be interacted with 
 //	may have Dialogue or trigger and Event
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import edu.udel.cisc275_15S.themis.game_events.Event;
 
@@ -14,7 +14,7 @@ public class NPC extends Character {
 	private boolean condition;
 	private Event event;
 
-	public NPC(Texture sprite, float x, float y, int dir, String name, Event event) {
+	public NPC(TextureRegion[] sprite, float x, float y, int dir, String name, Event event) {
 		super(sprite, x, y, dir, name);
 		// TODO Auto-generated constructor stub
 	}

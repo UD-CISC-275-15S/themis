@@ -1,20 +1,20 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
+
+import edu.udel.cisc275_15S.themis.interactables.Backpack;
+import edu.udel.cisc275_15S.themis.interactables.Objectives;
 // A player is a Character that "owns" the following special attributes:
 // Bag 
 // Objectives
 // Can trigger events
 
-import com.badlogic.gdx.utils.Array;
-import edu.udel.cisc275_15S.themis.interactables.Backpack;
-import edu.udel.cisc275_15S.themis.interactables.Objectives;
-
 public class Player extends Character {
 	public Backpack bag;
 	public Array<Objectives> obj;
 	
-	public Player(Texture sprite, float x, float y, int dir, String name) {
+	public Player(TextureRegion[] sprite, float x, float y, int dir, String name) {
 		super(sprite, x, y, dir, name);
 		// TODO Auto-generated constructor stub
 	}

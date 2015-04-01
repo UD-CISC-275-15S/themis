@@ -44,7 +44,6 @@ public class Themis implements ApplicationListener {
 		hudcam.setToOrtho(false,WIDTH,HEIGHT);
 		gsh = new GameStateHandler(this);
 		sb = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 		
 	}
 

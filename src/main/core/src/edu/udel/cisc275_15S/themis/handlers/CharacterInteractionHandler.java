@@ -11,11 +11,11 @@ import edu.udel.cisc275_15S.themis.game_states.Play;
 //		Used to handle interactions between a Player and NPC
 //		Since we are basically using the play state as our entire game, update the play state
 
-public class CharacterHandler {
+public class CharacterInteractionHandler {
 	public Player player;
 	public Array<NPC> npcs;
 	
-	public CharacterHandler(Player player, Array<NPC> npcs) {
+	public CharacterInteractionHandler(Player player, Array<NPC> npcs) {
 		player = player;
 		npcs = npcs;
 	}
