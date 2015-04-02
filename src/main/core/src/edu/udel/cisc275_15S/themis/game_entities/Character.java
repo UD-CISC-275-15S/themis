@@ -1,9 +1,9 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
 //	A character is an in-game entity that has a direction, and x,y pos, and sprite image
@@ -32,28 +32,49 @@ public class Character {
 	}
 	public void render(SpriteBatch sb) {
 		sb.begin();
-//		if (dir == UP)
+		if (dir == DOWN)
 		sb.draw(sprite[0], x, y);
-//		if (dir == DOWN)
-//		sb.draw(sprite[1], x, y);
-//		if (dir == LEFT)
-//		sb.draw(sprite[2], x, y);
-//		if (dir == RIGHT)
-//		sb.draw(sprite[3], x, y);
+		if (dir == LEFT)
+		sb.draw(sprite[1], x, y);
+		if (dir == UP)
+		sb.draw(sprite[2], x, y);
+		if (dir == RIGHT)
+		sb.draw(sprite[3], x, y);
 		sb.end();
 	}
-	public void touchHandler() {
-		if (TouchInputHandler.isClicked() &&
-				TouchInputHandler.x == x &&
-				TouchInputHandler.y == y) {
-//			for testing purposes
-			System.out.println("You've selected" + name);
-		}
-	}
+//	public void touchHandler() {
+//		float UpperBound = Themis.HEIGHT/4;
+//		float LowerBound = Themis.HEIGHT - Themis.HEIGHT/4;
+//		float LeftBound = Themis.WIDTH/3;
+//		float RightBound = Themis.WIDTH - Themis.WIDTH/3;
+//		if (TouchInputHandler.isClicked()) {
+////				&&
+////				TouchInputHandler.x == x &&
+////				TouchInputHandler.y == y) {
+////			for testing purposes
+//			System.out.println("you are at screen cord: " + x + " , " + y);
+//			if (TouchInputHandler.x > Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x+=5; dir = RIGHT;}
+//			if (TouchInputHandler.x < Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x-=5; dir = LEFT;}
+//			if (TouchInputHandler.y < Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound) { y+=5; dir = UP;}
+//			if (TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound) { y-=5; dir = DOWN;}
+//
+//			
+//			}
+//		
+//	}
 	public void update() {
-		touchHandler();
+//		touchHandler();
 	}
 	public float getXpos() {return x;}
 	public float getYpos() {return y;}
+	public void setX(float num) { x = num;};
+	public void setY(float num) { y = num;};
+	public void setDir(String direction) { 
+		if (direction == "up") { dir = UP;}
+		if (direction == "right") { dir = RIGHT;}
+		if (direction == "left") { dir = LEFT;}
+		if (direction == "down") { dir = DOWN;}
+		
+	}
 	public String getName() {return name;}
 }

@@ -15,13 +15,14 @@ public class CharacterInteractionHandler {
 	public Player player;
 	public Array<NPC> npcs;
 	
-	public CharacterInteractionHandler(Player player, Array<NPC> npcs) {
-		player = player;
-		npcs = npcs;
+	public CharacterInteractionHandler(Play gs) {
+		player = gs.getPlayer();
+		npcs = gs.getNPCS();
 	}
 	public void update(float dt) {
+		touchHandler();
 //		if player posX && Y within talking distance of NPC
-		for (NPC npc: npcs) {
+//		for (NPC npc: npcs) {
 //			if (
 //			player posX - NPC posX <= absValue of defined constant &&
 //			player posY - NPC posY <= absValue of defined constant && 
@@ -31,7 +32,31 @@ public class CharacterInteractionHandler {
 //			TouchInputHandler.y == NPC posY &&
 //			NPC.getEvent() != null)
 //			perform some action/NPC.getEvent().loadEvent()
-		}
+//		}
+	}
+	public void touchHandler() {
+		float UpperBound = Themis.HEIGHT/4;
+		float LowerBound = Themis.HEIGHT - Themis.HEIGHT/4;
+		float LeftBound = Themis.WIDTH/3;
+		float RightBound = Themis.WIDTH - Themis.WIDTH/3;
+		if (TouchInputHandler.isClicked()) {
+//				&&
+//				TouchInputHandler.x == x &&
+//				TouchInputHandler.y == y) {
+//			for testing purposes
+			System.out.println("you are at screen cord: " + player.getXpos() + " , " + player.getYpos());
+			
+			if (TouchInputHandler.x > Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) 
+			{ player.setX(player.getXpos()+5); player.setDir("right");}
+			if (TouchInputHandler.x < Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) 
+			{ player.setX(player.getXpos()-5); player.setDir("left");}
+			if (TouchInputHandler.y < Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound) 
+			{ player.setY(player.getYpos()+5); player.setDir("up");}
+			if (TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound)
+			{ player.setY(player.getYpos()-5);; player.setDir("down");}
+			
+			}
+		
 	}
 	public void render(){
 //		use this method to draw dialogue
