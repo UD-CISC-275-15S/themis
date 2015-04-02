@@ -3,7 +3,10 @@ package edu.udel.cisc275_15S.themis.game_states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -30,15 +33,16 @@ public class Play extends GameState {
 	private Texture bg = (new Texture(Gdx.files.internal("temp.jpg")));
 	private OrthogonalTiledMapRenderer renderer; 
 	private Array<NPC> npcs;
+//	Tiles that the player cant pass through
 	private HUD hud;
 	private MainCamera cam2;
 	private CharacterInteractionHandler CIH;
+	MapObjects objects;
 	
 	public Play(GameStateHandler gsh) {
 		super(gsh);
 //		create the player
 		CreatePlayer();
-		
 //		set the camera bounds to the Tile map size.
 		createSurface();
 		cam2 = new MainCamera();
@@ -50,25 +54,28 @@ public class Play extends GameState {
 //		create the hud, and set it to whatever the player owns. (backpack, resources, information, etc)
 //		hud = new HUD(player);
 		CIH = new CharacterInteractionHandler(this);
+		MapLayer collisionObjectLayer = tileMap.getLayers().get("nonpassable");	
+		objects = collisionObjectLayer.getObjects();
 	}
 	
 //	Only required if the Player has just started  a new game
 	private void CreatePlayer() {
 //		if implementing choosable sprites, save player sprite selection in textfile and load into player class.
 //		Otherwise, load default sprite here:
+		
 		Texture sprite = new Texture("Sprites/link.png");
+
 		TextureRegion[] PlayerSprite = new TextureRegion[4];
 		for (int i = 0; i < 4; i++){
 			PlayerSprite[i] = new TextureRegion(sprite, i * 50, 0, 32, 32);
 		}
-		player = new Player(PlayerSprite, 240, 180, Character.DOWN, "Mark");
+		player = new Player(PlayerSprite, 500, 400, Character.DOWN, "Mark");
 	}
 	
 //	This is required if NPC's are put in the map on Tile
 	private void CreateNPCs() {
 //		
 	}
-	
 //	Load the tile map, surface layers
 //	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
 	private void createSurface() {
@@ -76,7 +83,7 @@ public class Play extends GameState {
 //		and check to be sure
 //		Not sure why my try/catch creates a nullpointer
 //		try {
-			TiledMap tileMap = new TmxMapLoader().load("maps/UDmap.tmx");	
+			tileMap = new TmxMapLoader().load("maps/UDmap.tmx");	
 //		}
 //		catch(Exception e) {
 //			System.out.println("Can't find map file.");
@@ -123,6 +130,7 @@ public class Play extends GameState {
 //	      sb.draw(bg, 0, 0);
 //	      sb.end();
 	      sb.setProjectionMatrix(cam2.combined);
+	      CIH.render(sb);
 	      player.render(sb);
 //	      npcs.render();
 
@@ -132,7 +140,6 @@ public class Play extends GameState {
 	public void handleInput() {
 		// TODO Auto-generated method stub
 		CIH.touchHandler();
-		
 	}
 
 	@Override
@@ -142,4 +149,7 @@ public class Play extends GameState {
 	}
 	public Player getPlayer() { return player;}
 	public Array<NPC> getNPCS() {return npcs;}
+	public int getTMwidth() { return tileMapWidth; }
+	public int getTMheight() { return tileMapHeight; }
+	public MapObjects getObjects() { return objects;}
 }

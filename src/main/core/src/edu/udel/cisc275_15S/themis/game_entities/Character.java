@@ -2,6 +2,7 @@ package edu.udel.cisc275_15S.themis.game_entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
@@ -25,21 +26,21 @@ public class Character {
 	
 	public Character(TextureRegion[] sprite, float x, float y, int dir, String name) {
 		this.sprite = sprite;
-		this.x = x;
-		this.y = y;
-		this.dir = dir;
+		this.setX(x);
+		this.setY(y);
+		this.setDir(dir);
 		this.name = name;
 	}
 	public void render(SpriteBatch sb) {
 		sb.begin();
-		if (dir == DOWN)
-		sb.draw(sprite[0], x, y);
-		if (dir == LEFT)
-		sb.draw(sprite[1], x, y);
-		if (dir == UP)
-		sb.draw(sprite[2], x, y);
-		if (dir == RIGHT)
-		sb.draw(sprite[3], x, y);
+		if (getDir() == DOWN)
+		sb.draw(sprite[0], getX(), getY());
+		if (getDir() == LEFT)
+		sb.draw(sprite[1], getX(), getY());
+		if (getDir() == UP)
+		sb.draw(sprite[2], getX(), getY());
+		if (getDir() == RIGHT)
+		sb.draw(sprite[3], getX(), getY());
 		sb.end();
 	}
 //	public void touchHandler() {
@@ -53,8 +54,8 @@ public class Character {
 ////				TouchInputHandler.y == y) {
 ////			for testing purposes
 //			System.out.println("you are at screen cord: " + x + " , " + y);
-//			if (TouchInputHandler.x > Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x+=5; dir = RIGHT;}
-//			if (TouchInputHandler.x < Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x-=5; dir = LEFT;}
+	//			if (TouchInputHandler.x > Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x+=5; dir = RIGHT;}
+	//			if (TouchInputHandler.x < Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x-=5; dir = LEFT;}
 //			if (TouchInputHandler.y < Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound) { y+=5; dir = UP;}
 //			if (TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound) { y-=5; dir = DOWN;}
 //
@@ -65,8 +66,8 @@ public class Character {
 	public void update() {
 //		touchHandler();
 	}
-	public float getXpos() {return x;}
-	public float getYpos() {return y;}
+	public float getXpos() {return getX();}
+	public float getYpos() {return getY();}
 	public void setX(float num) { x = num;};
 	public void setY(float num) { y = num;};
 	public void setDir(String direction) { 
@@ -77,4 +78,23 @@ public class Character {
 		
 	}
 	public String getName() {return name;}
+	public Rectangle getRectangle() {
+		int x0 = (int) getX();
+		int y0 = (int) getY();
+		int width = (int) (getX()+sprite[0].getRegionWidth());
+		int height = (int) (getX()+sprite[0].getRegionHeight());
+		return new Rectangle(x0, y0, width, height);
+	}
+	public float getX() {
+		return x;
+	}
+	public float getY() {
+		return y;
+	}
+	public int getDir() {
+		return dir;
+	}
+	public void setDir(int dir) {
+		this.dir = dir;
+	}
 }
