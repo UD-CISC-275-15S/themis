@@ -26,4 +26,58 @@
    eJztzjEKABAAhWGLkusZXMwhHcOsLEopvm979YY/BAAAAAB29Xy7AAAAAAAA3tfi7QIAAAAAAE4pad41rX/wuwGYHgJG
   </data>
  </layer>
+ <objectgroup name="nonpassable" width="65" height="65">
+  <object x="1150" y="322" width="2"/>
+  <object x="877" y="541" width="149" height="258"/>
+  <object x="880" y="832" width="142" height="177"/>
+  <object x="595" y="722" width="238" height="365"/>
+  <object x="593" y="656" width="78" height="54"/>
+  <object x="706" y="656" width="78" height="53"/>
+  <object x="191" y="543" width="173" height="85"/>
+  <object x="364" y="545" width="82" height="67"/>
+  <object x="258" y="626" width="43" height="30"/>
+  <object x="191" y="703" width="273" height="50"/>
+  <object x="483" y="658" width="28" height="44"/>
+  <object x="480" y="543" width="20" height="65"/>
+  <object x="558" y="542" width="19" height="68"/>
+  <object x="640" y="543" width="17" height="61"/>
+  <object x="721" y="540" width="17" height="69"/>
+  <object x="802" y="541" width="12" height="69"/>
+  <object x="557" y="656" width="21" height="49"/>
+  <object x="193" y="95" width="14" height="254"/>
+  <object x="192" y="97" width="905" height="15"/>
+  <object x="416" y="114" width="143" height="229"/>
+  <object x="578" y="121" width="108" height="86"/>
+  <object x="723" y="122" width="172" height="109"/>
+  <object x="929" y="114" width="118" height="224"/>
+  <object x="194" y="354" width="76" height="59"/>
+  <object x="193" y="420" width="79" height="49"/>
+  <object x="354" y="414" width="78" height="63"/>
+  <object x="433" y="417" width="52" height="15"/>
+  <object x="479" y="401" width="80" height="68"/>
+  <object x="550" y="417" width="474" height="17"/>
+  <object x="640" y="414" width="78" height="54"/>
+  <object x="786" y="417" width="78" height="62"/>
+  <object x="929" y="400" width="93" height="66"/>
+  <object x="192" y="641" width="49" height="28"/>
+  <object x="211" y="771" width="171" height="267"/>
+  <object x="1" y="93" width="144" height="210"/>
+  <object x="1032" y="52"/>
+  <object x="7" y="3" width="1059" height="50"/>
+  <object x="17" y="301" height="775"/>
+  <object x="129" y="345" width="20" height="137"/>
+  <object x="127" y="545" width="19" height="481"/>
+  <object x="498" y="705" width="14" height="357"/>
+  <object x="544" y="707" width="19" height="380"/>
+  <object x="578" y="241" width="31" height="51"/>
+  <object x="654" y="241" width="35" height="52"/>
+  <object x="230" y="127" width="23" height="52"/>
+  <object x="259" y="177" width="111" height="114"/>
+  <object x="373" y="131" width="25" height="46"/>
+  <object x="372" y="290" width="24" height="46"/>
+  <object x="230" y="289" width="24" height="42"/>
+  <object x="290" y="432" width="15" height="33"/>
+  <object x="320" y="434" width="15" height="28"/>
+  <object x="5" y="44"/>
+ </objectgroup>
 </map>
