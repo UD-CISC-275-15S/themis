@@ -1,8 +1,9 @@
 package edu.udel.cisc275_15S.themis;
 
 
-import com.badlogic.gdx.ApplicationListener;
+import java.io.FileNotFoundException;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -42,7 +43,12 @@ public class Themis implements ApplicationListener {
 		cam.setToOrtho(false, WIDTH, HEIGHT);
 		hudcam = new OrthographicCamera();
 		hudcam.setToOrtho(false,WIDTH,HEIGHT);
-		gsh = new GameStateHandler(this);
+		try {
+			gsh = new GameStateHandler(this);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		sb = new SpriteBatch();
 		
 	}

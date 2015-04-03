@@ -1,5 +1,9 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -43,26 +47,7 @@ public class Character {
 		sb.draw(sprite[3], getX(), getY());
 		sb.end();
 	}
-//	public void touchHandler() {
-//		float UpperBound = Themis.HEIGHT/4;
-//		float LowerBound = Themis.HEIGHT - Themis.HEIGHT/4;
-//		float LeftBound = Themis.WIDTH/3;
-//		float RightBound = Themis.WIDTH - Themis.WIDTH/3;
-//		if (TouchInputHandler.isClicked()) {
-////				&&
-////				TouchInputHandler.x == x &&
-////				TouchInputHandler.y == y) {
-////			for testing purposes
-//			System.out.println("you are at screen cord: " + x + " , " + y);
-	//			if (TouchInputHandler.x > Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x+=5; dir = RIGHT;}
-	//			if (TouchInputHandler.x < Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound) { x-=5; dir = LEFT;}
-//			if (TouchInputHandler.y < Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound) { y+=5; dir = UP;}
-//			if (TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound) { y-=5; dir = DOWN;}
-//
-//			
-//			}
-//		
-//	}
+
 	public void update() {
 //		touchHandler();
 	}
@@ -74,8 +59,7 @@ public class Character {
 		if (direction == "up") { dir = UP;}
 		if (direction == "right") { dir = RIGHT;}
 		if (direction == "left") { dir = LEFT;}
-		if (direction == "down") { dir = DOWN;}
-		
+		if (direction == "down") { dir = DOWN;}	
 	}
 	public String getName() {return name;}
 	public Rectangle getRectangle() {
@@ -96,5 +80,15 @@ public class Character {
 	}
 	public void setDir(int dir) {
 		this.dir = dir;
+	}
+	public void setName(String nm) {
+		name = nm;
+	}
+	public String getDirString(int n) {
+		if (n == UP) { return "UP";}
+		if (n == RIGHT) { return "RIGHT";}
+		if (n == LEFT) { return "LEFT";}
+		if (n == DOWN) { return "DOWN";}
+		return "";
 	}
 }

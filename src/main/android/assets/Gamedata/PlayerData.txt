@@ -1,0 +1,8 @@
+name:
+RandomName
+x
+400
+y
+300
+dir
+UP

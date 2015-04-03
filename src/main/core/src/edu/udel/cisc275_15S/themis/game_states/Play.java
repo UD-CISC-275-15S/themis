@@ -1,5 +1,10 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +18,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 
+import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_entities.Character;
 import edu.udel.cisc275_15S.themis.game_entities.HUD;
@@ -23,7 +29,10 @@ import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
 
 public class Play extends GameState {
-
+//	Wasn't able to get it working with a relative file path, so I used an absolute path for testing. 
+//	Run the main method to find your path and add Gamedata/PlayerData.txt to it 
+	public static String filepath = "/home/mark/git/themis/src/main/core/Gamedata/PlayerData.txt";
+	public static File PlayerData = new File(filepath);
 	private Player player;
 	private int tileMapWidth;
 	private int tileMapHeight;
@@ -37,10 +46,12 @@ public class Play extends GameState {
 	private HUD hud;
 	private MainCamera cam2;
 	private CharacterInteractionHandler CIH;
+	private Data d;
 	MapObjects objects;
 	
-	public Play(GameStateHandler gsh) {
+	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
+	    Data d = new Data();
 //		create the player
 		CreatePlayer();
 //		set the camera bounds to the Tile map size.
@@ -59,7 +70,7 @@ public class Play extends GameState {
 	}
 	
 //	Only required if the Player has just started  a new game
-	private void CreatePlayer() {
+	private void CreatePlayer() throws FileNotFoundException {
 //		if implementing choosable sprites, save player sprite selection in textfile and load into player class.
 //		Otherwise, load default sprite here:
 		
@@ -69,7 +80,12 @@ public class Play extends GameState {
 		for (int i = 0; i < 4; i++){
 			PlayerSprite[i] = new TextureRegion(sprite, i * 50, 0, 32, 32);
 		}
-		player = new Player(PlayerSprite, 500, 400, Character.DOWN, "Mark");
+		String name = d.readPlayerName(PlayerData);
+		Float x = (d.readPlayerX(PlayerData));
+		Float y = (d.readPlayerY(PlayerData));
+		String dir = (d.readPlayerDir(PlayerData));
+		
+		player = new Player(PlayerSprite, x, y, Character.DOWN, "Mark");
 	}
 	
 //	This is required if NPC's are put in the map on Tile
@@ -113,6 +129,15 @@ public class Play extends GameState {
 //		for (int i = 0; i < NPCs.size(); i++) {
 //			NPCs.get(i).update(dt);
 //		}
+		try {
+			d.savePlayerData(filepath, player.getX(), player.getY(),player.getDirString(player.getDir()));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void render() {
@@ -152,4 +177,13 @@ public class Play extends GameState {
 	public int getTMwidth() { return tileMapWidth; }
 	public int getTMheight() { return tileMapHeight; }
 	public MapObjects getObjects() { return objects;}
+	public static void main(String[] args) throws IOException {
+	    String filePath = new File("").getAbsolutePath();
+	    System.out.println(filePath);
+	    Data d = new Data();
+		System.out.println(d.readPlayerName(PlayerData));
+		System.out.println(d.readPlayerX(PlayerData));
+		System.out.println(d.readPlayerY(PlayerData));
+		System.out.println(d.readPlayerDir(PlayerData));
+	}
 }

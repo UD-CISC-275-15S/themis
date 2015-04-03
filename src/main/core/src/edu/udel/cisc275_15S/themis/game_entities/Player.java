@@ -1,5 +1,9 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -7,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
@@ -85,11 +90,13 @@ public class Player extends Character {
 //	Methods to avoid hardcoding bag and objectives
 //	Use I/O methods to read and set the players bag, objectives and X and Y positions
 //	Also save the users X and Y position on update if we are avoiding a save button 
-	public void setPos() {
-//		Read file, load XY
-//		x = 
-//		y = 
-//		dir = 
+	public void setPos(File data) throws FileNotFoundException {
+		Data d = new Data();
+		setX(d.readPlayerX(data));
+		setY(d.readPlayerY(data));
+		setName(d.readPlayerName(data));
+		setDir(d.readPlayerDir(data));
+
 	}
 //	public Backpack setUserBag() {
 //		Backpack bag = new Backpack(sprite, x, x)
@@ -107,5 +114,6 @@ public class Player extends Character {
 //		Can define a Delay constant for saving UserData
 		
 	}
-	
+	public static void main(String[] args) throws IOException {
+	}
 }

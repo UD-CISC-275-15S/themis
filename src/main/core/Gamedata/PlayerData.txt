@@ -1,0 +1,8 @@
+name:
+timmy
+x:
+152.0
+y:
+676.0
+dir
+UP

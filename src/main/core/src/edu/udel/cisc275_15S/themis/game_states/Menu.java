@@ -1,5 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
+import java.io.FileNotFoundException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -23,7 +25,12 @@ public class Menu extends GameState {
 			
 			if(play.isDown()) {
 //				implement some sound here
-				gsh.setState(GameStateHandler.PLAY);
+				try {
+					gsh.setState(GameStateHandler.PLAY);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
