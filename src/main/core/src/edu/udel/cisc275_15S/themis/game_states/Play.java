@@ -31,7 +31,10 @@ import edu.udel.cisc275_15S.themis.handlers.MainCamera;
 public class Play extends GameState {
 //	Wasn't able to get it working with a relative file path, so I used an absolute path for testing. 
 //	Run the main method to find your path and add Gamedata/PlayerData.txt to it 
-	public static String filepath = "/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/core/Gamedata/PlayerData.txt";
+//	public static String filepath = "/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/core/Gamedata/PlayerData.txt";
+//	public static String filepath = "C:/Users/Chris/Desktop/Poderance_and_Circumstance/CISC275/themis/src/main/core/Gamedata/PlayerData.txt";
+	public static Data data = new Data();
+	public static String filepath = data.getFilePath();
 	public static File PlayerData = new File(filepath);
 	private static Player player;
 	private int tileMapWidth;
@@ -39,7 +42,7 @@ public class Play extends GameState {
 	private int tileSize;
 	private TiledMap tileMap;
 //	temporary bg until tileMap has been created
-//	private Texture bg = (new Texture(Gdx.files.internal("temp.jpg")));
+	private Texture bg = (new Texture(Gdx.files.internal("temp.jpg")));
 	private OrthogonalTiledMapRenderer renderer; 
 	private Array<NPC> npcs;
 //	Tiles that the player cant pass through
@@ -187,7 +190,6 @@ public class Play extends GameState {
 		System.out.println(d.readPlayerX(PlayerData));
 		System.out.println(d.readPlayerY(PlayerData));
 		System.out.println(d.readPlayerDir(PlayerData));
-//		CreatePlayer();
-//		System.out.println(player.getBag().returnasdf());
+//		
 	}
 }

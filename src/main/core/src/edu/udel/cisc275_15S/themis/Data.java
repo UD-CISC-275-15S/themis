@@ -111,7 +111,7 @@ public class Data {
 	    return "";
 	}
 	public static void savePlayerData(String filename, Float x0, Float y0, String dir) throws FileNotFoundException, UnsupportedEncodingException {
-			PrintWriter writer = new PrintWriter(filename, "UTF-8");
+			PrintWriter writer = new PrintWriter("Gamedata/PlayerData.txt", "UTF-8");
 			String x = Float.toString(x0);
 			String y = Float.toString(y0);
 			writer.println("name:");
@@ -124,10 +124,13 @@ public class Data {
 			writer.println(dir);
 			writer.close();
 	}
+	public static String getFilePath() {
+	    return PlayerData.getAbsolutePath();
+	}
 //	Using a main method to test the methods, later take it out and remove static from all the methods and variables
 	public static void main(String[] args) throws IOException {
-	    String filePath = new File("").getAbsolutePath();
-	    System.out.println(filePath+"\n");
+	    File pdata = new File("/Gamedata/PlayerData.txt");
+	    System.out.println(PlayerData.getAbsolutePath()+"\n");
 //		Testing Reading Questions
 		readQ();
 		for (Question aq : questions) {
@@ -136,10 +139,11 @@ public class Data {
 				System.out.println(a.toString() + " = " + a.getBool());
 			} 
 		}
-		savePlayerData("/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/core/Gamedata/PlayerData.txt", 500f, 400f, "DOWN");
+		savePlayerData("/Gamedata/PlayerData.txt", 500f, 400f, "DOWN");
 		System.out.println(readPlayerName(PlayerData));
 		System.out.println(readPlayerX(PlayerData));
 		System.out.println(readPlayerY(PlayerData));
 		System.out.println(readPlayerDir(PlayerData));
+
 	}
 }
