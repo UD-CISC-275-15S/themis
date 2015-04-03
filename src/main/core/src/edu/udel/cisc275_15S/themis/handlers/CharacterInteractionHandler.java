@@ -19,7 +19,7 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class CharacterInteractionHandler {
 //	how many spaces the character moves
-	public static final int MOVE = 4;
+	public static final int MOVE = 2;
 	public Player player;
 	public Array<NPC> npcs;
 //	Tiles that the player cant pass through
