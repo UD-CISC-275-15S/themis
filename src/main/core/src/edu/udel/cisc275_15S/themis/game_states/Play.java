@@ -31,7 +31,7 @@ import edu.udel.cisc275_15S.themis.handlers.MainCamera;
 public class Play extends GameState {
 //	Wasn't able to get it working with a relative file path, so I used an absolute path for testing. 
 //	Run the main method to find your path and add Gamedata/PlayerData.txt to it 
-	public static String filepath = "/home/mark/git/themis/src/main/core/Gamedata/PlayerData.txt";
+	public static String filepath = "/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/core/Gamedata/PlayerData.txt";
 	public static File PlayerData = new File(filepath);
 	private Player player;
 	private int tileMapWidth;
@@ -63,7 +63,7 @@ public class Play extends GameState {
 //		create the NPCs
 		CreateNPCs();
 //		create the hud, and set it to whatever the player owns. (backpack, resources, information, etc)
-//		hud = new HUD(player);
+		hud = new HUD(player);
 		CIH = new CharacterInteractionHandler(this);
 		MapLayer collisionObjectLayer = tileMap.getLayers().get("nonpassable");	
 		objects = collisionObjectLayer.getObjects();
@@ -157,6 +157,8 @@ public class Play extends GameState {
 	      sb.setProjectionMatrix(cam2.combined);
 	      CIH.render(sb);
 	      player.render(sb);
+	      sb.setProjectionMatrix(hudCam.combined);
+	      hud.render(sb);
 //	      npcs.render();
 
 	}

@@ -11,7 +11,6 @@ public class Backpack extends Buttons implements Interactable {
 	private Array<item> items;
 	public Backpack(Texture image, float x, float y) {
 		super(image, x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -28,7 +27,9 @@ public class Backpack extends Buttons implements Interactable {
 
 	@Override
 	public void render(SpriteBatch sb) {
-		// TODO Auto-generated method stub
+		sb.begin();
+		sb.draw(getImage(), getX(), getY());
+		sb.end();
 		
 	}
 	public void add(item item) {

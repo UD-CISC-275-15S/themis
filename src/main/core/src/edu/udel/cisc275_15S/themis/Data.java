@@ -137,7 +137,7 @@ public class Data {
 				System.out.println(a.toString() + " = " + a.getBool());
 			} 
 		}
-		savePlayerData("/home/mark/git/themis/src/main/core/Gamedata/PlayerData.txt", 500f, 400f, "DOWN");
+		savePlayerData("/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/core/Gamedata/PlayerData.txt", 500f, 400f, "DOWN");
 		System.out.println(readPlayerName(PlayerData));
 		System.out.println(readPlayerX(PlayerData));
 		System.out.println(readPlayerY(PlayerData));

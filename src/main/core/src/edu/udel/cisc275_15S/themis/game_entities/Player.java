@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
+import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
@@ -34,7 +35,6 @@ public class Player extends Character {
 	
 	public Player(TextureRegion[] sprite, float x, float y, int dir, String name) {
 		super(sprite, x, y, dir, name);
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -98,11 +98,12 @@ public class Player extends Character {
 		setDir(d.readPlayerDir(data));
 
 	}
-//	public Backpack setUserBag() {
-//		Backpack bag = new Backpack(sprite, x, x)
-//		Read file, load items into Bag
-//		return bag;
-//	}
+	public Backpack setUserBag() {
+		Texture pack = new Texture(Gdx.files.internal("Buttons/bag.png"));
+		bag = new Backpack(pack, Themis.WIDTH, Themis.HEIGHT);
+		//Read file, load items into Bag
+		return bag;
+	}
 	public Array<Objectives> setUserOBJ() {
 //		Read file, load obj
 		Array<Objectives> obj= new Array<Objectives>();

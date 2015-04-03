@@ -1,5 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
 import edu.udel.cisc275_15S.themis.interactables.UDSIS;
@@ -12,4 +14,15 @@ public class HUD {
 	private Backpack bag;
 	private Objectives obj;
 	private UDSIS udsis;
+	
+	public HUD(Player player) {
+		this.player = player;
+	}
+
+	public void render(SpriteBatch sb){
+		bag.render(sb);
+		//obj.render(sb);
+		
+	}
+	
 }
