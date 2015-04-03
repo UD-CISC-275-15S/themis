@@ -52,8 +52,8 @@ public class Menu extends GameState {
 			handleInput();
 			play.update(dt);
 			moveBg();
-			
 		}
+//		
 		public void moveBg() {
 			if (srcX == bg.getWidth()-666) {
 				srcX = 0;
