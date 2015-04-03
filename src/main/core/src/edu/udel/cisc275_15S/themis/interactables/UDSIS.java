@@ -26,8 +26,7 @@ public class UDSIS extends Buttons implements Interactable {
 
 	@Override
 	public void render(SpriteBatch sb) {
-		// TODO Auto-generated method stub
-		
+		super.render(sb);
 	}
 
 }

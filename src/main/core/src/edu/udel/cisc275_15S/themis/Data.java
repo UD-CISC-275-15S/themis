@@ -48,9 +48,8 @@ public class Data {
 	        		q.setQuestion(currentLine); 
 	        		q.addAnswer(new Answer(infile.nextLine(), true));
 	        		} 
-				if (currentLine.endsWith(".")) { q.addAnswer(new Answer(currentLine, false));
-	        	}
-		questions.add(q);
+				if (currentLine.endsWith(".")) { q.addAnswer(new Answer(currentLine, false));}
+				questions.add(q);
 	        }
 	    } infile.close();
 	}

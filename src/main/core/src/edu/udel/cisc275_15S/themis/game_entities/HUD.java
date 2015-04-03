@@ -18,11 +18,14 @@ public class HUD {
 	public HUD(Player player) {
 		this.player = player;
 		bag = player.getBag();
+		obj = player.getObjButton();
+		udsis = player.getUDSIS();
 	}
 
 	public void render(SpriteBatch sb){
 		bag.render(sb);
-		//obj.render(sb);
+		obj.render(sb);
+		udsis.render(sb);
 		
 	}
 	

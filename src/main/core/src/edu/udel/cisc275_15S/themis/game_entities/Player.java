@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,12 +21,15 @@ import edu.udel.cisc275_15S.themis.interactables.Objectives;
 // Bag 
 // Objectives
 // Can trigger events
+import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 
 
 public class Player extends Character {
 	
 	public Backpack bag;
+	public Objectives objB;
 	public Array<Objectives> obj;
+	public UDSIS udsis;
 	Texture left = new Texture("Sprites/left.png");
 	Texture right = new Texture("Sprites/right.png");
 	Texture up = new Texture("Sprites/forward.png");
@@ -99,8 +103,10 @@ public class Player extends Character {
 
 	}
 	public Backpack setUserBag() {
-		Texture pack = new Texture(Gdx.files.internal("Buttons/bag.png"));
-		bag = new Backpack(pack, Themis.WIDTH, Themis.HEIGHT);
+		FileHandle filehandle = Gdx.files.internal("Button/bag.png");
+		System.out.println(filehandle.path());
+		Texture pack = new Texture(filehandle);
+		bag = new Backpack(pack, 32f, 32f);
 		//Read file, load items into Bag
 		return bag;
 	}
@@ -110,6 +116,18 @@ public class Player extends Character {
 //		add xyz objectives
 		return obj;
 	}
+	public void setObjButton(){
+		FileHandle filehandle = Gdx.files.internal("Button/info.png");
+		System.out.println(filehandle.path());
+		Texture objs = new Texture(filehandle);
+		objB = new Objectives(objs, 96f, 32f);
+	}
+	public void setUDSIS(){
+		FileHandle filehandle = Gdx.files.internal("Button/browser.png");
+		System.out.println(filehandle.path());
+		Texture sis = new Texture(filehandle);
+		udsis = new UDSIS(sis, 160f, 32f);
+	}
 	public void SaveUserData() {
 //		Read and overwrite file 
 //		Can define a Delay constant for saving UserData
@@ -118,4 +136,7 @@ public class Player extends Character {
 	public static void main(String[] args) throws IOException {
 	}
 	public Backpack getBag(){ return bag;}
+	public Objectives getObjButton(){ return objB;}
+	public UDSIS getUDSIS(){ return udsis;}
+
 }
