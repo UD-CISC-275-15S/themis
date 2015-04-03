@@ -32,7 +32,8 @@ public class Play extends GameState {
 //	Wasn't able to get it working with a relative file path, so I used an absolute path for testing. 
 //	Run the main method to find your path and add Gamedata/PlayerData.txt to it 
 //	public static String filepath = "C:/Users/Chris/Desktop/Poderance_and_Circumstance/CISC275/themis/src/main/core/Gamedata/PlayerData.txt";
-	public static String filepath = new File("").getAbsolutePath().replace("\\desktop", "")+"/core/Gamedata/PlayerData.txt";
+	public static Data data = new Data();
+	public static String filepath = data.getFilePath();
 	public static File PlayerData = new File(filepath);
 	private static Player player;
 	private int tileMapWidth;
@@ -178,15 +179,14 @@ public class Play extends GameState {
 	public int getTMwidth() { return tileMapWidth; }
 	public int getTMheight() { return tileMapHeight; }
 	public MapObjects getObjects() { return objects;}
-//	public static void main(String[] args) throws IOException {
-//	    String filePath = new File("").getAbsolutePath();
-//	    System.out.println(filePath);
-//	    Data d = new Data();
-//		System.out.println(d.readPlayerName(PlayerData));
-//		System.out.println(d.readPlayerX(PlayerData));
-//		System.out.println(d.readPlayerY(PlayerData));
-//		System.out.println(d.readPlayerDir(PlayerData));
-////		CreatePlayer();
-////		System.out.println(player.getBag().returnasdf());
-//	}
+	public static void main(String[] args) throws IOException {
+	    String filePath = new File("").getAbsolutePath();
+	    System.out.println(filePath);
+	    Data d = new Data();
+		System.out.println(d.readPlayerName(PlayerData));
+		System.out.println(d.readPlayerX(PlayerData));
+		System.out.println(d.readPlayerY(PlayerData));
+		System.out.println(d.readPlayerDir(PlayerData));
+
+	}
 }
