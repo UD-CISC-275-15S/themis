@@ -117,4 +117,5 @@ public class Player extends Character {
 	}
 	public static void main(String[] args) throws IOException {
 	}
+	public Backpack getBag(){ return bag;}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 public class Backpack extends Buttons implements Interactable {
 	
 	private Array<item> items;
+	private String asdf = "asdf";
 	public Backpack(Texture image, float x, float y) {
 		super(image, x, y);
 	}
@@ -40,4 +41,5 @@ public class Backpack extends Buttons implements Interactable {
 //		remove an item from the bag
 //		items.remove(item);
 	}
+	public String returnasdf() { return asdf;}
 }

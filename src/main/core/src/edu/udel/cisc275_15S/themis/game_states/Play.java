@@ -31,9 +31,9 @@ import edu.udel.cisc275_15S.themis.handlers.MainCamera;
 public class Play extends GameState {
 //	Wasn't able to get it working with a relative file path, so I used an absolute path for testing. 
 //	Run the main method to find your path and add Gamedata/PlayerData.txt to it 
-	public static String filepath = "/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/core/Gamedata/PlayerData.txt";
+	public static String filepath = "/home/mark/git/themis/src/main/core/Gamedata/PlayerData.txt";
 	public static File PlayerData = new File(filepath);
-	private Player player;
+	private static Player player;
 	private int tileMapWidth;
 	private int tileMapHeight;
 	private int tileSize;
@@ -46,7 +46,7 @@ public class Play extends GameState {
 	private HUD hud;
 	private MainCamera cam2;
 	private CharacterInteractionHandler CIH;
-	private Data d;
+	private static Data d;
 	MapObjects objects;
 	
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
@@ -70,7 +70,7 @@ public class Play extends GameState {
 	}
 	
 //	Only required if the Player has just started  a new game
-	private void CreatePlayer() throws FileNotFoundException {
+	private static void CreatePlayer() throws FileNotFoundException {
 //		if implementing choosable sprites, save player sprite selection in textfile and load into player class.
 //		Otherwise, load default sprite here:
 		
@@ -86,6 +86,7 @@ public class Play extends GameState {
 		String dir = (d.readPlayerDir(PlayerData));
 		
 		player = new Player(PlayerSprite, x, y, Character.DOWN, "Mark");
+		player.setUserBag();
 	}
 	
 //	This is required if NPC's are put in the map on Tile
@@ -138,22 +139,19 @@ public class Play extends GameState {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//		System.out.println(player.getBag().returnasdf());
 	}
 	
 	public void render() {
 	      Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 	      Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //	      cam follows the player
-//	      Vector3 pos = new Vector3(player.getXpos(), player.getYpos(),0);
-//		  cam2.unproject(pos, tileMapWidth, tileMapHeight, Themis.WIDTH, Themis.HEIGHT);
+
 		  cam2.setPosition(player.getXpos(), player.getYpos());
 		  cam2.update();
 	      renderer.setView(cam2);
 	      renderer.render();
-//	      sb.begin();
-////	  draw temp bg
-//	      sb.draw(bg, 0, 0);
-//	      sb.end();
+
 	      sb.setProjectionMatrix(cam2.combined);
 	      CIH.render(sb);
 	      player.render(sb);
@@ -187,5 +185,7 @@ public class Play extends GameState {
 		System.out.println(d.readPlayerX(PlayerData));
 		System.out.println(d.readPlayerY(PlayerData));
 		System.out.println(d.readPlayerDir(PlayerData));
+//		CreatePlayer();
+//		System.out.println(player.getBag().returnasdf());
 	}
 }

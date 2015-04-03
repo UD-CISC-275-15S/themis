@@ -17,6 +17,7 @@ public class HUD {
 	
 	public HUD(Player player) {
 		this.player = player;
+		bag = player.getBag();
 	}
 
 	public void render(SpriteBatch sb){
