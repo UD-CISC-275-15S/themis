@@ -120,9 +120,9 @@ public class CharacterInteractionHandler {
 	public void render(SpriteBatch sb){
 //		Checking Collisions
 		Buttons right = new Buttons("Ouch!!", player.getXpos(), player.getYpos()+50);
-		Buttons left = new Buttons("wtf!!", player.getXpos(), player.getYpos()-25);
-		Buttons up = new Buttons("dammit!!", player.getXpos()+25, player.getYpos());
-		Buttons down = new Buttons("oof!!", player.getXpos()-25, player.getYpos());
+		Buttons left = new Buttons("Ugh!!", player.getXpos(), player.getYpos()-25);
+		Buttons up = new Buttons("Gah!!", player.getXpos()+25, player.getYpos());
+		Buttons down = new Buttons("Oof!!", player.getXpos()-25, player.getYpos());
 
 		Rectangle rect = new Rectangle(player.getXpos()+MOVE, player.getYpos(), 20, 20);
 		Rectangle rect1 = new Rectangle(player.getXpos()-MOVE, player.getYpos(), 20, 20);
