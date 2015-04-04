@@ -22,6 +22,8 @@ public class CharacterInteractionHandler {
 	public static final int MOVE = 2;
 	public Player player;
 	public Array<NPC> npcs;
+	public Array<Buttons> npcButtons;
+	public Array<Rectangle> npcRectangles;
 //	Tiles that the player cant pass through
 	public Play play;
 	private BitmapFont font;
@@ -32,22 +34,11 @@ public class CharacterInteractionHandler {
 		player = gs.getPlayer();
 		npcs = gs.getNPCS();
 		play = gs;
+
 	}
 	public void update(float dt) {
 
 		touchHandler();
-//		if player posX && Y within talking distance of NPC
-//		for (NPC npc: npcs) {
-//			if (
-//			player posX - NPC posX <= absValue of defined constant &&
-//			player posY - NPC posY <= absValue of defined constant && 
-//			TouchInputHandler.isClicked() &&
-//				Player clicks on NPC 
-//			TouchInputHandler.x == NPC posX &&
-//			TouchInputHandler.y == NPC posY &&
-//			NPC.getEvent() != null)
-//			perform some action/NPC.getEvent().loadEvent()
-//		}
 	}
 	public void touchHandler() {
 		
@@ -61,7 +52,13 @@ public class CharacterInteractionHandler {
 			if (checkup()) { player.setY(player.getYpos()+MOVE); player.setDir("up");}
 			if (checkdown()){ player.setY(player.getYpos()-MOVE);; player.setDir("down");}
 			
+//			Check to see if the player is moving into the range of an NPC			
+			for(int i=0;i<play.getNPCS().size;i++){
+				if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))&&((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
+					System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
+				}
 			}
+		}
 		
 	}
 	public boolean checkleft() {
