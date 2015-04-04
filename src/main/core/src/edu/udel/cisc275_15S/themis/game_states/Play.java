@@ -161,7 +161,7 @@ public class Play extends GameState {
 	      player.render(sb);
 	      sb.setProjectionMatrix(hudCam.combined);
 	      hud.render(sb);
-	      sb.setProjectionMatrix(cam2.combined);
+//	      sb.setProjectionMatrix(cam2.combined);
 //	      npcs.render();
 
 	}

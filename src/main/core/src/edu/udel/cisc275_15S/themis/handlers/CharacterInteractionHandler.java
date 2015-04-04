@@ -102,7 +102,7 @@ public class CharacterInteractionHandler {
 //		Check if there is a collision if the player were to move one step to the down
 		return 
 				!Collision(rect) && 
-				player.getYpos() -10 >= 0.0 && TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
+				player.getYpos() -10 >= 60.0 && TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
 	}
 	
 	public boolean Collision(Rectangle rect) {
