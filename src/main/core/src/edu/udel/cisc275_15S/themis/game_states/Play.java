@@ -1,6 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
+import java.util.Random;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -27,12 +28,10 @@ import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
+import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 
 public class Play extends GameState {
-//	Wasn't able to get it working with a relative file path, so I used an absolute path for testing. 
-//	Run the main method to find your path and add Gamedata/PlayerData.txt to it 
-//	public static String filepath = "/Users/brandon/Documents/Academics/CISC275/git/themis/src/main/core/Gamedata/PlayerData.txt";
-//	public static String filepath = "C:/Users/Chris/Desktop/Poderance_and_Circumstance/CISC275/themis/src/main/core/Gamedata/PlayerData.txt";
+
 	public static Data data = new Data();
 	public static String filepath = data.getFilePath();
 	public static File PlayerData = new File(filepath);
@@ -51,10 +50,11 @@ public class Play extends GameState {
 	private CharacterInteractionHandler CIH;
 	private static Data d;
 	MapObjects objects;
+	RandomEvent randomEvent;
 	
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
-	    Data d = new Data();
+//	    Data d = new Data();
 //		create the player
 		CreatePlayer();
 //		set the camera bounds to the Tile map size.
@@ -94,10 +94,29 @@ public class Play extends GameState {
 		player.setUDSIS();
 	}
 	
+	
 //	This is required if NPC's are put in the map on Tile
 	private void CreateNPCs() {
-//		
+		npcs = new Array<NPC>();
+		randomEvent=new RandomEvent();
+		Random rn=new Random();
+		Texture sprite=new Texture("Sprites/cow.png");
+		TextureRegion[] NPCSprite = new TextureRegion[4];
+		for(int j=0;j<4;j++){
+			NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
+		}
+		for(int i=0;i<30;i++){
+			npcs.add(new NPC(NPCSprite,rn.nextInt(tileMapWidth*tileSize),rn.nextInt(tileMapHeight*tileSize),Character.LEFT,"NPC"+i,this.randomEvent));
+		}
 	}
+	
+//Used to handle populating NPC's at random.
+	private void populateNPCs(){
+	      for(int i=0;i<npcs.size;i++){
+	    	  npcs.get(i).render(sb);
+	      }
+	}
+
 //	Load the tile map, surface layers
 //	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
 	private void createSurface() {
@@ -159,10 +178,11 @@ public class Play extends GameState {
 	      sb.setProjectionMatrix(cam2.combined);
 	      CIH.render(sb);
 	      player.render(sb);
+	      populateNPCs();
 	      sb.setProjectionMatrix(hudCam.combined);
 	      hud.render(sb);
-//	      sb.setProjectionMatrix(cam2.combined);
-//	      npcs.render();
+	      sb.setProjectionMatrix(cam2.combined);
+	      
 
 	}
 

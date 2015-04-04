@@ -19,9 +19,11 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class CharacterInteractionHandler {
 //	how many spaces the character moves
-	public static final int MOVE = 4;
+	public static final int MOVE = 2;
 	public Player player;
 	public Array<NPC> npcs;
+	public Array<Buttons> npcButtons;
+	public Array<Rectangle> npcRectangles;
 //	Tiles that the player cant pass through
 	public Play play;
 	private BitmapFont font;
@@ -32,22 +34,11 @@ public class CharacterInteractionHandler {
 		player = gs.getPlayer();
 		npcs = gs.getNPCS();
 		play = gs;
+
 	}
 	public void update(float dt) {
 
 		touchHandler();
-//		if player posX && Y within talking distance of NPC
-//		for (NPC npc: npcs) {
-//			if (
-//			player posX - NPC posX <= absValue of defined constant &&
-//			player posY - NPC posY <= absValue of defined constant && 
-//			TouchInputHandler.isClicked() &&
-//				Player clicks on NPC 
-//			TouchInputHandler.x == NPC posX &&
-//			TouchInputHandler.y == NPC posY &&
-//			NPC.getEvent() != null)
-//			perform some action/NPC.getEvent().loadEvent()
-//		}
 	}
 	public void touchHandler() {
 		
@@ -61,7 +52,13 @@ public class CharacterInteractionHandler {
 			if (checkup()) { player.setY(player.getYpos()+MOVE); player.setDir("up");}
 			if (checkdown()){ player.setY(player.getYpos()-MOVE);; player.setDir("down");}
 			
+//			Check to see if the player is moving into the range of an NPC			
+			for(int i=0;i<play.getNPCS().size;i++){
+				if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))&&((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
+					System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
+				}
 			}
+		}
 		
 	}
 	public boolean checkleft() {
@@ -102,7 +99,7 @@ public class CharacterInteractionHandler {
 //		Check if there is a collision if the player were to move one step to the down
 		return 
 				!Collision(rect) && 
-				player.getYpos() -10 >= 60.0 && TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
+				player.getYpos() -10 >= 64.0 && TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
 	}
 	
 	public boolean Collision(Rectangle rect) {
@@ -120,9 +117,9 @@ public class CharacterInteractionHandler {
 	public void render(SpriteBatch sb){
 //		Checking Collisions
 		Buttons right = new Buttons("Ouch!!", player.getXpos(), player.getYpos()+50);
-		Buttons left = new Buttons("wtf!!", player.getXpos(), player.getYpos()-25);
-		Buttons up = new Buttons("dammit!!", player.getXpos()+25, player.getYpos());
-		Buttons down = new Buttons("oof!!", player.getXpos()-25, player.getYpos());
+		Buttons left = new Buttons("Ugh!!", player.getXpos(), player.getYpos()-25);
+		Buttons up = new Buttons("Gah!!", player.getXpos()+25, player.getYpos());
+		Buttons down = new Buttons("Oof!!", player.getXpos()-25, player.getYpos());
 
 		Rectangle rect = new Rectangle(player.getXpos()+MOVE, player.getYpos(), 20, 20);
 		Rectangle rect1 = new Rectangle(player.getXpos()-MOVE, player.getYpos(), 20, 20);
