@@ -75,8 +75,8 @@ public class Buttons implements Interactable {
 			clicked = false;
 		}
 	}
-	public boolean isDown() { return clicked; }
 	
+	public boolean isDown() { return clicked; }
 	public float getX() {return x;}
 	public float getY() {return y;}
 	public Texture getImage() {return image;}

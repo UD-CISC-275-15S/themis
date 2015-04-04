@@ -22,6 +22,10 @@ public class HUD {
 		udsis = player.getUDSIS();
 	}
 
+	public void update(float dt) {
+		bag.update(dt);
+	}
+	
 	public void render(SpriteBatch sb){
 		bag.render(sb);
 		obj.render(sb);

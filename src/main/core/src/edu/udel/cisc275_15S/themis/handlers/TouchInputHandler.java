@@ -18,7 +18,7 @@ public class TouchInputHandler {
 	public static void update() {
 		if(Gdx.input.isTouched()){ // checks if the mouse button is currently held down, use justTouched for one click
 			down = true;
-			//	    	Testing touch
+			//Testing touch
 			x = Gdx.input.getX();
 			y = Gdx.input.getY();
 			System.out.println("down at " + x + " " + y);
