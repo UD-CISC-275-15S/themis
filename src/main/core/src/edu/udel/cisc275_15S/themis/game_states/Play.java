@@ -56,6 +56,7 @@ public class Play extends GameState {
 	MapObjects objects;
 	RandomEvent randomEvent;
 	private Tutorial Tutorial;
+	private boolean open;
 	
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
@@ -187,7 +188,7 @@ public class Play extends GameState {
 			}
 	      hud.render(sb);
 	      sb.setProjectionMatrix(cam2.combined);
-
+	      
 	}
 
 	@Override

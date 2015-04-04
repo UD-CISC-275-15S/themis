@@ -7,6 +7,7 @@ import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_states.GameState;
 import edu.udel.cisc275_15S.themis.game_states.Menu;
 import edu.udel.cisc275_15S.themis.game_states.Play;
+import edu.udel.cisc275_15S.themis.game_states.Web;
 
 public class GameStateHandler {
 
@@ -15,6 +16,7 @@ public class GameStateHandler {
 		private Stack<GameState> gameStates;
 		public static final int MENU = 1234;
 		public static final int PLAY = 5678;
+		public static final int WEB = 1357;
 		
 		public GameStateHandler(Themis game) throws FileNotFoundException {
 			this.game = game;
@@ -36,6 +38,7 @@ public class GameStateHandler {
 		private GameState getState(int state) throws FileNotFoundException {
 			if (state == PLAY) return new Play(this);
 			if (state == MENU) return new Menu(this);
+			if (state == WEB) return new Web(this);
 			return null;
 		}
 		public void setState(int state) throws FileNotFoundException {
