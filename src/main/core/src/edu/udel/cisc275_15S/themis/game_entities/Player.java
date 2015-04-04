@@ -43,7 +43,6 @@ public class Player extends Character {
 
 
 	public void update(){
-		SaveUserData();
 	}
 	
 	public void render(SpriteBatch sb) {
@@ -127,11 +126,6 @@ public class Player extends Character {
 		System.out.println(filehandle.path());
 		Texture sis = new Texture(filehandle);
 		udsis = new UDSIS(sis, 160f, 32f);
-	}
-	public void SaveUserData() {
-//		Read and overwrite file 
-//		Can define a Delay constant for saving UserData
-		
 	}
 	public static void main(String[] args) throws IOException {
 	}

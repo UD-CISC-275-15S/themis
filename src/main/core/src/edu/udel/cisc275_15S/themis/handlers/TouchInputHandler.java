@@ -24,4 +24,5 @@ public class TouchInputHandler {
 			System.out.println("down at " + x + " " + y);
 	    	} else down = false; 
 	   	}
+	
 }

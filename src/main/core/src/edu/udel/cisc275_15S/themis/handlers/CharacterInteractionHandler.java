@@ -54,54 +54,88 @@ public class CharacterInteractionHandler {
 			
 //			Check to see if the player is moving into the range of an NPC			
 			for(int i=0;i<play.getNPCS().size;i++){
-				if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))&&((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
+				if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))
+						&&
+						((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
 					System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
 				}
 			}
 		}
-		
 	}
+
 	public boolean checkleft() {
 		float UpperBound = Themis.HEIGHT/4;
 		float LowerBound = Themis.HEIGHT - Themis.HEIGHT/4;
-		
+		boolean check = false;
+		for (int i=0;i<play.getNPCS().size;i++){
+			if(((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20))
+					&&
+					((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
+				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
+				check = true;
+			}
+		}
 		Rectangle rect = new Rectangle(player.getXpos()-MOVE, player.getYpos(), 20, 20);
 //		Check if there is a collision if the player were to move one step to the left
 		return 
-				!Collision(rect) && 
+				!Collision(rect)  && !check &&
 				player.getXpos() -10 >= 0.0 && TouchInputHandler.x < Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound;
 	}
 	public boolean checkright() {
 		float UpperBound = Themis.HEIGHT/4;
 		float LowerBound = Themis.HEIGHT - Themis.HEIGHT/4;
-		
+		boolean check = false;
+		for (int i=0;i<play.getNPCS().size;i++){
+			if(((player.getX()+MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()+MOVE<=play.getNPCS().get(i).getX()+20))
+					&&
+					((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
+				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
+				check = true;
+			}
+		}
 		Rectangle rect = new Rectangle(player.getXpos()+MOVE, player.getYpos(), 20, 20);
 //		Check if there is a collision if the player were to move one step to the right
 		return 
-				!Collision(rect) && 
+				!Collision(rect) && !check &&
 				player.getXpos()+10 < 1000 && TouchInputHandler.x > Themis.WIDTH/2 && TouchInputHandler.y > UpperBound && TouchInputHandler.y < LowerBound;
 	}
 	public boolean checkup() {
 		float LeftBound = Themis.WIDTH/3;
 		float RightBound = Themis.WIDTH - Themis.WIDTH/3;
-		
+		boolean check = false;
+		for (int i=0;i<play.getNPCS().size;i++){
+			if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))
+					&&
+					((player.getY()+MOVE>=play.getNPCS().get(i).getY()-20)&&(player.getY()+MOVE<=play.getNPCS().get(i).getY()+20))){
+				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
+				check = true;
+			}
+		}
 		Rectangle rect = new Rectangle(player.getXpos(), player.getYpos()+MOVE, 20, 20);
 //		Check if there is a collision if the player were to move one step to the up
 		return 
-				!Collision(rect) && 
+				!Collision(rect)  && !check &&
 				player.getYpos() < 1000 && TouchInputHandler.y < Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
 	}
 	public boolean checkdown() {
 		float LeftBound = Themis.WIDTH/3;
 		float RightBound = Themis.WIDTH - Themis.WIDTH/3;
-		
+		boolean check = false;
+		for (int i=0;i<play.getNPCS().size;i++){
+			if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))
+					&&
+					((player.getY()-MOVE>=play.getNPCS().get(i).getY()-20)&&(player.getY()-MOVE<=play.getNPCS().get(i).getY()+20))){
+				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
+				check = true;
+			}
+		}
 		Rectangle rect = new Rectangle(player.getXpos(), player.getYpos()-MOVE, 20, 20);
 //		Check if there is a collision if the player were to move one step to the down
 		return 
-				!Collision(rect) && 
+				!Collision(rect)  && !check &&
 				player.getYpos() -10 >= 64.0 && TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
 	}
-	
+//	For Collisions between map objects
 	public boolean Collision(Rectangle rect) {
 		
 		MapObjects objects = play.getObjects();

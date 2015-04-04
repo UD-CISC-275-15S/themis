@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,10 +29,13 @@ import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
+import edu.udel.cisc275_15S.themis.game_events.Event;
+import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 
 public class Play extends GameState {
-
+	
+	private boolean newGame = true;
 	public static Data data = new Data();
 	public static String filepath = data.getFilePath();
 	public static File PlayerData = new File(filepath);
@@ -51,6 +55,7 @@ public class Play extends GameState {
 	private static Data d;
 	MapObjects objects;
 	RandomEvent randomEvent;
+	private Tutorial Tutorial;
 	
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
@@ -62,6 +67,7 @@ public class Play extends GameState {
 		cam2 = new MainCamera();
 		cam2.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
 		cam2.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
+		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
 		
 //		create the NPCs
 		CreateNPCs();
@@ -98,7 +104,7 @@ public class Play extends GameState {
 //	This is required if NPC's are put in the map on Tile
 	private void CreateNPCs() {
 		npcs = new Array<NPC>();
-		randomEvent=new RandomEvent();
+		randomEvent=new RandomEvent(null, false, 0, "name", null);
 		Random rn=new Random();
 		Texture sprite=new Texture("Sprites/cow.png");
 		TextureRegion[] NPCSprite = new TextureRegion[4];
@@ -136,16 +142,8 @@ public class Play extends GameState {
 		 tileMapHeight = prop.get("height", Integer.class);
 //		tile height and width are the same
 		 tileSize = prop.get("tilewidth", Integer.class);
-		
-		float unitscale = 1/16f;
-		renderer = new OrthogonalTiledMapRenderer(tileMap);
+ 		 renderer = new OrthogonalTiledMapRenderer(tileMap);
 
-//		Need the following later when we give properties to these objects. i.e buildings and trees are impassable, going to a door starts GameEvent. etc
-//		TiledMapTileLayer layer;
-//		layer = (TiledMapTileLayer) map.getLayers().get("surface");
-//		layer = (TiledMapTileLayer) map.getLayers().get("trees");
-//		layer = (TiledMapTileLayer) map.getLayers().get("Buildings");
-//		layer = (TiledMapTileLayer) map.getLayers().get("interactable");
 
 	}
 	public void update(float dt) {
@@ -162,6 +160,10 @@ public class Play extends GameState {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if (newGame) {
+			Tutorial.update();
+			newGame = Tutorial.getValid();
 		}
 	}
 	
@@ -180,16 +182,22 @@ public class Play extends GameState {
 	      player.render(sb);
 	      populateNPCs();
 	      sb.setProjectionMatrix(hudCam.combined);
+			if (newGame) {
+	      Tutorial.render(sb, hudCam);
+			}
 	      hud.render(sb);
 	      sb.setProjectionMatrix(cam2.combined);
-	      
 
 	}
 
 	@Override
 	public void handleInput() {
 		// TODO Auto-generated method stub
+		if (newGame) {
+			
+		}	else {
 		CIH.touchHandler();
+		}
 	}
 
 	@Override
@@ -202,6 +210,8 @@ public class Play extends GameState {
 	public int getTMwidth() { return tileMapWidth; }
 	public int getTMheight() { return tileMapHeight; }
 	public MapObjects getObjects() { return objects;}
+	public void setNewGame(boolean n) { newGame = n;}
+	
 	public static void main(String[] args) throws IOException {
 	    String filePath = new File("").getAbsolutePath();
 	    System.out.println(filePath);
