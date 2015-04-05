@@ -1,5 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
+import java.io.FileNotFoundException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,8 +34,7 @@ public class Tutorial extends Event {
 	String End = 
 			"Feel free to talk to other students on their tour today. For now, lets get you set up with your advisor.";
 	
-	
-	public Tutorial(Player player, boolean valid, int animator, String name) {
+	public Tutorial(Player player, boolean valid, int animator, String name) throws FileNotFoundException {
 		super(player, valid, animator, name);
 //		Avatar = new Texture(Gdx.files.internal("Avatars/advisorav.png"));
 		Avatar = new Texture(Gdx.files.internal("Avatars/bluehenguide.png"));

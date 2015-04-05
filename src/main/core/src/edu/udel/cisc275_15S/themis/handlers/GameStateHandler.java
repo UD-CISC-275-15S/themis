@@ -21,6 +21,7 @@ public class GameStateHandler {
 		public GameStateHandler(Themis game) throws FileNotFoundException {
 			this.game = game;
 			gameStates = new Stack<GameState>();
+//			pushState(WEB);
 			pushState(MENU);
 		}
 		

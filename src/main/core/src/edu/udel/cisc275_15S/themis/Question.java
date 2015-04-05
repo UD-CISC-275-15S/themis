@@ -1,6 +1,6 @@
 package edu.udel.cisc275_15S.themis;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -8,25 +8,29 @@ import com.badlogic.gdx.utils.Array;
 // 	Each Question has four possible Answers: 3 Wrong Answers and 1 Correct Answer 
 //	A Question is a string that ends with a "?" mark
 public class Question {
-	private Array<Answer> answers;
+	private ArrayList<Answer> answers;
 	private String question;
 	
-	public Question(Array<Answer> answers, String questions) {
+	public Question(ArrayList<Answer> answers, String questions) {
 		this.answers = answers;
 		this.question = question;
 	}
 	public String toString() {
 		return question;
 	}
+	public String getQ(){ return question;}
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-	public Array<Answer> getAnswers() {
+	public ArrayList<Answer> getAnswers() {
 		return answers;
 	}
-	public void setAnswers(Array<Answer> answers) {
+
+	public void setAnswers(ArrayList<Answer> answers) {
 		this.answers = answers;
 	}
 	public void addAnswer(Answer ans) { answers.add(ans); }
-
+	public void createQA() {
+		
+	}
 }

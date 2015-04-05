@@ -30,12 +30,16 @@ import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
 import edu.udel.cisc275_15S.themis.game_events.Event;
+import edu.udel.cisc275_15S.themis.game_events.Quiz;
 import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 
 public class Play extends GameState {
-
+//	Comment out 153 - 160 if you don't want the quiz to appear
+	private boolean quiz = false;
+	private Quiz q;	
 	private boolean newGame = true; // FIXME set back to true;
+	int i = 0;
 	public static Data data = new Data();
 	public static String filepath = data.getFilePath();
 	public static File PlayerData = new File(filepath);
@@ -69,6 +73,7 @@ public class Play extends GameState {
 		cam2.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
 		cam2.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
 		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
+		q = new Quiz();
 
 		//		create the NPCs
 		CreateNPCs();
@@ -144,6 +149,17 @@ public class Play extends GameState {
 		//		for (int i = 0; i < NPCs.size(); i++) {
 		//			NPCs.get(i).update(dt);
 		//		}
+		q.update();
+//		Testing out having the quiz appear immediately after the tutorial
+//		Comment out 153 - 160 if you don't want the quiz to appear
+		if (!newGame && i == 0) {
+			quiz = true;
+			i++;
+		}
+		if (!newGame && i > 0) {
+		quiz = !q.getComplete(); 
+		}
+		
 		if (!newGame) {
 		hud.update(dt);
 		}
@@ -180,7 +196,11 @@ public class Play extends GameState {
 		if (newGame) {
 			Tutorial.render(sb, hudCam);
 		}
+		if (quiz) {
+			q.render(sb);
+		}
 		hud.render(sb);
+
 		sb.setProjectionMatrix(cam2.combined);
 
 	}
@@ -192,7 +212,11 @@ public class Play extends GameState {
 		} 
 		if (opened) {
 			return;
-		} else {
+		} 
+		if (quiz) {
+			return;
+		}
+		else {
 			CIH.touchHandler();
 		}
 	}

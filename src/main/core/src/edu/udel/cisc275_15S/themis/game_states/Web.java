@@ -1,12 +1,17 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
-import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
+import java.io.FileNotFoundException;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+
+import edu.udel.cisc275_15S.themis.game_events.Quiz;
+import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
+//	Just testing out rendering quizzes, 
 public class Web extends GameState {
 
-	public Web(GameStateHandler gsh) {
+	public Web(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -17,14 +22,11 @@ public class Web extends GameState {
 
 	@Override
 	public void update(float dt) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void render() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

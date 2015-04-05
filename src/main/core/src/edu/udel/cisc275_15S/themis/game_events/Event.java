@@ -53,7 +53,7 @@ public class Event {
 //	Used if the event triggers some kind of change in the Players state, i.e the player loses or gains an item
 	protected String action;
 	protected String item;
-	
+
 	public void update() {
 		RemainingDia();
 		NPCAvatarAnimation();
@@ -173,4 +173,5 @@ public class Event {
 	public boolean getnpccomplete() {
 		return npccomplete;
 	}
+
 }

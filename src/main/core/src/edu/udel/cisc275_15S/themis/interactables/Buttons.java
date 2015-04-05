@@ -47,6 +47,7 @@ public class Buttons implements Interactable {
 		height = len * 5;
 		vec = new Vector3();
 	} 
+
 	public void render(SpriteBatch sb) {
 		sb.begin();
 //		If TextButton
@@ -63,8 +64,9 @@ public class Buttons implements Interactable {
 	public void update(float dt) {
 //		Trying to prevent the button from being updating several times in one click
         dt = Gdx.graphics.getDeltaTime();
-        if (dt > .016) {
-		handleInput(); }
+//        if (dt > .016) {
+		handleInput(); 
+//		}
 
 	}
 
@@ -79,5 +81,6 @@ public class Buttons implements Interactable {
 	public float getX() {return x;}
 	public float getY() {return y;}
 	public Texture getImage() {return image;}
+	public String toString() { return string;}
 
 }
