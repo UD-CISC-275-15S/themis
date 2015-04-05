@@ -46,7 +46,7 @@ public class Buttons implements Interactable {
 		width = len * 10;
 		height = len * 5;
 		vec = new Vector3();
-	}
+	} 
 	public void render(SpriteBatch sb) {
 		sb.begin();
 //		If TextButton
