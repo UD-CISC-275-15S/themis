@@ -23,7 +23,16 @@ public class HUD {
 	}
 
 	public void update(float dt) {
-		bag.update(dt);
+//		So that the interfaces don't open over each other
+		if (obj.isOpen() && !bag.isOpen()) {
+			obj.update(dt);
+		}
+		else if (!obj.isOpen() && bag.isOpen()) {
+			bag.update(dt);
+		} else {
+			obj.update(dt);
+			bag.update(dt);
+		}
 	}
 	
 	public void render(SpriteBatch sb){

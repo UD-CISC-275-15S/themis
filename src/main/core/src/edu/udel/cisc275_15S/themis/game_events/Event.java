@@ -139,7 +139,7 @@ public class Event {
 		if (dialogue >= size) {
 			dia = true;
 		} else if (TouchInputHandler.isClicked() && npccomplete && dialogue < size-10) {
-			dialogue++;
+			dialogue+=2;
 		} else if (npccomplete && dt > .017)
 			dialogue++;
 	}
@@ -157,7 +157,7 @@ public class Event {
 	}
 //		Draw the NPC at its default X, and change its Y every frame until it is in the middle of the screen
 	public void NPCAvatarAnimation() {
-		if (animator >= Themis.HEIGHT / 8) {
+		if (animator >= Themis.HEIGHT/4) {
 			npccomplete = true;
 		} else animator+=3;
 		

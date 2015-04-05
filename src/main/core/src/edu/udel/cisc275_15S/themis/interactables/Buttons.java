@@ -1,27 +1,31 @@
 package edu.udel.cisc275_15S.themis.interactables;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
 public class Buttons implements Interactable {
 //	Button center at x,y
-	private float x;
-	private float y;
+	protected float x;
+	protected float y;
 //	Width and height of the button
-	private float width;
-	private float height;
+	protected float width;
+	protected float height;
 //	Button image
-	private Texture image;
+	protected Texture image;
 //	Has the button been pushed
-	private boolean clicked = false;
+	protected boolean clicked = false;
 //	Used if the button is just a string (may be used for dialogues or arbitrary events) and not an image from our res folder
-	private String string;
+	protected String string;
 	Vector3 vec;
 	private OrthographicCamera cam;
 
@@ -57,25 +61,20 @@ public class Buttons implements Interactable {
 	
 	@Override
 	public void update(float dt) {
-		handleInput();
+//		Trying to prevent the button from being updating several times in one click
+        dt = Gdx.graphics.getDeltaTime();
+        if (dt > .016) {
+		handleInput(); }
+
 	}
 
 	@Override
 	public void handleInput() {
-		if (TouchInputHandler.isClicked()) { 
-//				&&
-//			Check if the area clicked is where equivalent to the buttons 
-//			Not quite working yet...
-//				TouchInputHandler.x  > x - width / 2 && TouchInputHandler.x  < x + width / 2 &&
-//				TouchInputHandler.y > y - height / 2 && TouchInputHandler.y < y + height / 2) {
-			clicked = true;
-//			testing TextButton 
+		if (TouchInputHandler.isClicked() && TouchInputHandler.isWithinBounds(x, y, width-30, Themis.HEIGHT - height)){
+			clicked = !clicked;
 			System.out.println("Button center is located at: " + x + "," + y);
-		} else {
-			clicked = false;
 		}
 	}
-	
 	public boolean isDown() { return clicked; }
 	public float getX() {return x;}
 	public float getY() {return y;}

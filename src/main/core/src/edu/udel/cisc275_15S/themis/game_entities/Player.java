@@ -105,7 +105,7 @@ public class Player extends Character {
 		FileHandle filehandle = Gdx.files.internal("Button/bag.png");
 		System.out.println(filehandle.path());
 		Texture pack = new Texture(filehandle);
-		bag = new Backpack(pack, 32f, 32f);
+		bag = new Backpack(pack, 32, 32);
 		//Read file, load items into Bag
 		return bag;
 	}

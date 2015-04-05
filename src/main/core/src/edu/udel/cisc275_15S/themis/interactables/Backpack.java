@@ -26,16 +26,18 @@ public class Backpack extends Buttons implements Interactable {
 		super(image, x, y);
 	}
 
-	@Override
-	public void handleInput() {
-		if (isDown() && TouchInputHandler.isWithinBounds(getX()-32, getX()+32, getY()-32, getY()+32)){
-			opened = true;
-		}
-	}
+//	I've commented this out because the backpack input logic should be the same as every other button
+//	public void handleInput() {
+//		if (isDown() && TouchInputHandler.isWithinBounds(getX()-32, getX()+32, getY()-32, getY()+32)){
+//			opened = true;
+//		}
+//	}
 
-	@Override
 	public void update(float dt) {
-		handleInput();
+        dt = Gdx.graphics.getDeltaTime();
+        if (dt < .016) {
+		handleInput(); }
+		opened = clicked;
 		
 	}
 
@@ -44,7 +46,10 @@ public class Backpack extends Buttons implements Interactable {
 		super.render(sb);
 		if (opened) {
 			sb.begin();
+			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
 			sb.draw(bgImage, getX(), getY() + 32f);
+			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+
 			sb.end();
 		}
 	}

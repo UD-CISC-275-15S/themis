@@ -25,16 +25,11 @@ public class Objectives extends Buttons implements Interactable {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void handleInput() {
-		if (isDown() && TouchInputHandler.isWithinBounds(getX()-32, getX()+32, getY()-32, getY()+32)){
-			opened = true;
-		}		
-	}
-
-	@Override
 	public void update(float dt) {
-		handleInput();
+        dt = Gdx.graphics.getDeltaTime();
+        if (dt < .016) {
+		handleInput(); }
+		opened = clicked;
 	}
 
 	@Override
@@ -42,7 +37,10 @@ public class Objectives extends Buttons implements Interactable {
 		super.render(sb);
 		if (opened) {
 			sb.begin();
-			sb.draw(bgImage, getX(), getY() + 32f);
+			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
+			sb.draw(bgImage, 32, getY() + 32f);
+			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+
 			sb.end();
 		}
 		

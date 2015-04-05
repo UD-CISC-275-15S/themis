@@ -35,7 +35,7 @@ import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 
 public class Play extends GameState {
 
-	private boolean newGame = false; // FIXME set back to true;
+	private boolean newGame = true; // FIXME set back to true;
 	public static Data data = new Data();
 	public static String filepath = data.getFilePath();
 	public static File PlayerData = new File(filepath);
@@ -79,10 +79,7 @@ public class Play extends GameState {
 		objects = collisionObjectLayer.getObjects();
 	}
 
-	//	Only required if the Player has just started  a new game
 	private static void CreatePlayer() throws FileNotFoundException {
-		//		if implementing choosable sprites, save player sprite selection in textfile and load into player class.
-		//		Otherwise, load default sprite here:
 
 		Texture sprite = new Texture("Sprites/link.png");
 
@@ -112,7 +109,7 @@ public class Play extends GameState {
 		for(int j=0;j<4;j++){
 			NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
 		}
-		for(int i=0;i<30;i++){
+		for(int i=0;i<15;i++){
 			npcs.add(new NPC(NPCSprite,rn.nextInt(tileMapWidth*tileSize),rn.nextInt(tileMapHeight*tileSize),Character.LEFT,"NPC"+i,this.randomEvent));
 		}
 	}
@@ -128,15 +125,8 @@ public class Play extends GameState {
 	//	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
 	private void createSurface() {
 		//		When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
-		//		and check to be sure
-		//		Not sure why my try/catch creates a nullpointer
-		//		try {
 		tileMap = new TmxMapLoader().load("maps/UDmap.tmx");	
-		//		}
-		//		catch(Exception e) {
-		//			System.out.println("Can't find map file.");
-		//			Gdx.app.exit();
-		//		}
+
 		MapProperties prop = tileMap.getProperties();
 
 		tileMapWidth = prop.get("width", Integer.class);
@@ -150,11 +140,13 @@ public class Play extends GameState {
 	public void update(float dt) {
 		handleInput();
 		player.update();
-		opened = player.getBag().isOpen();
+		opened = player.getBag().isOpen() || player.getObjButton().isOpen();
 		//		for (int i = 0; i < NPCs.size(); i++) {
 		//			NPCs.get(i).update(dt);
 		//		}
+		if (!newGame) {
 		hud.update(dt);
+		}
 		try {
 			d.savePlayerData(filepath, player.getX(), player.getY(),player.getDirString(player.getDir()));
 		} catch (FileNotFoundException e) {
@@ -196,7 +188,10 @@ public class Play extends GameState {
 	@Override
 	public void handleInput() {
 		if (newGame) {
-
+			return;
+		} 
+		if (opened) {
+			return;
 		} else {
 			CIH.touchHandler();
 		}
