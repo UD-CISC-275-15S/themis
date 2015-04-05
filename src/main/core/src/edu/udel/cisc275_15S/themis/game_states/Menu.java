@@ -40,7 +40,7 @@ public class Menu extends GameState {
 				try {
 					gsh.setState(GameStateHandler.PLAY);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
+					// AUTO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -91,7 +91,7 @@ public class Menu extends GameState {
 
 		@Override
 		public void dispose() {
-			// TODO Auto-generated method stub
+			// AUTO Auto-generated method stub
 			
 		}
 }

@@ -22,7 +22,6 @@ public class Objectives extends Buttons implements Interactable {
 
 	public Objectives(Texture image, float x, float y) {
 		super(image, x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void update(float dt) {

@@ -16,7 +16,7 @@ public class Web extends GameState {
 
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 
 	}
 
@@ -26,12 +26,12 @@ public class Web extends GameState {
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 
 	}
 

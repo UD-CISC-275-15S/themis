@@ -35,10 +35,10 @@ import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 
 public class Play extends GameState {
-//	Comment out 153 - 160 if you don't want the quiz to appear
+	//	Comment out 153 - 160 if you don't want the quiz to appear
 	private boolean quiz = false;
 	private Quiz q;	
-	private boolean newGame = true; // FIXME set back to true;
+	private boolean newGame = true;
 	int i = 0;
 	public static Data data = new Data();
 	public static String filepath = data.getFilePath();
@@ -150,26 +150,26 @@ public class Play extends GameState {
 		//			NPCs.get(i).update(dt);
 		//		}
 		q.update();
-//		Testing out having the quiz appear immediately after the tutorial
-//		Comment out 153 - 160 if you don't want the quiz to appear
+		//		Testing out having the quiz appear immediately after the tutorial
+		//		Comment out 153 - 160 if you don't want the quiz to appear
 		if (!newGame && i == 0) {
 			quiz = true;
 			i++;
 		}
 		if (!newGame && i > 0) {
-		quiz = !q.getComplete(); 
+			quiz = !q.getComplete(); 
 		}
-		
+
 		if (!newGame) {
-		hud.update(dt);
+			hud.update(dt);
 		}
 		try {
 			d.savePlayerData(filepath, player.getX(), player.getY(),player.getDirString(player.getDir()));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			// AUTO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// AUTO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (newGame) {
@@ -223,7 +223,7 @@ public class Play extends GameState {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 
 	}
 	public Player getPlayer() { return player;}

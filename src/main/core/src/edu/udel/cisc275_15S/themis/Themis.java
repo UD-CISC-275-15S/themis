@@ -46,7 +46,7 @@ public class Themis implements ApplicationListener {
 		try {
 			gsh = new GameStateHandler(this);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			// AUTO Auto-generated catch block
 			e.printStackTrace();
 		}
 		sb = new SpriteBatch();
@@ -55,7 +55,7 @@ public class Themis implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 		
 	}
 
@@ -76,19 +76,19 @@ public class Themis implements ApplicationListener {
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		// AUTO Auto-generated method stub
 		
 	}
 		

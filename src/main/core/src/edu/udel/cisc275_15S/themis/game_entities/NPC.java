@@ -16,7 +16,6 @@ public class NPC extends Character {
 
 	public NPC(TextureRegion[] sprite, float x, float y, int dir, String name, Event event) {
 		super(sprite, x, y, dir, name);
-		// TODO Auto-generated constructor stub
 	}
 	public Event getEvent() { return event;}
 	
