@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -150,7 +151,7 @@ public class Play extends GameState {
 		//			NPCs.get(i).update(dt);
 		//		}
 		q.update();
-		//		Testing out having the quiz appear immediately after the tutorial
+		/*//		Testing out having the quiz appear immediately after the tutorial
 		//		Comment out 153 - 160 if you don't want the quiz to appear
 		if (!newGame && i == 0) {
 			quiz = true;
@@ -159,6 +160,7 @@ public class Play extends GameState {
 		if (!newGame && i > 0) {
 			quiz = !q.getComplete(); 
 		}
+		*/
 
 		if (!newGame) {
 			hud.update(dt);
@@ -199,6 +201,13 @@ public class Play extends GameState {
 		if (quiz) {
 			q.render(sb);
 		}
+		for(int i=0;i<npcs.size;i++){
+			if(((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))
+					&&
+					((player.getY()-CharacterInteractionHandler.MOVE>=npcs.get(i).getY()-20)&&(player.getY()-CharacterInteractionHandler.MOVE<=npcs.get(i).getY()+20))){
+				q.render(sb);
+			}
+		}
 		hud.render(sb);
 
 		sb.setProjectionMatrix(cam2.combined);
@@ -232,6 +241,8 @@ public class Play extends GameState {
 	public int getTMheight() { return tileMapHeight; }
 	public MapObjects getObjects() { return objects;}
 	public void setNewGame(boolean n) { newGame = n;}
+	public Quiz getQuiz(){return q;};
+	public SpriteBatch getSB(){return sb;}
 
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();
