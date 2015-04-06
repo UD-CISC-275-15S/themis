@@ -47,11 +47,12 @@ public class Quiz {
 		complete = false;
 	}
 	public void update() {
-		nextQ();
+		//nextQ();
 		updateAns();
 	}
 	public void render(SpriteBatch sb) {
-
+		
+		
 		if (!complete) {
 			drawBoxes(sb);
 			drawQ(sb);

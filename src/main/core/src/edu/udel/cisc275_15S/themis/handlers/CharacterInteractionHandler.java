@@ -33,7 +33,7 @@ public class CharacterInteractionHandler {
 
 		player = gs.getPlayer();
 		npcs = gs.getNPCS();
-		play = gs;
+		play = gs;;
 
 	}
 	public void update(float dt) {
@@ -51,15 +51,6 @@ public class CharacterInteractionHandler {
 			if (checkleft()) { player.setX(player.getXpos()-MOVE); player.setDir("left");}
 			if (checkup()) { player.setY(player.getYpos()+MOVE); player.setDir("up");}
 			if (checkdown()){ player.setY(player.getYpos()-MOVE);; player.setDir("down");}
-			
-//			Check to see if the player is moving into the range of an NPC			
-			for(int i=0;i<play.getNPCS().size;i++){
-				if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))
-						&&
-						((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
-					System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
-				}
-			}
 		}
 	}
 
@@ -71,7 +62,6 @@ public class CharacterInteractionHandler {
 			if(((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20))
 					&&
 					((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
-				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
 				check = true;
 			}
 		}
@@ -89,7 +79,6 @@ public class CharacterInteractionHandler {
 			if(((player.getX()+MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()+MOVE<=play.getNPCS().get(i).getX()+20))
 					&&
 					((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
-				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
 				check = true;
 			}
 		}
@@ -107,7 +96,6 @@ public class CharacterInteractionHandler {
 			if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))
 					&&
 					((player.getY()+MOVE>=play.getNPCS().get(i).getY()-20)&&(player.getY()+MOVE<=play.getNPCS().get(i).getY()+20))){
-				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
 				check = true;
 			}
 		}
@@ -125,7 +113,6 @@ public class CharacterInteractionHandler {
 			if(((player.getX()>=play.getNPCS().get(i).getX()-20)&&(player.getX()<=play.getNPCS().get(i).getX()+20))
 					&&
 					((player.getY()-MOVE>=play.getNPCS().get(i).getY()-20)&&(player.getY()-MOVE<=play.getNPCS().get(i).getY()+20))){
-				System.out.println("Hi, my name is "+play.getNPCS().get(i).getName()+". And we'd be interracting right now!");
 				check = true;
 			}
 		}
@@ -148,6 +135,7 @@ public class CharacterInteractionHandler {
 		    } 
 		} return false;
 	}
+	
 	public void render(SpriteBatch sb){
 //		Checking Collisions
 		Buttons right = new Buttons("Ouch!!", player.getXpos(), player.getYpos()+50);
