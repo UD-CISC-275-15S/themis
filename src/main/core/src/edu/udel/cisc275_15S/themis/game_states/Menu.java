@@ -39,8 +39,10 @@ public class Menu extends GameState {
 //				implement some sound here
 				try {
 					gsh.setState(GameStateHandler.PLAY);
+					bg.dispose();
+					ud.dispose();
+					play.dispose();
 				} catch (FileNotFoundException e) {
-					// AUTO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -64,10 +66,7 @@ public class Menu extends GameState {
 			Gdx.gl.glClearColor(1, 1, 1, 1); 
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 
 			sb.setProjectionMatrix(cam.combined);
-//			draw the background using scale
-//			draw the play button
 			sb.begin();
-//			temporary bg
 			sb.draw(bg, 0, 0, srcX, 0, 480, 320);
 			sb.draw(ud, 0, 0);
 			sb.end();

@@ -1,15 +1,9 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-
-import edu.udel.cisc275_15S.themis.Themis;
-import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
 //	A character is an in-game entity that has a direction, and x,y pos, and sprite image
 // 	Cannot be passed through
@@ -20,13 +14,11 @@ public class Character {
 	public static final int DOWN = 1111;
 	public static final int LEFT = 2222;
 	public static final int RIGHT = 3333;
-//	This should be from a png file that contains 4 sprites: an up, down, left, and right direction facing sprite
-//	Make sure each sprite file has the same order of directions to make it simple 
 	TextureRegion[] sprite;
-	private float x;
-	private float y;
-	private int dir;
-	private String name;
+	protected float x;
+	protected float y;
+	protected int dir;
+	protected String name;
 	
 	public Character(TextureRegion[] sprite, float x, float y, int dir, String name) {
 		this.sprite = sprite;

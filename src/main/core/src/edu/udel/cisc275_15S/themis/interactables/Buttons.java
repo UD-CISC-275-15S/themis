@@ -1,51 +1,37 @@
 package edu.udel.cisc275_15S.themis.interactables;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
 public class Buttons implements Interactable {
-//	Button center at x,y
 	protected float x;
 	protected float y;
-//	Width and height of the button
 	protected float width;
 	protected float height;
-//	Button image
 	protected Texture image;
-//	Has the button been pushed
 	protected boolean clicked = false;
-//	Used if the button is just a string (may be used for dialogues or arbitrary events) and not an image from our res folder
 	protected String string;
-	Vector3 vec;
-	private OrthographicCamera cam;
-
+	
 	public Buttons(Texture image, float x, float y) {
 		this.image = image;
 		this.x = x;
 		this.y = y;
 		width = image.getWidth();
 		height = image.getHeight();
-		vec = new Vector3();
 	}
 	public Buttons(String string, float x, float y) {
 		this.string = string;
-		this.x = x;
 		this.y = y;
+		this.x = x;
+
 		int len = string.length();
 //		Temporary height and widths for TextButtons
 		width = len * 10;
 		height = len * 5;
-		vec = new Vector3();
 	} 
 
 	public void render(SpriteBatch sb) {
@@ -62,12 +48,7 @@ public class Buttons implements Interactable {
 	
 	@Override
 	public void update(float dt) {
-//		Trying to prevent the button from being updating several times in one click
-        dt = Gdx.graphics.getDeltaTime();
-//        if (dt > .016) {
 		handleInput(); 
-//		}
-
 	}
 
 	@Override
@@ -82,5 +63,6 @@ public class Buttons implements Interactable {
 	public float getY() {return y;}
 	public Texture getImage() {return image;}
 	public String toString() { return string;}
+	public void dispose() { if (image != null) image.dispose();}
 
 }

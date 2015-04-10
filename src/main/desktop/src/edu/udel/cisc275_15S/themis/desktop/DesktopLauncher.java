@@ -10,8 +10,8 @@ public class DesktopLauncher {
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = Themis.TITLE;
-		config.width = Themis.WIDTH; // * scale
-		config.height = Themis.HEIGHT; // * scale
+		config.width = Themis.WIDTH; // * Themis.SCALE;
+		config.height = Themis.HEIGHT; // * Themis.SCALE;
 		new LwjglApplication(new Themis(), config);
 	}
 }

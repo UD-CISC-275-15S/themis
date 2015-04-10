@@ -1,6 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -13,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
-import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
@@ -90,15 +90,16 @@ public class Player extends Character {
         sb.draw(currentFrame, getX(), getY());             
         sb.end();
 	}
-//	Methods to avoid hardcoding bag and objectives
+	
+//	Methods to avoid hard coding bag and objectives
 //	Use I/O methods to read and set the players bag, objectives and X and Y positions
-//	Also save the users X and Y position on update if we are avoiding a save button 
+//	Also save the users X and Y position on update
+	
 	public void setPos(File data) throws FileNotFoundException {
-		Data d = new Data();
-		setX(d.readPlayerX(data));
-		setY(d.readPlayerY(data));
-		setName(d.readPlayerName(data));
-		setDir(d.readPlayerDir(data));
+		setX(Data.readPlayer(data, "x"));
+		setY(Data.readPlayer(data, "y"));
+		setName(Data.readPlayerName(data, "name"));
+		setDir(Data.readPlayerDir(data));
 
 	}
 	public Backpack setUserBag() {
@@ -106,13 +107,10 @@ public class Player extends Character {
 		System.out.println(filehandle.path());
 		Texture pack = new Texture(filehandle);
 		bag = new Backpack(pack, 32, 32);
-		//Read file, load items into Bag
 		return bag;
 	}
 	public Array<Objectives> setUserOBJ() {
-//		Read file, load obj
 		Array<Objectives> obj= new Array<Objectives>();
-//		add xyz objectives
 		return obj;
 	}
 	public void setObjButton(){

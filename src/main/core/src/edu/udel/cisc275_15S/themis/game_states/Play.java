@@ -1,17 +1,16 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
-import java.util.Random;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
@@ -27,37 +26,33 @@ import edu.udel.cisc275_15S.themis.game_entities.Character;
 import edu.udel.cisc275_15S.themis.game_entities.HUD;
 import edu.udel.cisc275_15S.themis.game_entities.NPC;
 import edu.udel.cisc275_15S.themis.game_entities.Player;
+import edu.udel.cisc275_15S.themis.game_events.Event;
+import edu.udel.cisc275_15S.themis.game_events.Quiz;
+import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
+import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
-import edu.udel.cisc275_15S.themis.game_events.Event;
-import edu.udel.cisc275_15S.themis.game_events.Quiz;
-import edu.udel.cisc275_15S.themis.game_events.Tutorial;
-import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 
 public class Play extends GameState {
-	//	Comment out 153 - 160 if you don't want the quiz to appear
-	private boolean quiz = false;
+
 	private Quiz q;	
-	private boolean newGame = true;
+	private boolean quiz = false;
+	private boolean newGame = false;
 	int i = 0;
-	public static Data data = new Data();
-	public static String filepath = data.getFilePath();
+	public static String filepath = Data.getFilePath();
 	public static File PlayerData = new File(filepath);
 	private static Player player;
+	
 	private int tileMapWidth;
 	private int tileMapHeight;
 	private int tileSize;
 	private TiledMap tileMap;
-	//	temporary bg until tileMap has been created
-	private Texture bg = (new Texture(Gdx.files.internal("temp.jpg")));
 	private OrthogonalTiledMapRenderer renderer; 
+	
 	private Array<NPC> npcs;
-	//	Tiles that the player cant pass through
 	private HUD hud;
-	private MainCamera cam2;
 	private CharacterInteractionHandler CIH;
-	private static Data d;
 	MapObjects objects;
 	RandomEvent randomEvent;
 	private Tutorial Tutorial;
@@ -65,22 +60,20 @@ public class Play extends GameState {
 
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
-		//	    Data d = new Data();
-		//		create the player
-		CreatePlayer();
-		//		set the camera bounds to the Tile map size.
-		createSurface();
-		cam2 = new MainCamera();
-		cam2.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
-		cam2.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
-		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
-		q = new Quiz();
 
-		//		create the NPCs
+		CreatePlayer();
+		createSurface();
 		CreateNPCs();
-		//		create the hud, and set it to whatever the player owns. (backpack, resources, information, etc)
-		hud = new HUD(player);
+		
+		cam = new MainCamera();
+		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
+		cam.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
+		
 		CIH = new CharacterInteractionHandler(this);
+		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
+		hud = new HUD(player);
+		q = new Quiz();
+		
 		MapLayer collisionObjectLayer = tileMap.getLayers().get("nonpassable");	
 		objects = collisionObjectLayer.getObjects();
 	}
@@ -93,19 +86,20 @@ public class Play extends GameState {
 		for (int i = 0; i < 4; i++){
 			PlayerSprite[i] = new TextureRegion(sprite, i * 50, 0, 32, 32);
 		}
-		String name = d.readPlayerName(PlayerData);
-		Float x = (d.readPlayerX(PlayerData));
-		Float y = (d.readPlayerY(PlayerData));
-		String dir = (d.readPlayerDir(PlayerData));
+		String name = Data.readPlayerName(PlayerData, "name");
+		Float x = (Data.readPlayer(PlayerData, "x"));
+		Float y = (Data.readPlayer(PlayerData, "y"));
+//		Float x = 300f;
+//		Float y = 350f;
+//		String dir = (Data.readPlayerDir(PlayerData));
 
-		player = new Player(PlayerSprite, x, y, Character.DOWN, "Mark");
+		player = new Player(PlayerSprite, x, y, Character.DOWN, name);
 		player.setUserBag();
 		player.setObjButton();
 		player.setUDSIS();
 	}
 
 
-	//	This is required if NPC's are put in the map on Tile
 	private void CreateNPCs() {
 		npcs = new Array<NPC>();
 		randomEvent=new RandomEvent(null, false, 0, "name", null);
@@ -115,8 +109,10 @@ public class Play extends GameState {
 		for(int j=0;j<4;j++){
 			NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
 		}
+		ArrayList<Event> al = new ArrayList<Event>();
+		al.add(randomEvent);
 		for(int i=0;i<15;i++){
-			npcs.add(new NPC(NPCSprite,rn.nextInt(tileMapWidth*tileSize),rn.nextInt(tileMapHeight*tileSize),Character.LEFT,"NPC"+i,this.randomEvent));
+			npcs.add(new NPC(NPCSprite,rn.nextInt(tileMapWidth*tileSize),rn.nextInt(tileMapHeight*tileSize),Character.LEFT,"NPC"+i,al));
 		}
 	}
 
@@ -137,22 +133,10 @@ public class Play extends GameState {
 
 		tileMapWidth = prop.get("width", Integer.class);
 		tileMapHeight = prop.get("height", Integer.class);
-		//		tile height and width are the same
 		tileSize = prop.get("tilewidth", Integer.class);
 		renderer = new OrthogonalTiledMapRenderer(tileMap);
-
-
 	}
-	public void update(float dt) {
-		handleInput();
-		player.update();
-		opened = player.getBag().isOpen() || player.getObjButton().isOpen();
-		//		for (int i = 0; i < NPCs.size(); i++) {
-		//			NPCs.get(i).update(dt);
-		//		}
-		q.update();
-		/*//		Testing out having the quiz appear immediately after the tutorial
-		//		Comment out 153 - 160 if you don't want the quiz to appear
+	public void testQuiz() {
 		if (!newGame && i == 0) {
 			quiz = true;
 			i++;
@@ -160,18 +144,22 @@ public class Play extends GameState {
 		if (!newGame && i > 0) {
 			quiz = !q.getComplete(); 
 		}
-		*/
-
+	}
+	public void update(float dt) {
+		handleInput();
+		player.update();
+		opened = player.getBag().isOpen() || player.getObjButton().isOpen();
+		if (quiz) { q.update(); }
+//		Comment out this line to hide quiz
+//		testQuiz();
 		if (!newGame) {
 			hud.update(dt);
 		}
 		try {
-			d.savePlayerData(filepath, player.getX(), player.getY(),player.getDirString(player.getDir()));
+			Data.savePlayerData(filepath, player.getX(), player.getY(),player.getDirString(player.getDir()));
 		} catch (FileNotFoundException e) {
-			// AUTO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
-			// AUTO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (newGame) {
@@ -183,17 +171,18 @@ public class Play extends GameState {
 	public void render() {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		//	      cam follows the player
 
-		cam2.setPosition(player.getXpos(), player.getYpos());
-		cam2.update();
-		renderer.setView(cam2);
+		cam.setPosition(player.getXpos(), player.getYpos());
+		cam.update();
+		
+		renderer.setView(cam);
 		renderer.render();
 
-		sb.setProjectionMatrix(cam2.combined);
+		sb.setProjectionMatrix(cam.combined);
 		CIH.render(sb);
 		player.render(sb);
 		populateNPCs();
+		
 		sb.setProjectionMatrix(hudCam.combined);
 		if (newGame) {
 			Tutorial.render(sb, hudCam);
@@ -201,39 +190,28 @@ public class Play extends GameState {
 		if (quiz) {
 			q.render(sb);
 		}
-		for(int i=0;i<npcs.size;i++){
-			if(((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))
-					&&
-					((player.getY()-CharacterInteractionHandler.MOVE>=npcs.get(i).getY()-20)&&(player.getY()-CharacterInteractionHandler.MOVE<=npcs.get(i).getY()+20))){
-				q.render(sb);
-			}
-		}
+//		for(int i=0;i<npcs.size;i++){
+//			if(((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))
+//					&&
+//					((player.getY()-CharacterInteractionHandler.MOVE>=npcs.get(i).getY()-20)&&(player.getY()-CharacterInteractionHandler.MOVE<=npcs.get(i).getY()+20))){
+//				q.render(sb);
+//			}
+//		}
 		hud.render(sb);
-
-		sb.setProjectionMatrix(cam2.combined);
-
+		sb.setProjectionMatrix(cam.combined);
+//		System.out.println(sb.totalRenderCalls);
 	}
 
 	@Override
 	public void handleInput() {
-		if (newGame) {
-			return;
-		} 
-		if (opened) {
-			return;
-		} 
-		if (quiz) {
-			return;
-		}
-		else {
-			CIH.touchHandler();
-		}
+		if (newGame) {return;} 
+		if (opened) {return;} 
+		if (quiz) {return;}
+		else {CIH.touchHandler();}
 	}
 
 	@Override
 	public void dispose() {
-		// AUTO Auto-generated method stub
-
 	}
 	public Player getPlayer() { return player;}
 	public Array<NPC> getNPCS() {return npcs;}
@@ -247,11 +225,6 @@ public class Play extends GameState {
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();
 		System.out.println(filePath);
-		Data d = new Data();
-		System.out.println(d.readPlayerName(PlayerData));
-		System.out.println(d.readPlayerX(PlayerData));
-		System.out.println(d.readPlayerY(PlayerData));
-		System.out.println(d.readPlayerDir(PlayerData));
 		//		
 	}
 }

@@ -1,15 +1,10 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Themis;
@@ -26,31 +21,19 @@ public class Event {
 //	modifiers for the dialogue and dialogue box's x andy pos
 	public static final int diaX = 40;
 	public static final int diaY = 100;
-//	name of the event/quest/objective
-	public String name;
-//	is the event currently valid, or has it been previously completed
+	public String name;//name of the event/quest/objective
 	public Player player;
-//	The NPC avatar used, if one is used
 	protected Texture Avatar;
 	public boolean valid = true;
-	protected ShapeRenderer shapeRenderer = new ShapeRenderer();
-//	Used to check if the current dialogue box is no longer writing text
-	protected boolean dia = false;
-//	used to check if theres any dialogue left
-	protected boolean remainingdia = true;
-//	This is used for NPC animation
-	public boolean npccomplete = false;
-//	Used for animating the Avatar
-	protected int animator;
-//	Used for creating a typing effect with the dialogue
-	protected int dialogue = 0;
-//	Avatar draws at the left edge, mid height of the screen
-	public static final int avatarX = 0;
+	protected boolean dia = false; //Used to check if the current dialogue box is no longer writing text
+	protected boolean remainingdia = true; //used to check if theres any dialogue left
+	public boolean npccomplete = false; //This is used for NPC animation
+	protected int animator; //Used for animating the Avatar
+	protected int dialogue = 0; //Used for creating a typing effect with the dialogue
+	public static final int avatarX = 0; //Avatar draws at the left edge, mid height of the screen
 	protected BitmapFont dialoguebox;
-//	An array list of all of the dialogues contained by the Event
-	protected Array<String> Dias;
-	protected int currentDia;
-//	Used if the event triggers some kind of change in the Players state, i.e the player loses or gains an item
+	protected Array<String> Dias; //An array list of all of the dialogues contained by the Event
+	protected int currentDia; //Used if the event triggers some kind of change in the Players state, i.e the player loses or gains an item
 	protected String action;
 	protected String item;
 
@@ -99,14 +82,9 @@ public class Event {
 		this.action = action;
 		this.item = item;
 	}
-//    trying to draw a transparent rectangle using libGdx's shaperenderer to be used for dialogue bgs, but its not working yet
-	public void drawTransparentRect(OrthographicCamera camera){
-	    Gdx.gl.glClearColor(0, 0, 0, 0); 
-	    shapeRenderer.setProjectionMatrix(camera.combined);
-	    shapeRenderer.begin(ShapeType.Filled);
-	    shapeRenderer.setColor(new Color(0, 0, 0, 0.5f)); 
-	    shapeRenderer.rect(Themis.WIDTH/2, Themis.HEIGHT/2, Themis.WIDTH, Themis.HEIGHT);
-	    shapeRenderer.end();
+//	Quiz constructor. 
+	public Event() {
+		
 	}
 	public void tempDbg(SpriteBatch sb) {
 		if (npccomplete) {
@@ -118,7 +96,6 @@ public class Event {
 	}
 	public static char[] CreateDialogueArray(String astr) {
 		char[] Dialogue = astr.toCharArray();
-		int size = Dialogue.length;
 		return Dialogue;
 	}
 
@@ -144,7 +121,6 @@ public class Event {
 			dialogue++;
 	}
 	public void DiaCounter() {
-        int size = CreateDialogueArray(Dias.get(currentDia)).length;
         if (dia == true && currentDia < Dias.size-1 && TouchInputHandler.isClicked()) {
         	dialogue = 0;
         	dia = false;

@@ -2,15 +2,13 @@ package edu.udel.cisc275_15S.themis;
 
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
@@ -23,6 +21,7 @@ import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 //	BackPack items
 //	Player and NPC's coordinates
 //	Dialogue
+
 public class Data {
 	public static File PlayerData = new File("Gamedata/PlayerData.txt");
 	public static ArrayList<Question> questions = new ArrayList<Question>();
@@ -39,11 +38,8 @@ public class Data {
 	        String currentLine = infile.nextLine();
 	        
 	        if (!currentLine.isEmpty()) {
-//					creating null questions because this is called every line, needs optimization
 	        	if (currentLine.endsWith("?")) { 
 		        	Question q = new Question(new ArrayList<Answer>(), "" );
-//	        		In the textfile, always order correct answer directly after the question.
-//	        		They can be rendered in a random order later, this just makes organization easier
 	        		q.setQuestion(currentLine); 
 	        		questions.add(q);
 	        		} 
@@ -51,6 +47,8 @@ public class Data {
 	    } infile.close();
 	}
 	
+//	In the textfile, always order correct answer directly after the question.
+
 	public static void readA() throws FileNotFoundException {
 		
 		File QuestionFile = new File("Gamedata/Questions.txt");
@@ -68,43 +66,27 @@ public class Data {
 	        }
 	    }
 	}
-	
-	public static float readPlayerX(File data) throws FileNotFoundException {
-//		File PlayerData = new File("Gamedata/PlayerData.txt");
+	public static float readPlayer(File data, String p) throws FileNotFoundException {
 		Scanner infile = new Scanner(data);
 		
 	    while (infile.hasNextLine()) {
 	        String currentLine = infile.nextLine();
 	        if (!currentLine.isEmpty()) {
-				if (currentLine.endsWith("x:")) {
+				if (currentLine.endsWith(p + ":")) {
 					return Float.parseFloat(infile.nextLine());
 				}
 	        }
 	    } 	   infile.close(); 
 	    return 0;
 	}
-	public static float readPlayerY(File data) throws FileNotFoundException {
-//		File PlayerData = new File("Gamedata/PlayerData.txt");
+	
+	public static String readPlayerName(File data, String p) throws FileNotFoundException {
 		Scanner infile = new Scanner(data);
 		
 	    while (infile.hasNextLine()) {
 	        String currentLine = infile.nextLine();
 	        if (!currentLine.isEmpty()) {
-				if (currentLine.endsWith("y:")) {
-					return Float.parseFloat(infile.nextLine());
-	        	}
-	        }
-	    }		infile.close();
-	    return 0; 
-	}
-	public static String readPlayerName(File data) throws FileNotFoundException {
-//		File PlayerData = new File("Gamedata/PlayerData.txt");
-		Scanner infile = new Scanner(data);
-		
-	    while (infile.hasNextLine()) {
-	        String currentLine = infile.nextLine();
-	        if (!currentLine.isEmpty()) {
-	        	if (currentLine.endsWith("name:")) { 
+	        	if (currentLine.endsWith(p + ":")) { 
 	        		return infile.nextLine();
 	        		} 
 	        } 
@@ -112,7 +94,6 @@ public class Data {
 	    return "";
 	}
 	public static String readPlayerDir(File data) throws FileNotFoundException {
-//		File PlayerData = new File("Gamedata/PlayerData.txt");
 		Scanner infile = new Scanner(data);
 		
 	    while (infile.hasNextLine()) {
@@ -142,12 +123,11 @@ public class Data {
 	public static String getFilePath() {
 	    return PlayerData.getAbsolutePath();
 	}
-	public ArrayList<Question> getQ() throws FileNotFoundException {
+	public static ArrayList<Question> getQ() throws FileNotFoundException {
 		readQ();
 		readA();
 		return questions;
 	}
-//	Using a main method to test the methods, later take it out and remove static from all the methods and variables
 	public static void main(String[] args) throws IOException {
 	    File pdata = new File("/Gamedata/PlayerData.txt");
 	    System.out.println(PlayerData.getAbsolutePath()+"\n");
@@ -162,12 +142,6 @@ public class Data {
 		}
 		System.out.println(questions.size());
 		System.out.println(questions.get(2).getAnswers().size());
-
-//		savePlayerData("/Gamedata/PlayerData.txt", 500f, 400f, "DOWN");
-//		System.out.println(readPlayerName(PlayerData));
-//		System.out.println(readPlayerX(PlayerData));
-//		System.out.println(readPlayerY(PlayerData));
-//		System.out.println(readPlayerDir(PlayerData));
 
 	}
 }

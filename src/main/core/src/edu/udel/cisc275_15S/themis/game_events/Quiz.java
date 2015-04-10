@@ -1,13 +1,14 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
 import java.io.FileNotFoundException;
+
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,23 +24,22 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 //	A Quiz can consists of multiple questions, each having 4 answers
 //	TODO: Discuss what triggers quizzes, what events include quizzes, etc...
 
-public class Quiz {
-	public static ArrayList<Question> questions;
+public class Quiz extends Event {
+//	Button Width & Height
+	public final int WIDTH = 130;
+	public final int HEIGHT = 25;
+	public ArrayList<Question> questions;
+	public ArrayList<Answer> answers;
+	public Array<Buttons> ans;
 	public Texture temp = new Texture("gfx/themismenubg.jpg");
 	public Texture Qbg = new Texture("gfx/textbox.gif");
 	public Texture Abg = new Texture("gfx/textbox.gif");
-	public static Data d;
 	public int currentQ;
-//	Checks if the Quiz has been completed 
-	public boolean complete = false;
-//	Checks if the current question was answered correctly
-	public boolean qVal = false;
-	public ArrayList<Answer> answers;
-	public Array<Buttons> ans;
+	public boolean complete = false;//Checks if the Quiz has been completed 
+	public boolean qVal = false;//Checks if the current question was answered correctly
 	
 	public Quiz() throws FileNotFoundException {
-		d = new Data();
-		questions = d.getQ();
+		questions = Data.getQ();
 		shuffleAnswers();
 		currentQ = 0;
 		answers = questions.get(currentQ).getAnswers();
@@ -47,7 +47,7 @@ public class Quiz {
 		complete = false;
 	}
 	public void update() {
-		//nextQ();
+		nextQ();
 		updateAns();
 	}
 	public void render(SpriteBatch sb) {
@@ -57,6 +57,11 @@ public class Quiz {
 			drawBoxes(sb);
 			drawQ(sb);
 			drawAns(sb);
+		}
+		if (complete) {
+			temp.dispose();
+			Qbg.dispose();
+			Abg.dispose();
 		}
 	}
 	public Array<Buttons> convertToButtons() {
@@ -73,7 +78,7 @@ public class Quiz {
 		for (Buttons but : ans) {
 			sb.setColor(1.0f,1.0f,1.0f,0.5f);
 			sb.begin();
-			sb.draw(Abg, Themis.WIDTH-145, 120 + heightMod, 130, 25);
+			sb.draw(Abg, Themis.WIDTH-145, 120 + heightMod, WIDTH, HEIGHT);
 			sb.setColor(1.0f,1.0f,1.0f,1.0f);
 			sb.end();
 			but.render(sb);
@@ -81,9 +86,7 @@ public class Quiz {
 		}
 	}
 	public void drawBoxes(SpriteBatch sb) {
-//		sb.begin();
-//		sb.draw(temp, 0, 0);
-//		sb.end();
+
 		sb.setColor(1.0f,1.0f,1.0f,0.5f);
 		sb.begin();
 		sb.draw(Qbg, 0, Themis.HEIGHT-Themis.HEIGHT/4+10, Themis.WIDTH, 50);
@@ -98,17 +101,14 @@ public class Quiz {
 		sb.end();
 	
 	}
-	public void dispose() {
-		
-	}
 	public void shuffleAnswers() {
 		long seed = System.nanoTime();
 		for (Question aq : questions) {
 			Collections.shuffle(aq.getAnswers(), new Random(seed));
-			System.out.println(aq.getQ());
-			for (Answer an : aq.getAnswers()) {
-				System.out.println(an.toString());
-			}
+//			System.out.println(aq.getQ());
+//			for (Answer an : aq.getAnswers()) {
+////				System.out.println(an.toString());
+//			}
 		}
 	}
 	public void updateAns() {
@@ -117,7 +117,7 @@ public class Quiz {
 		for (Buttons but : ans) {
 			x = but.getX();
 			y = but.getY();
-			if (TouchInputHandler.isClicked() && TouchInputHandler.isWithinBounds(x, y, 130 , 25)) {
+			if (Gdx.input.justTouched() && TouchInputHandler.isWithinBounds(x, y, WIDTH , HEIGHT)) {
 				System.out.println("You just clicked " + but.toString());
 				for (Answer an : answers) {
 					if (but.toString() == an.toString()) {
@@ -140,21 +140,22 @@ public class Quiz {
 		}
 		if (qVal && currentQ == questions.size()-1) {
 			complete = true;
+			temp.dispose();
+			Qbg.dispose();
+			Abg.dispose();
 		}
 	}
 
 	public static void main(String[] args) throws IOException {
-		d = new Data();
-		questions = d.getQ();
-		long seed = System.nanoTime();
-		for (Question aq : questions) {
-			Collections.shuffle(aq.getAnswers(), new Random(seed));
-			System.out.println(aq.getQ());
-			for (Answer an : aq.getAnswers()) {
-				System.out.println(an.toString());
-			}
-		}
-		
+//		questions = Data.getQ();
+//		long seed = System.nanoTime();
+//		for (Question aq : questions) {
+//			Collections.shuffle(aq.getAnswers(), new Random(seed));
+//			System.out.println(aq.getQ());
+//			for (Answer an : aq.getAnswers()) {
+//				System.out.println(an.toString());
+//			}
+//		}	
 	}
 	public boolean getComplete() {
 		return complete;
