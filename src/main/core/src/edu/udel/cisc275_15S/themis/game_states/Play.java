@@ -34,6 +34,7 @@ import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
+import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
@@ -59,6 +60,7 @@ public class Play extends GameState {
 	private Tutorial Tutorial;
 	private boolean opened = false;
 	private GameStateHandler gsh;
+	private Buttons back;
 
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
@@ -76,6 +78,7 @@ public class Play extends GameState {
 		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
 		hud = new HUD(player);
 		q = new Quiz();
+		back = new Buttons("<-- BACK",45,300);
 		
 		MapLayer collisionObjectLayer = tileMap.getLayers().get("nonpassable");	
 		objects = collisionObjectLayer.getObjects();
@@ -195,6 +198,8 @@ public class Play extends GameState {
 		}
 		if(opened){
 			player.getBag().render(sb);
+			back.render(sb);
+			
 		}
 //		for(int i=0;i<npcs.size;i++){
 //			if(((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))
@@ -214,7 +219,12 @@ public class Play extends GameState {
 			player.getBag().setOpened(true);
 		}
 		if (newGame) {return;} 
-		if (opened) {return;} 
+		if (opened) {
+			if(back.isDown()){
+				System.out.println("You pressed back!");
+				opened=false;
+			}
+			return;} 
 		if (quiz) {return;}
 		else {CIH.touchHandler();}
 	}
