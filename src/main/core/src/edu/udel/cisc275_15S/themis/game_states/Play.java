@@ -31,6 +31,7 @@ import edu.udel.cisc275_15S.themis.game_events.Quiz;
 import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
+import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
 
@@ -57,9 +58,11 @@ public class Play extends GameState {
 	RandomEvent randomEvent;
 	private Tutorial Tutorial;
 	private boolean opened = false;
+	private GameStateHandler gsh;
 
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
+		this.gsh=gsh;
 
 		CreatePlayer();
 		createSurface();
@@ -190,6 +193,9 @@ public class Play extends GameState {
 		if (quiz) {
 			q.render(sb);
 		}
+		if(opened){
+			player.getBag().render(sb);
+		}
 //		for(int i=0;i<npcs.size;i++){
 //			if(((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))
 //					&&
@@ -204,6 +210,9 @@ public class Play extends GameState {
 
 	@Override
 	public void handleInput() {
+		if(player.getBag().isDown()){
+			player.getBag().setOpened(true);
+		}
 		if (newGame) {return;} 
 		if (opened) {return;} 
 		if (quiz) {return;}
