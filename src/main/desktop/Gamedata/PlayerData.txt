@@ -1,8 +1,8 @@
 name:
 timmy
 x:
-70.0
+72.0
 y:
-536.0
+534.0
 dir
 DOWN
