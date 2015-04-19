@@ -38,7 +38,7 @@ public class Menu extends GameState {
 			if(play.isDown()) {
 //				implement some sound here
 				try {
-					gsh.setState(GameStateHandler.PLAY);
+					gsh.setState(GameStateHandler.USERINFO);
 					bg.dispose();
 					ud.dispose();
 					play.dispose();
