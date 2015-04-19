@@ -34,6 +34,7 @@ import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
+import edu.udel.cisc275_15S.themis.handlers.TextInputHandler;
 import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
@@ -162,12 +163,13 @@ public class Play extends GameState {
 			hud.update(dt);
 		}
 		try {
-			Data.savePlayerData(filepath, player.getX(), player.getY(),player.getDirString(player.getDir()));
+			Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),player.getX(), player.getY(),player.getDirString(player.getDir()));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
 		if (newGame) {
 			Tutorial.update();
 			newGame = Tutorial.getValid();
