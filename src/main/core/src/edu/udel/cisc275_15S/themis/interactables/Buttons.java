@@ -22,6 +22,7 @@ public class Buttons implements Interactable {
 		this.y = y;
 		width = image.getWidth();
 		height = image.getHeight();
+		System.out.println("This button is at "+x+" "+width+", "+y+" "+height);
 	}
 	public Buttons(String string, float x, float y) {
 		this.string = string;
@@ -53,7 +54,7 @@ public class Buttons implements Interactable {
 
 	@Override
 	public void handleInput() {
-		if (TouchInputHandler.isClicked() && TouchInputHandler.isWithinBounds(x, y, width-30, Themis.HEIGHT - height)){
+		if (TouchInputHandler.isClicked() && TouchInputHandler.isWithinBounds(x, y, width, Themis.HEIGHT - height)){
 			clicked = !clicked;
 			System.out.println("Button center is located at: " + x + "," + y);
 		}

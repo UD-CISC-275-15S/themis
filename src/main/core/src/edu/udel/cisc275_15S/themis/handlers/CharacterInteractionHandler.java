@@ -45,7 +45,7 @@ public class CharacterInteractionHandler {
 		if (TouchInputHandler.isClicked()) 
 		{
 //			for testing purposes
-			System.out.println("you are at screen cord: " + player.getXpos() + " , " + player.getYpos());
+//			System.out.println("you are at screen cord: " + player.getXpos() + " , " + player.getYpos());
 			
 			if (checkright()) { player.setX(player.getXpos()+MOVE); player.setDir("right");}
 			if (checkleft()) { player.setX(player.getXpos()-MOVE); player.setDir("left");}
