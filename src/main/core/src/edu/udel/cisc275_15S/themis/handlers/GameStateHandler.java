@@ -26,6 +26,8 @@ public class GameStateHandler {
 			gameStates = new Stack<GameState>();
 //			pushState(WEB);
 			pushState(MENU);
+//			pushState(PLAY);
+
 		}
 		
 		public Themis game() {return game;}

@@ -79,11 +79,14 @@ public class UserInfo extends GameState implements Screen{
 
 		start.render(sb);
 	}
-
+	
 	@Override
 	public void dispose() {
-		// AUTO Auto-generated method stub
-
+		table = null;
+		stage = null;
+		info = null;
+		mainFont = null;
+		menuSkin = null;
 	}
 
 
