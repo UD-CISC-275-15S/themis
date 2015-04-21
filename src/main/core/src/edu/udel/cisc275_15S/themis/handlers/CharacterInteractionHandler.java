@@ -136,6 +136,7 @@ public class CharacterInteractionHandler {
 		} return false;
 	}
 	
+	
 	public void render(SpriteBatch sb){
 //		Checking Collisions
 		Buttons right = new Buttons("Ouch!!", player.getXpos(), player.getYpos()+50);

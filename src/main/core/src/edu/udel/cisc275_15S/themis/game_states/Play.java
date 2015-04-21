@@ -15,9 +15,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
@@ -52,11 +55,13 @@ public class Play extends GameState {
 	private int tileSize;
 	private TiledMap tileMap;
 	private OrthogonalTiledMapRenderer renderer; 
+	private static int mapIndex;
 	
+	private Array<Rectangle> exits;
 	private Array<NPC> npcs;
 	private HUD hud;
 	private CharacterInteractionHandler CIH;
-	MapObjects objects;
+	public MapObjects objects;
 	RandomEvent randomEvent;
 	private Tutorial Tutorial;
 	private boolean opened = false;
@@ -66,10 +71,13 @@ public class Play extends GameState {
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
 		this.gsh=gsh;
-
+		this.mapIndex = mapIndex;
+		
 		CreatePlayer();
 		createSurface();
 		CreateNPCs();
+		createExits();
+		
 		
 		cam = new MainCamera();
 		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
@@ -94,11 +102,15 @@ public class Play extends GameState {
 			PlayerSprite[i] = new TextureRegion(sprite, i * 50, 0, 32, 32);
 		}
 		String name = Data.readPlayerName(PlayerData, "name");
-		Float x = (Data.readPlayer(PlayerData, "x"));
-		Float y = (Data.readPlayer(PlayerData, "y"));
-//		Float x = 300f;
-//		Float y = 350f;
-//		String dir = (Data.readPlayerDir(PlayerData));
+//		Float x = (Data.readPlayer(PlayerData, "x"));
+//		Float y = (Data.readPlayer(PlayerData, "y"));
+		
+		float map = (Data.readPlayer(PlayerData, "map"));
+		mapIndex = (int) map;
+//		
+		Float x = 300f;
+		Float y = 350f;
+		String dir = (Data.readPlayerDir(PlayerData));
 
 		player = new Player(PlayerSprite, x, y, Character.DOWN, name);
 		player.setUserBag();
@@ -106,20 +118,37 @@ public class Play extends GameState {
 		player.setUDSIS();
 	}
 
-
+	private int randDir() {
+		Random rn=new Random();
+		int n = rn.nextInt(4) + 1;
+		switch (n) {
+		case 1: return Character.DOWN;
+		case 2: return Character.UP;
+		case 3: return Character.LEFT;
+		case 4: return Character.RIGHT;
+		default: return Character.DOWN;
+		}
+	}
 	private void CreateNPCs() {
 		npcs = new Array<NPC>();
 		randomEvent=new RandomEvent(null, false, 0, "name", null);
-		Random rn=new Random();
-		Texture sprite=new Texture("Sprites/cow.png");
+		Texture sprite=new Texture("Sprites/link.png");
 		TextureRegion[] NPCSprite = new TextureRegion[4];
 		for(int j=0;j<4;j++){
 			NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
 		}
 		ArrayList<Event> al = new ArrayList<Event>();
 		al.add(randomEvent);
-		for(int i=0;i<15;i++){
-			npcs.add(new NPC(NPCSprite,rn.nextInt(tileMapWidth*tileSize),rn.nextInt(tileMapHeight*tileSize),Character.LEFT,"NPC"+i,al));
+		
+		MapLayer NPC = tileMap.getLayers().get("npc");	
+		MapObjects npcobjects;
+		npcobjects = NPC.getObjects();
+		
+		for (RectangleMapObject npc : npcobjects.getByType(RectangleMapObject.class)) {
+			float x =  (Float) npc.getProperties().get("x");
+			float y =  (Float) npc.getProperties().get("y");
+			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
+			npcs.add(anpc);
 		}
 	}
 
@@ -134,7 +163,15 @@ public class Play extends GameState {
 	//	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
 	private void createSurface() {
 		//		When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
-		tileMap = new TmxMapLoader().load("maps/UDmap.tmx");	
+		
+		String map = "trabant.tmx";
+		
+		switch (mapIndex) {
+		case 0: map = "trabant.tmx"; break;
+		case 1: map = "worldmap.tmx"; break; 
+		default: map = "trabant.tmx";
+		}
+		tileMap = new TmxMapLoader().load("maps/" + map);	
 
 		MapProperties prop = tileMap.getProperties();
 
@@ -143,6 +180,32 @@ public class Play extends GameState {
 		tileSize = prop.get("tilewidth", Integer.class);
 		renderer = new OrthogonalTiledMapRenderer(tileMap);
 	}
+	
+	private void createExits() {
+		
+		exits = new Array<Rectangle>();
+		MapLayer EXITS = tileMap.getLayers().get("exit");	
+		MapObjects ex;
+		ex = EXITS.getObjects();
+		
+		for (RectangleMapObject ae : ex.getByType(RectangleMapObject.class)) {
+			Rectangle as = ae.getRectangle();
+			exits.add(as);
+		}
+	}
+	
+	private boolean exited() {
+
+		Rectangle rect = new Rectangle(player.getXpos(), player.getYpos(), 20, 20);
+
+		for (Rectangle exit : exits) {
+
+		    if (Intersector.overlaps(exit, rect)) {
+		        return true;
+		    } 
+		} return false;
+	}
+	
 	public void testQuiz() {
 		if (!newGame && i == 0) {
 			quiz = true;
@@ -163,7 +226,7 @@ public class Play extends GameState {
 			hud.update(dt);
 		}
 		try {
-			Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),player.getX(), player.getY(),player.getDirString(player.getDir()));
+			Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -173,6 +236,18 @@ public class Play extends GameState {
 		if (newGame) {
 			Tutorial.update();
 			newGame = Tutorial.getValid();
+		}
+		if (exited()) {
+			mapIndex = 1;
+			try {
+				Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),48f, 476f,player.getDirString(player.getDir()),mapIndex);
+				gsh.setState(GameStateHandler.PLAY);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -242,10 +317,10 @@ public class Play extends GameState {
 	public void setNewGame(boolean n) { newGame = n;}
 	public Quiz getQuiz(){return q;};
 	public SpriteBatch getSB(){return sb;}
+	public Array<Rectangle> getExits() { return exits;}
 
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();
 		System.out.println(filePath);
-		//		
 	}
 }
