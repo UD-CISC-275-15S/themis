@@ -102,14 +102,14 @@ public class Play extends GameState {
 			PlayerSprite[i] = new TextureRegion(sprite, i * 50, 0, 32, 32);
 		}
 		String name = Data.readPlayerName(PlayerData, "name");
-//		Float x = (Data.readPlayer(PlayerData, "x"));
-//		Float y = (Data.readPlayer(PlayerData, "y"));
+		Float x = (Data.readPlayer(PlayerData, "x"));
+		Float y = (Data.readPlayer(PlayerData, "y"));
 		
 		float map = (Data.readPlayer(PlayerData, "map"));
 		mapIndex = (int) map;
 //		
-		Float x = 300f;
-		Float y = 350f;
+//		Float x = 300f;
+//		Float y = 350f;
 		String dir = (Data.readPlayerDir(PlayerData));
 
 		player = new Player(PlayerSprite, x, y, Character.DOWN, name);
