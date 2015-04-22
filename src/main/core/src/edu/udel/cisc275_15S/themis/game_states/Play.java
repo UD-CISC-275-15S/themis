@@ -104,6 +104,7 @@ public class Play extends GameState {
 		player.setUserBag();
 		player.setObjButton();
 		player.setUDSIS();
+		player.setUDMail();
 	}
 
 

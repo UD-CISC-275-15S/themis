@@ -1,7 +1,6 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -17,6 +16,7 @@ import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
+import edu.udel.cisc275_15S.themis.interactables.UDMail;
 // A player is a Character that "owns" the following special attributes:
 // Bag 
 // Objectives
@@ -30,6 +30,7 @@ public class Player extends Character {
 	public Objectives objB;
 	public Array<Objectives> obj;
 	public UDSIS udsis;
+	public UDMail udmail;
 	Texture left = new Texture("Sprites/left.png");
 	Texture right = new Texture("Sprites/right.png");
 	Texture up = new Texture("Sprites/forward.png");
@@ -124,6 +125,13 @@ public class Player extends Character {
 		System.out.println(filehandle.path());
 		Texture sis = new Texture(filehandle);
 		udsis = new UDSIS(sis, 160f, 32f);
+	}
+	
+	public void setUDMail(){
+		FileHandle filehandle = Gdx.files.internal("Button/email_default.png");
+		System.out.println(filehandle.path());
+		Texture sis = new Texture(filehandle);
+		udmail = new UDMail(sis, 300f, 32f);
 	}
 	public static void main(String[] args) throws IOException {
 	}
