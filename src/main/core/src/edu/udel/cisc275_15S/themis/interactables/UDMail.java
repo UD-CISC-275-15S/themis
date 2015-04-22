@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class UDMail extends Buttons implements Interactable {
 
 	private boolean opened = false;
-	private Buttons back;
+	//private Buttons back;
 	public boolean isOpen(){
 		return opened;
 	}
