@@ -1,6 +1,7 @@
 package edu.udel.cisc275_15S.themis.handlers;
 
 import java.io.FileNotFoundException;
+
 import java.util.Stack;
 
 import edu.udel.cisc275_15S.themis.Themis;
@@ -19,13 +20,14 @@ public class GameStateHandler {
 		public static final int PLAY = 5678;
 		public static final int WEB = 1357;
 		public static final int USERINFO = 2468;
-		public static final int PACK = 4133;
 		
 		public GameStateHandler(Themis game) throws FileNotFoundException {
 			this.game = game;
 			gameStates = new Stack<GameState>();
 //			pushState(WEB);
 			pushState(MENU);
+//			pushState(PLAY);
+
 		}
 		
 		public Themis game() {return game;}
@@ -42,7 +44,7 @@ public class GameStateHandler {
 		private GameState getState(int state) throws FileNotFoundException {
 			if (state == PLAY) return new Play(this);
 			if (state == MENU) return new Menu(this);
-			if (state == WEB) return new Web(this);;
+			if (state == WEB) return new Web(this);
 			if (state == USERINFO) return new UserInfo(this);
 			return null;
 		}

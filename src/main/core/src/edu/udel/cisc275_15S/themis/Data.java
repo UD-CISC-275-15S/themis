@@ -106,10 +106,11 @@ public class Data {
 	    } infile.close();
 	    return "";
 	}
-	public static void savePlayerData(String filename, String playername, Float x0, Float y0, String dir) throws FileNotFoundException, UnsupportedEncodingException {
+	public static void savePlayerData(String filename, String playername, Float x0, Float y0, String dir, int map) throws FileNotFoundException, UnsupportedEncodingException {
 			PrintWriter writer = new PrintWriter("Gamedata/PlayerData.txt", "UTF-8");
 			String x = Float.toString(x0);
 			String y = Float.toString(y0);
+			String z = Integer.toString(map);
 			writer.println("name:");
 			writer.println(playername);
 			writer.println("x:");
@@ -118,6 +119,8 @@ public class Data {
 			writer.println(y);
 			writer.println("dir");
 			writer.println(dir);
+			writer.println("map:");
+			writer.println(z);
 			writer.close();
 	}
 	public static String getFilePath() {
