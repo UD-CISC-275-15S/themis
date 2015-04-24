@@ -3,69 +3,97 @@ package edu.udel.cisc275_15S.themis.game_states;
 import java.io.FileNotFoundException;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
-import edu.udel.cisc275_15S.themis.handlers.TextFieldListener;
 import edu.udel.cisc275_15S.themis.handlers.TextInputHandler;
-import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
-public class UserInfo extends GameState implements Screen{
+public class UserInfo extends GameState{
 
-	Table table;
 	Stage stage;
-
-	TextureAtlas menuAtlas;
-	Skin menuSkin;
-
-	Label info;
-	BitmapFont mainFont;
-	Label udeluser, college, name;
-	TextField txtudeluser, txtcollege, txtname;
+	
+	Label name;
+	Label coll;
+	
+	TextButton start;
+	TextField txfuser;
+	TextField txfcoll;
+	
+	Skin skin;
 	
 	Texture bg = new Texture(Gdx.files.internal("gfx/userinfobg.png"));
 	TextInputHandler listener = new TextInputHandler();
 
-	Buttons start;
-
 	public UserInfo(GameStateHandler gsh) {
 		super(gsh);
-		start = new Buttons("Start", 200, 70);
-		Gdx.input.getTextInput(listener, "Enter First Name", "", "Your first name here.");
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
+		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));
+		start = new TextButton("Start", skin);
+		start.setPosition(200, 60);
+		start.setSize(80,60);
+		start.addListener(new ClickListener() {
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+				start.setText("Have fun!");
+				startClicked();
+			}
+		});
+		
+		name = new Label("First Name:", skin);
+		name.setPosition(110, 200);
+		name.setSize(60, 60);
+		name.setColor(Color.BLACK);
+		
+		coll = new Label("College:", skin);
+		coll.setPosition(135, 130);
+		coll.setSize(60, 60);
+		coll.setColor(Color.BLACK);
+		
+		txfuser = new TextField("", skin);
+		txfuser.setPosition(200, 200);
+		txfuser.setSize(240, 60);
+		
+		txfcoll = new TextField("", skin);
+		txfcoll.setPosition(200, 130);
+		txfcoll.setSize(240, 60);
+		
+		stage.addActor(name);
+		stage.addActor(coll);
+		stage.addActor(txfuser);
+		stage.addActor(txfcoll);
+		stage.addActor(start);
+		
+		
 	}
 
+	public void startClicked(){
+		try {
+			gsh.setState(GameStateHandler.PLAY);
+			bg.dispose();
+			this.dispose();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void handleInput() {
 
-		if(start.isDown()) {
-			//				implement some sound here
-			try {
-				gsh.setState(GameStateHandler.PLAY);
-				bg.dispose();
-				start.dispose();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	@Override
 	public void update(float dt) {
 		handleInput();
-		start.update(dt);
 	}
 
 	@Override
@@ -73,103 +101,17 @@ public class UserInfo extends GameState implements Screen{
 		Gdx.gl.glClearColor(1, 1, 1, 1); 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 
 		sb.setProjectionMatrix(cam.combined);
-		sb.begin();
-		sb.draw(bg, 0, 0, 480, 320);
-		sb.end();
-
-		start.render(sb);
+		stage.act();
+		stage.draw(); 
+		
 	}
 	
 	@Override
 	public void dispose() {
-		table = null;
 		stage = null;
-		info = null;
-		mainFont = null;
-		menuSkin = null;
+		skin = null;
 	}
 
 
-	@Override
-	public void show() {
-		stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-
-        mainFont = new BitmapFont(Gdx.files.internal("data/fonts/main.fnt"), false);
-        mainFont.setColor(1, 1, 1, 1);
-
-        table = new Table();
-
-        menuSkin = new Skin();
-        menuAtlas = new TextureAtlas("data/packs/menu.pack");
-
-        menuSkin.addRegions(menuAtlas);
-
-        
-        LabelStyle infoStyle = new LabelStyle(mainFont, Color.WHITE);
-
-        info = new Label("Hello there and welcome.", infoStyle);
-        info.setBounds(110, 355, 585, 90);
-        info.setAlignment(2);
-
-        udeluser = new Label("UDelNetID:", infoStyle);
-        college = new Label("College:", infoStyle);
-
-
-        TextFieldStyle txtStyle = new TextFieldStyle();
-        txtStyle.fontColor = Color.WHITE;
-        txtStyle.background = menuSkin.getDrawable("textbox");
-        txtStyle.font = mainFont;
-
-        txtudeluser = new TextField("", txtStyle);
-        txtcollege = new TextField("", txtStyle);
-        txtudeluser.setMessageText("test");
-
-
-        table.add(udeluser).pad(2);
-        table.row();
-        table.add(txtudeluser).pad(2);
-        table.row().pad(10);
-        table.add(college).pad(2);
-        table.row();
-        table.add(txtcollege).pad(2);
-        table.setBounds(110, 225, 585, 200);
-
-        stage.addActor(info);
-        stage.addActor(table);	}
-
-
-	@Override
-	public void render(float delta) {
-		// AUTO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void resize(int width, int height) {
-		// AUTO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void pause() {
-		// AUTO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void resume() {
-		// AUTO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void hide() {
-		// AUTO Auto-generated method stub
-
-	}
+	
 }
