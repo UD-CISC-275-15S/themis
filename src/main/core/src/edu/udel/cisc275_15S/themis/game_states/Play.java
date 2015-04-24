@@ -292,7 +292,7 @@ public class Play extends GameState {
 //		}
 		hud.render(sb);
 		sb.setProjectionMatrix(cam.combined);
-		System.out.println(sb.totalRenderCalls);
+//		System.out.println(sb.totalRenderCalls);
 	}
 
 	@Override
