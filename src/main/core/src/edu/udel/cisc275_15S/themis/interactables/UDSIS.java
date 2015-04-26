@@ -7,6 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class UDSIS extends Buttons implements Interactable {
 
+	private boolean opened = false;
+	private Buttons back;
+	public boolean isOpen(){
+		return opened;
+	}
+	
 	public UDSIS(Texture image, float x, float y) {
 		super(image, x, y);
 	}
@@ -25,7 +31,13 @@ public class UDSIS extends Buttons implements Interactable {
 
 	@Override
 	public void render(SpriteBatch sb) {
-		super.render(sb);
+		sb.begin();
+		sb.draw(image, x-width/2, y-height/2);
+		sb.end();
+		if (opened){
+			
+			
+		}
 	}
 
 }

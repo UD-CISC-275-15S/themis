@@ -1,6 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -71,13 +72,11 @@ public class Play extends GameState {
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
 		this.gsh=gsh;
-		this.mapIndex = mapIndex;
 		
 		CreatePlayer();
 		createSurface();
 		CreateNPCs();
 		createExits();
-		
 		
 		cam = new MainCamera();
 		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
@@ -108,14 +107,15 @@ public class Play extends GameState {
 		float map = (Data.readPlayer(PlayerData, "map"));
 		mapIndex = (int) map;
 //		
-//		Float x = 300f;
-//		Float y = 350f;
+//		Float x = 50f;
+//		Float y = 450f;
 		String dir = (Data.readPlayerDir(PlayerData));
 
 		player = new Player(PlayerSprite, x, y, Character.DOWN, name);
 		player.setUserBag();
 		player.setObjButton();
 		player.setUDSIS();
+		player.setUDMail();
 	}
 
 	private int randDir() {
@@ -130,6 +130,7 @@ public class Play extends GameState {
 		}
 	}
 	private void CreateNPCs() {
+		
 		npcs = new Array<NPC>();
 		randomEvent=new RandomEvent(null, false, 0, "name", null);
 		Texture sprite=new Texture("Sprites/link.png");
@@ -165,11 +166,15 @@ public class Play extends GameState {
 		//		When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
 		
 		String map = "trabant.tmx";
-		
 		switch (mapIndex) {
-		case 0: map = "trabant.tmx"; break;
-		case 1: map = "worldmap.tmx"; break; 
+		case 0: map = "trabant.tmx"; 
+		System.out.println("Loaded" + map);
+		break;
+		case 1: map = "worldmap.tmx"; 
+		System.out.println("Loaded" + map);
+		break; 
 		default: map = "trabant.tmx";
+		System.out.println("Loaded" + map);
 		}
 		tileMap = new TmxMapLoader().load("maps/" + map);	
 
@@ -308,6 +313,14 @@ public class Play extends GameState {
 
 	@Override
 	public void dispose() {
+		npcs = null;
+		hud = null;
+		CIH = null;
+		player = null;
+		objects = null;
+		exits = null;
+		tileMap = null;
+	
 	}
 	public Player getPlayer() { return player;}
 	public Array<NPC> getNPCS() {return npcs;}

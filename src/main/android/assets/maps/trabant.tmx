@@ -77,6 +77,9 @@
   <object x="0" y="681" width="272" height="19"/>
   <object x="305" y="683" width="287" height="37"/>
   <object x="272" y="115" width="32" height="6"/>
+  <object x="-17" y="-13" width="35" height="728"/>
+  <object x="-113" y="-40" width="751" height="49"/>
+  <object x="575" y="-51" width="53" height="764"/>
  </objectgroup>
  <objectgroup name="npc" width="37" height="43">
   <object x="109" y="364" width="20" height="23"/>
