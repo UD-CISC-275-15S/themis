@@ -9,9 +9,13 @@ public class UDSIS extends Buttons implements Interactable {
 
 	private boolean opened = false;
 	private Buttons back;
+	
+	
+	 
 	public boolean isOpen(){
 		return opened;
 	}
+	
 	
 	public UDSIS(Texture image, float x, float y) {
 		super(image, x, y);
@@ -35,6 +39,7 @@ public class UDSIS extends Buttons implements Interactable {
 		sb.draw(image, x-width/2, y-height/2);
 		sb.end();
 		if (opened){
+			System.out.println("opening UDSIS");
 			
 			
 		}

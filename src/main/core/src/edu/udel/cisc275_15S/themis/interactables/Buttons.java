@@ -31,8 +31,8 @@ public class Buttons implements Interactable {
 
 		int len = string.length();
 //		Temporary height and widths for TextButtons
-		width = len * 10;
-		height = len * 5;
+		width = 30;
+		height = 30;
 	} 
 
 	public void render(SpriteBatch sb) {
@@ -54,9 +54,9 @@ public class Buttons implements Interactable {
 
 	@Override
 	public void handleInput() {
-		if (TouchInputHandler.isClicked() && TouchInputHandler.isWithinBounds(x, y, width, Themis.HEIGHT - height)){
+		if (TouchInputHandler.isClicked() && TouchInputHandler.isWithinBounds(x + 20, y, width, Themis.HEIGHT - height)){
 			clicked = !clicked;
-			System.out.println("Button center is located at: " + x + "," + y);
+			System.out.println(this.toString() + "Button center is located at: " + x + "," + y);
 		}
 	}
 	public boolean isDown() { return clicked; }

@@ -116,6 +116,7 @@ public class Play extends GameState {
 		player.setObjButton();
 		player.setUDSIS();
 		player.setUDMail();
+		player.setOnline();
 	}
 
 	private int randDir() {
@@ -292,7 +293,7 @@ public class Play extends GameState {
 //		}
 		hud.render(sb);
 		sb.setProjectionMatrix(cam.combined);
-		System.out.println(sb.totalRenderCalls);
+		//System.out.println(sb.totalRenderCalls);
 	}
 
 	@Override

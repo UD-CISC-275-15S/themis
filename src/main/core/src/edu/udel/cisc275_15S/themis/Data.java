@@ -2,7 +2,6 @@ package edu.udel.cisc275_15S.themis;
 
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +11,7 @@ import java.util.Scanner;
 
 import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
+import edu.udel.cisc275_15S.themis.interactables.Online;
 import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 
 //	This class is used for loading Data from our GameData folder
@@ -28,6 +28,7 @@ public class Data {
 	public Backpack bag;
 	public static Player player;
 	public UDSIS udsis;
+	public Online online;
 	
 	public static void readQ() throws FileNotFoundException {
 		
