@@ -3,6 +3,7 @@ package edu.udel.cisc275_15S.themis.game_states;
 import java.io.FileNotFoundException;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -26,6 +27,8 @@ public class Menu extends GameState {
 
 		float statetime = 0f;
 		TextureRegion currentFrame;
+		
+		private Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Click.mp3"));
 
 		public Menu(GameStateHandler gsh) {
 			super(gsh);
@@ -36,7 +39,7 @@ public class Menu extends GameState {
 		public void handleInput() {
 			
 			if(play.isDown()) {
-//				implement some sound here
+				click.play(); 
 				try {
 					gsh.setState(GameStateHandler.USERINFO);
 					bg.dispose();

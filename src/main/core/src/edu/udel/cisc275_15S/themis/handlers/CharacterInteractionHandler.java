@@ -33,7 +33,7 @@ public class CharacterInteractionHandler {
 
 		player = gs.getPlayer();
 		npcs = gs.getNPCS();
-		play = gs;;
+		play = gs;
 
 	}
 	public void update(float dt) {
@@ -100,7 +100,7 @@ public class CharacterInteractionHandler {
 			}
 		}
 		Rectangle rect = new Rectangle(player.getXpos(), player.getYpos()+MOVE, 20, 20);
-//		Check if there is a collision if the player were to move one step to the up
+//		Check if there is a collision if the player were to move one step up
 		return 
 				!Collision(rect)  && !check &&
 				player.getYpos() < 1000 && TouchInputHandler.y < Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
@@ -117,7 +117,7 @@ public class CharacterInteractionHandler {
 			}
 		}
 		Rectangle rect = new Rectangle(player.getXpos(), player.getYpos()-MOVE, 20, 20);
-//		Check if there is a collision if the player were to move one step to the down
+//		Check if there is a collision if the player were to move one step down
 		return 
 				!Collision(rect)  && !check &&
 				player.getYpos() -10 >= 64.0 && TouchInputHandler.y > Themis.HEIGHT/2 && TouchInputHandler.x < RightBound && TouchInputHandler.x > LeftBound;
