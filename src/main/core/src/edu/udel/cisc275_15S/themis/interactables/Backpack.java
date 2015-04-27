@@ -50,7 +50,6 @@ public class Backpack extends Buttons implements Interactable {
 			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
 			sb.draw(bgImage, getX(), getY() + 32f);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-
 			sb.end();
 		}
 	}

@@ -20,6 +20,9 @@ public class Character {
 	protected int dir;
 	protected String name;
 	
+	public Character() {
+		
+	}
 	public Character(TextureRegion[] sprite, float x, float y, int dir, String name) {
 		this.sprite = sprite;
 		this.setX(x);

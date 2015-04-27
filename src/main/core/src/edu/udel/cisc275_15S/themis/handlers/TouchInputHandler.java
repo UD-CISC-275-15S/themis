@@ -2,8 +2,11 @@ package edu.udel.cisc275_15S.themis.handlers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import edu.udel.cisc275_15S.themis.Themis;
 
@@ -23,7 +26,7 @@ public class TouchInputHandler {
 			//Testing touch
 			x = Gdx.input.getX();
 			y = Gdx.input.getY();
-			System.out.println("down at " + x + " " + y);
+			System.out.println("down at " + x + " " + (Themis.HEIGHT - y));
 		} else down = false; 
 		if(Gdx.input.isTouched()){ // checks if the mouse button is currently held down, use justTouched for one click
 			down = true;
@@ -32,8 +35,8 @@ public class TouchInputHandler {
 		} else down = false; 
 	}
 	public static boolean isWithinBounds(float x1, float y1, float width, float height){
-		Rectangle cursor = new Rectangle(TouchInputHandler.x, TouchInputHandler.y, 10, 10);
-		Rectangle button = new Rectangle(x1, Themis.HEIGHT - y1, width + 15, height);
+		Rectangle cursor = new Rectangle(TouchInputHandler.x - 7, TouchInputHandler.y - 7, 10, 10);
+		Rectangle button = new Rectangle(x1 - 20, Themis.HEIGHT - y1 - 20, width - 20, height);
 	    if (Intersector.overlaps(cursor, button)) {
 	        return true;
 	    } else return false;

@@ -14,6 +14,9 @@ public class NPC extends Character {
 	private boolean condition;//Used to determine whether an NPC can be interacted with and start/complete their Event
 	private ArrayList<Event> event;
 
+	public NPC() {
+		
+	}
 	public NPC(TextureRegion[] sprite, float x, float y, int dir, String name, ArrayList<Event> event) {
 		super(sprite, x, y, dir, name);
 	}
