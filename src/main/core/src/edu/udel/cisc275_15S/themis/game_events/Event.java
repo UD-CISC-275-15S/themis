@@ -86,6 +86,7 @@ public class Event {
 	public Event() {
 		
 	}
+//	Constructs the Dialogue box's background
 	public void tempDbg(SpriteBatch sb) {
 		if (npccomplete) {
  		Texture tex = new Texture(Gdx.files.internal("gfx/textbox.gif"));
@@ -94,11 +95,12 @@ public class Event {
 		sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 	}
+//	Stores all of the characters of the string into an array
 	public static char[] CreateDialogueArray(String astr) {
 		char[] Dialogue = astr.toCharArray();
 		return Dialogue;
 	}
-
+//	Draw the dialogue up to the current Dialogue index
 	public void drawDia(SpriteBatch sb) {
 		char[] hi = CreateDialogueArray(Dias.get(currentDia));
 		String astr = "";
@@ -108,7 +110,7 @@ public class Event {
 		dialoguebox = new BitmapFont();
 		dialoguebox.drawWrapped(sb, astr, Themis.WIDTH / 3, Themis.HEIGHT / 2 + diaY, Themis.WIDTH / 2 + 10);
 	}
-	
+//	Updates the dialogue index per second, together with drawDia this creates the typewriter effect
 	public void diaAnimator() {
         float dt = 0;
         dt = Gdx.graphics.getDeltaTime();
@@ -120,6 +122,7 @@ public class Event {
 		} else if (npccomplete && dt > .017)
 			dialogue++;
 	}
+//	This updates the current dialogue box to the next one in the array.
 	public void DiaCounter() {
         if (dia == true && currentDia < Dias.size-1 && TouchInputHandler.isClicked()) {
         	dialogue = 0;
@@ -127,17 +130,19 @@ public class Event {
         	currentDia++;
         }
 	}
+//	Computes the remaining dialogues in the array
 	public void RemainingDia() {
 		if (currentDia == Dias.size-1)
     	remainingdia = false;
 	}
-//		Draw the NPC at its default X, and change its Y every frame until it is in the middle of the screen
+//	Draw the NPC at its default X, and change its Y every frame until it is in the middle of the screen
 	public void NPCAvatarAnimation() {
 		if (animator >= Themis.HEIGHT/4) {
 			npccomplete = true;
 		} else animator+=3;
 		
 	}
+//	Checks whether the Event has been completed and if so, set it to false.
 	public void EventComplete() {
 		if (dia && !remainingdia && TouchInputHandler.isClicked()) {
 			valid = false;
