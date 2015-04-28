@@ -104,7 +104,7 @@ public class Quiz extends Event {
 	public void shuffleAnswers() {
 		long seed = System.nanoTime();
 		for (Question aq : questions) {
-			Collections.shuffle(aq.getAnswers(), new Random(seed));
+			Collections.shuffle(aq.getAnswers(), new Random(seed)); 
 //			System.out.println(aq.getQ());
 //			for (Answer an : aq.getAnswers()) {
 ////				System.out.println(an.toString());
@@ -134,7 +134,7 @@ public class Quiz extends Event {
 		if (qVal && currentQ != questions.size()-1) {
 			qVal = false;
 			currentQ++;
-			shuffleAnswers();
+			shuffleAnswers(); 
 			answers = questions.get(currentQ).getAnswers();
 			ans = convertToButtons();
 		}

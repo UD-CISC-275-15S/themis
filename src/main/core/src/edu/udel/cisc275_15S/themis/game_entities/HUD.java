@@ -42,7 +42,6 @@ public class HUD {
 			email.update(dt);
 			
 		}
-		
 		else {
 			obj.update(dt);
 			bag.update(dt);
@@ -60,7 +59,6 @@ public class HUD {
 		if (obj.isOpen()){
 			udsis.render(sb);
 			email.render(sb);
-			
 		}
 		
 	}
