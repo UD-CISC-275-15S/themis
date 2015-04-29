@@ -13,6 +13,7 @@ import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Online;
 import edu.udel.cisc275_15S.themis.interactables.UDSIS;
+import edu.udel.cisc275_15S.themis.interactables.Objectives;
 
 //	This class is used for loading Data from our GameData folder
 //	GameData consists of:
@@ -29,6 +30,7 @@ public class Data {
 	public static Player player;
 	public UDSIS udsis;
 	public Online online;
+	private Objectives obj;
 	
 	public static void readQ() throws FileNotFoundException {
 		
@@ -66,7 +68,34 @@ public class Data {
 	        	{ questions.get(i).addAnswer(new Answer(currentLine, false)); 
 	        }
 	    }
+	    infile.close();
 	}
+	
+	public static void readObjectives(Objectives obj) throws FileNotFoundException{
+		File ObjectiveFile = new File("Gamedata/Objectives.txt");
+		Scanner infile = new Scanner(ObjectiveFile);
+		obj.setNumObjectives(infile.nextInt());
+		while(infile.hasNext()){
+			obj.addComplete(new Integer(infile.nextInt()));
+			System.out.println(0);
+			obj.addText(infile.nextLine());
+			System.out.println(1);
+		}
+		infile.close();
+	}
+	
+	public static void updateObjectives(Objectives obj) throws FileNotFoundException{
+		File ObjectiveFile = new File("Gamedata/Objectives.txt");
+		Scanner infile = new Scanner(ObjectiveFile);
+		infile.nextLine();
+		obj.updateObjectives();
+		while(infile.hasNext()){
+			obj.addComplete(new Integer(infile.nextInt()));
+			infile.nextLine();
+		}
+		infile.close();
+	}
+	
 	public static float readPlayer(File data, String p) throws FileNotFoundException {
 		Scanner infile = new Scanner(data);
 		
@@ -74,7 +103,9 @@ public class Data {
 	        String currentLine = infile.nextLine();
 	        if (!currentLine.isEmpty()) {
 				if (currentLine.endsWith(p + ":")) {
-					return Float.parseFloat(infile.nextLine());
+					float f = Float.parseFloat(infile.nextLine());
+					infile.close();
+					return f;
 				}
 	        }
 	    } 	   infile.close(); 
@@ -88,10 +119,13 @@ public class Data {
 	        String currentLine = infile.nextLine();
 	        if (!currentLine.isEmpty()) {
 	        	if (currentLine.endsWith(p + ":")) { 
-	        		return infile.nextLine();
+	        		String name = infile.nextLine();
+	        		infile.close();
+	        		return name;
 	        		} 
 	        } 
-	    } infile.close();
+	    }
+	    infile.close();
 	    return "";
 	}
 	public static String readPlayerDir(File data) throws FileNotFoundException {
@@ -101,7 +135,9 @@ public class Data {
 	        String currentLine = infile.nextLine();
 	        if (!currentLine.isEmpty()) {
 				if (currentLine.endsWith("dir")) {
-					return infile.nextLine();
+					String dir = infile.nextLine();
+					infile.close();
+					return dir;
 	        	}
 	        }
 	    } infile.close();

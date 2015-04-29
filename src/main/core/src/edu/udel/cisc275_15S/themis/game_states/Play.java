@@ -368,7 +368,6 @@ public class Play extends GameState {
 			player.getBag().render(sb);
 		}
 		if(objectivesOpened){
-			player.getObjButton().updateObjectives();
 			player.getObjButton().render(sb);
 			
 		}
@@ -416,6 +415,7 @@ public class Play extends GameState {
 	public Quiz getQuiz(){return q;};
 	public SpriteBatch getSB(){return sb;}
 	public Array<Rectangle> getExits() { return exits;}
+	public String getFilepath(){ return filepath;}
 
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();

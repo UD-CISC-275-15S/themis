@@ -29,7 +29,6 @@ public class Player extends Character {
 	
 	public Backpack bag;
 	public Objectives objB;
-	public Array<Objectives> obj;
 	public UDSIS udsis;
 	public Online online;
 	public UDMail udmail;
@@ -111,10 +110,6 @@ public class Player extends Character {
 		Texture pack = new Texture(filehandle);
 		bag = new Backpack(pack, 32, 32);
 		return bag;
-	}
-	public Array<Objectives> setUserOBJ() {
-		Array<Objectives> obj= new Array<Objectives>();
-		return obj;
 	}
 	public void setObjButton(){
 		FileHandle filehandle = Gdx.files.internal("Button/info.png");

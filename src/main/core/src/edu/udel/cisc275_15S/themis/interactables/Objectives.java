@@ -8,22 +8,20 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 import edu.udel.cisc275_15S.themis.Themis;
-import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
+import edu.udel.cisc275_15S.themis.Data;
 
 public class Objectives extends Buttons implements Interactable{
 	
 	private Texture incompleteImage;
 	private Texture attemptedImage;
 	private Texture completedImage;
+	private boolean opened=false;
+	private int numObjectives;
 	private ArrayList<String> objectiveText;
 	private ArrayList<Integer> objectiveCompleteness;
-	private boolean opened=false;
-	private Scanner in;
-	private int numObjectives;
 	
 	
 	
@@ -34,7 +32,12 @@ public class Objectives extends Buttons implements Interactable{
 		completedImage = new Texture(Gdx.files.internal("gfx/completed.gif"));
 		objectiveText = new ArrayList<String>();
 		objectiveCompleteness = new ArrayList<Integer>();
-		readObjectives();
+		try{
+			Data.readObjectives(this);
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
 	}
 	
 	public void render(SpriteBatch sb) {
@@ -47,15 +50,15 @@ public class Objectives extends Buttons implements Interactable{
 			BitmapFont text = new BitmapFont();
 			for(int i=0;i<numObjectives;i++){
 				if(objectiveCompleteness.get(i)==0){
-					sb.draw(incompleteImage,40,50+((Themis.HEIGHT-50)/numObjectives)*i);
+					sb.draw(incompleteImage,100,75+(((Themis.HEIGHT-50)/numObjectives)*i)*2/3);
 				}
-				if(objectiveCompleteness.get(i)==1){
-					sb.draw(attemptedImage,40,50+((Themis.HEIGHT-50)/numObjectives)*i);
+				else if(objectiveCompleteness.get(i)==1){
+					sb.draw(attemptedImage,100,75+(((Themis.HEIGHT-50)/numObjectives)*i)*2/3);
 				}
-				if(objectiveCompleteness.get(i)==2){
-					sb.draw(attemptedImage,40,50+((Themis.HEIGHT-50)/numObjectives)*i);
+				else if(objectiveCompleteness.get(i)==2){
+					sb.draw(completedImage,100,75+(((Themis.HEIGHT-50)/numObjectives)*i)*2/3);
 				}
-				text.draw(sb, objectiveText.get(i), 65,50+((Themis.HEIGHT-50)/numObjectives)*i);
+				text.draw(sb, objectiveText.get(i), 135,90+((Themis.HEIGHT-50)/numObjectives)*2/3*i);
 			}
 			sb.end();
 		}
@@ -77,9 +80,9 @@ public class Objectives extends Buttons implements Interactable{
 		
 	}
 	
-	public void readObjectives(){
+/*	public void readObjectives(){
 		try{
-			in = new Scanner(Gdx.files.internal("Gamedata/Objectives.txt").file());
+			in = new Scanner(Gdx.files.internal("Objectives.txt").file());
 			numObjectives =Integer.parseInt(in.nextLine());
 			while(in.hasNext()){
 				objectiveCompleteness.add(Integer.parseInt(in.nextLine()));
@@ -91,21 +94,19 @@ public class Objectives extends Buttons implements Interactable{
 			System.out.println("File not found");
 			e.printStackTrace();
 		}
-	}
+	}*/
 	public void updateObjectives(){
+		objectiveCompleteness = new ArrayList<Integer>();
 		try{
-			objectiveCompleteness = new ArrayList<Integer>();
-			in = new Scanner(Gdx.files.internal("Gamedata/Objectives.txt").file());
-			in.nextLine();
-			while(in.hasNext()){
-				objectiveCompleteness.add(Integer.parseInt(in.nextLine()));
-				in.nextLine();
-			}
+			Data.updateObjectives(this);
 		}
 		catch(FileNotFoundException e){
-			System.out.println("File not found");
 			e.printStackTrace();
 		}
-	}
+		}
+	
+	public void setNumObjectives(int n){ numObjectives=n;}
+	public void addText(String s){objectiveText.add(s);}
+	public void addComplete(Integer i){objectiveCompleteness.add(i);}
 
 }
