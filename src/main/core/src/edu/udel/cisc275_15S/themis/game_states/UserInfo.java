@@ -15,10 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
-import edu.udel.cisc275_15S.themis.handlers.TextInputHandler;
 
 public class UserInfo extends GameState{
 
+	
+	// All Private variables so that no one can modify the UI state
 	Stage stage;
 	
 	Label name;
@@ -30,44 +31,43 @@ public class UserInfo extends GameState{
 	
 	Skin skin;
 	
-	Texture bg = new Texture(Gdx.files.internal("gfx/userinfobg.png"));
-	TextInputHandler listener = new TextInputHandler();
+	Texture bg = new Texture(Gdx.files.internal("gfx/infoscreen.png")); // Holds the background image
 
 	public UserInfo(GameStateHandler gsh) {
 		super(gsh);
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));
-		start = new TextButton("Start", skin);
-		start.setPosition(200, 60);
-		start.setSize(80,60);
-		start.addListener(new ClickListener() {
+		stage = new Stage();											// init the stage
+		Gdx.input.setInputProcessor(stage);								// add an input processor to the stage to see touch
+		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));		// init the skin to load the UI settings
+		start = new TextButton("Start", skin);							// create the start button
+		start.setPosition(320, 60);										// sets the position to 320, 60, about midway at the bottom
+		start.setSize(80,30);											// sets the size to fit the text
+		start.addListener(new ClickListener() {							// adds a click listener
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-				start.setText("Have fun!");
-				startClicked();
+				start.setText("Have fun!");								// while you have it clicked, set the text to Have fun
+				startClicked();											// notify that the button is clicked and change states
 			}
 		});
 		
-		name = new Label("First Name:", skin);
-		name.setPosition(110, 200);
-		name.setSize(60, 60);
-		name.setColor(Color.BLACK);
+		name = new Label("First Name:", skin);							// init the first name label with appropriate
+		name.setPosition(110, 190);										// position
+		name.setSize(20, 20);											// size
+		name.setColor(Color.WHITE);										// color
 		
-		coll = new Label("College:", skin);
-		coll.setPosition(135, 130);
-		coll.setSize(60, 60);
-		coll.setColor(Color.BLACK);
+		coll = new Label("College:", skin);								// init the college label
+		coll.setPosition(135, 120);
+		coll.setSize(20, 20);
+		coll.setColor(Color.WHITE);
 		
-		txfuser = new TextField("", skin);
-		txfuser.setPosition(200, 200);
-		txfuser.setSize(240, 60);
+		txfuser = new TextField("", skin);								// init the textfield for the first name
+		txfuser.setPosition(200, 180);
+		txfuser.setSize(240, 40);
 		
-		txfcoll = new TextField("", skin);
-		txfcoll.setPosition(200, 130);
-		txfcoll.setSize(240, 60);
+		txfcoll = new TextField("", skin);								// init the college textfield
+		txfcoll.setPosition(200, 110);
+		txfcoll.setSize(240, 40);
 		
-		stage.addActor(name);
+		stage.addActor(name);											// add all these interactables to the stage to be drawn
 		stage.addActor(coll);
 		stage.addActor(txfuser);
 		stage.addActor(txfcoll);
@@ -78,9 +78,9 @@ public class UserInfo extends GameState{
 
 	public void startClicked(){
 		try {
-			gsh.setState(GameStateHandler.PLAY);
-			bg.dispose();
-			this.dispose();
+			gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
+			bg.dispose();												// dispose of the large image file
+			this.dispose();												// dispose the data loaded into this class
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -98,18 +98,22 @@ public class UserInfo extends GameState{
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(1, 1, 1, 1); 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 
-		sb.setProjectionMatrix(cam.combined);
-		stage.act();
-		stage.draw(); 
+		Gdx.gl.glClearColor(1, 1, 1, 1); 								// set up the screen clear
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 						// clear it
+		sb.setProjectionMatrix(cam.combined);							// set the coordinate system to the screen
+		stage.act();													// allow the interactables to act (interact)
+		stage.getBatch().begin();										// set up batch
+		stage.getBatch().draw(bg,0,0);									// draw bg
+		stage.getBatch().end();											// tear down batch
+		stage.draw(); 													// draw the interactables
+		
 		
 	}
 	
 	@Override
 	public void dispose() {
-		stage = null;
-		skin = null;
+		stage = null;													// get rid of the stage data
+		skin = null;													// get rid of the UI settings data
 	}
 
 
