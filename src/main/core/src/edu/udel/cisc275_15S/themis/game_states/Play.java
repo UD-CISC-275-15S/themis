@@ -1,7 +1,6 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,6 +24,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
+import edu.udel.cisc275_15S.themis.QuestionData;
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_entities.Character;
 import edu.udel.cisc275_15S.themis.game_entities.HUD;
@@ -38,7 +38,6 @@ import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
-import edu.udel.cisc275_15S.themis.handlers.TextInputHandler;
 import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
@@ -296,7 +295,7 @@ public class Play extends GameState {
 			}
 		
 				try {
-			Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),x, y,player.getDirString(player.getDir()),map);
+			Data.savePlayerData(filepath, "" ,x , y,player.getDirString(player.getDir()),map); // TODO get player name from textfield
 			gsh.setState(GameStateHandler.PLAY);
 			
 		} catch (FileNotFoundException e) {
@@ -328,7 +327,7 @@ public class Play extends GameState {
 			hud.update(dt);
 		}
 		try {
-			Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex);
+			Data.savePlayerData(filepath, "name" ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
