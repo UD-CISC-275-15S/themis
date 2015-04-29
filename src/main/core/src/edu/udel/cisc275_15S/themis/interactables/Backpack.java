@@ -13,7 +13,6 @@ public class Backpack extends Buttons implements Interactable {
 	
 	private Array<item> items;
 	private boolean opened = false;
-	private Buttons back;
 	public boolean isOpen() {
 		return opened;
 	}

@@ -64,9 +64,10 @@ public class Play extends GameState {
 	public MapObjects objects;
 	RandomEvent randomEvent;
 	private Tutorial Tutorial;
-	private boolean opened = false;
+	private boolean backpackOpened = false;
+	private boolean UDSISOpened = false;
+	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
-	private Buttons back;
 
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
@@ -84,7 +85,6 @@ public class Play extends GameState {
 		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
 		hud = new HUD(player);
 		q = new Quiz();
-		back = new Buttons("<-- BACK",45,300);
 		
 		for (int i = 0; i < exits.size; i++) {
 			System.out.println("Loaded: ");
@@ -319,7 +319,8 @@ public class Play extends GameState {
 	public void update(float dt) {
 		handleInput();
 		player.update();
-		opened = player.getBag().isOpen() || player.getObjButton().isOpen();
+		backpackOpened = player.getBag().isOpen();
+		objectivesOpened = player.getObjButton().isOpen();
 		if (quiz) { q.update(); }
 //		Comment out this line to hide quiz
 //		testQuiz();
@@ -363,9 +364,12 @@ public class Play extends GameState {
 		if (quiz) {
 			q.render(sb);
 		}
-		if(opened){
+		if(backpackOpened){
 			player.getBag().render(sb);
-			back.render(sb);
+		}
+		if(objectivesOpened){
+			player.getObjButton().updateObjectives();
+			player.getObjButton().render(sb);
 			
 		}
 //		for(int i=0;i<npcs.size;i++){
@@ -386,12 +390,8 @@ public class Play extends GameState {
 			player.getBag().setOpened(true);
 		}
 		if (newGame) {return;} 
-		if (opened) {
-			if(back.isDown()){
-				System.out.println("You pressed back!");
-				opened=false;
-			}
-			return;} 
+		if (backpackOpened) {return;}
+		if(objectivesOpened){return;}
 		if (quiz) {return;}
 		else {CIH.touchHandler();}
 	}
