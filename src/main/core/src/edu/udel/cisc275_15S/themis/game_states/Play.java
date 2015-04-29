@@ -74,9 +74,8 @@ public class Play extends GameState {
 		this.gsh=gsh;
 		
 		CreatePlayer();
-		createSurface();
+		LoadMap();
 		CreateNPCs();
-		createExits();
 		
 		cam = new MainCamera();
 		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
@@ -88,8 +87,10 @@ public class Play extends GameState {
 		q = new Quiz();
 		back = new Buttons("<-- BACK",45,300);
 		
-		MapLayer collisionObjectLayer = tileMap.getLayers().get("nonpassable");	
-		objects = collisionObjectLayer.getObjects();
+		for (int i = 0; i < exits.size; i++) {
+			System.out.println("Loaded: ");
+		}
+		
 	}
 
 	private static void CreatePlayer() throws FileNotFoundException {
@@ -116,6 +117,7 @@ public class Play extends GameState {
 		player.setObjButton();
 		player.setUDSIS();
 		player.setUDMail();
+		player.setOnline();
 	}
 
 	private int randDir() {
@@ -129,15 +131,16 @@ public class Play extends GameState {
 		default: return Character.DOWN;
 		}
 	}
+	private int randNPC() {
+		Random rn=new Random();
+		int n = rn.nextInt(7) + 1;
+		return n;
+	}
 	private void CreateNPCs() {
-		
+
 		npcs = new Array<NPC>();
-		randomEvent=new RandomEvent(null, false, 0, "name", null);
-		Texture sprite=new Texture("Sprites/link.png");
-		TextureRegion[] NPCSprite = new TextureRegion[4];
-		for(int j=0;j<4;j++){
-			NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
-		}
+		randomEvent = new RandomEvent(null, false, 0, "name", null);
+
 		ArrayList<Event> al = new ArrayList<Event>();
 		al.add(randomEvent);
 		
@@ -148,6 +151,11 @@ public class Play extends GameState {
 		for (RectangleMapObject npc : npcobjects.getByType(RectangleMapObject.class)) {
 			float x =  (Float) npc.getProperties().get("x");
 			float y =  (Float) npc.getProperties().get("y");
+			Texture sprite = new Texture("Sprites/npcs/" + randNPC() + ".png");
+			TextureRegion[] NPCSprite = new TextureRegion[4];
+			for(int j=0;j<4;j++){
+				NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
+			}
 			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
 			npcs.add(anpc);
 		}
@@ -162,19 +170,25 @@ public class Play extends GameState {
 
 	//	Load the tile map, surface layers
 	//	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
-	private void createSurface() {
+	private void LoadMap() {
 		//		When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
 		
 		String map = "trabant.tmx";
 		switch (mapIndex) {
 		case 0: map = "trabant.tmx"; 
-		System.out.println("Loaded" + map);
+		System.out.println("Loaded " + map);
 		break;
-		case 1: map = "worldmap.tmx"; 
-		System.out.println("Loaded" + map);
+		case 1: map = "World Map.tmx"; 
+		System.out.println("Loaded " + map);
+		break; 
+		case 2: map = "smith.tmx"; 
+		System.out.println("Loaded " + map);
+		break; 
+		case 3: map = "health.tmx"; 
+		System.out.println("Loaded " + map);
 		break; 
 		default: map = "trabant.tmx";
-		System.out.println("Loaded" + map);
+		System.out.println("Loaded " + map);
 		}
 		tileMap = new TmxMapLoader().load("maps/" + map);	
 
@@ -184,8 +198,38 @@ public class Play extends GameState {
 		tileMapHeight = prop.get("height", Integer.class);
 		tileSize = prop.get("tilewidth", Integer.class);
 		renderer = new OrthogonalTiledMapRenderer(tileMap);
+		
+		MapLayer collisionObjectLayer = tileMap.getLayers().get("impassable");	
+		objects = collisionObjectLayer.getObjects();
+		
+		if (map == "World Map.tmx") {
+			createEntrances();
+		} else createExits();
 	}
-	
+	private void createEntrances() {
+		
+		exits = new Array<Rectangle>();
+		MapLayer entrance = tileMap.getLayers().get("trabant");
+		MapObjects entr;
+		entr = entrance.getObjects();
+		
+		for (RectangleMapObject ae : entr.getByType(RectangleMapObject.class)) {
+			Rectangle as = ae.getRectangle();
+			exits.add(as);
+		}
+		entrance = tileMap.getLayers().get("smith");
+		entr = entrance.getObjects();
+		for (RectangleMapObject ae : entr.getByType(RectangleMapObject.class)) {
+			Rectangle as = ae.getRectangle();
+			exits.add(as);
+		}
+		entrance = tileMap.getLayers().get("health");
+		entr = entrance.getObjects();
+		for (RectangleMapObject ae : entr.getByType(RectangleMapObject.class)) {
+			Rectangle as = ae.getRectangle();
+			exits.add(as);
+		}
+	}
 	private void createExits() {
 		
 		exits = new Array<Rectangle>();
@@ -199,17 +243,70 @@ public class Play extends GameState {
 		}
 	}
 	
-	private boolean exited() {
-
+	private void exited() {
+		
+		boolean exited = false;
 		Rectangle rect = new Rectangle(player.getXpos(), player.getYpos(), 20, 20);
+		Rectangle exit = new Rectangle();
 
-		for (Rectangle exit : exits) {
-
-		    if (Intersector.overlaps(exit, rect)) {
-		        return true;
+		for (Rectangle temp : exits) {
+		    if (Intersector.overlaps(temp, rect)) {
+		        exited = true;
+		        exit = temp;
 		    } 
-		} return false;
+		}
+		int map = 0;
+		float x = 0f;
+		float y = 0f;
+		
+		if (exited) {
+		if (mapIndex == 0) {
+			map = 1;
+			x = 48f;
+			y = 520f;
+		}
+		if (mapIndex == 2) {
+			map = 1;
+			x = 48f;
+			y = 318f;
+		}
+		if (mapIndex == 3) {
+			map = 1;
+			x = 342f;
+			y = 124f;
+			
+		} else if (mapIndex == 1) {
+			for (int i = 0; i < exits.size; i++) {
+				if (exits.get(i) == exit) {
+					map = i;
+					if (i == 0) {
+						x = 226f;
+						y = 120f;
+					}
+					if (i == 2) {
+						x = 300f;
+						y = 150f;
+					}
+					if (i == 3) {
+						x = 270f;
+						y = 110f;
+					}
+					}
+				}
+			}
+		
+				try {
+			Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),x, y,player.getDirString(player.getDir()),map);
+			gsh.setState(GameStateHandler.PLAY);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		}
 	}
+
 	
 	public void testQuiz() {
 		if (!newGame && i == 0) {
@@ -242,18 +339,7 @@ public class Play extends GameState {
 			Tutorial.update();
 			newGame = Tutorial.getValid();
 		}
-		if (exited()) {
-			mapIndex = 1;
-			try {
-				Data.savePlayerData(filepath, TextInputHandler.getPlayerName(),48f, 476f,player.getDirString(player.getDir()),mapIndex);
-				gsh.setState(GameStateHandler.PLAY);
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-		}
+		exited();
 	}
 
 	public void render() {

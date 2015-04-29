@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name:
 null
 x:
@@ -8,3 +9,15 @@ dir
 DOWN
 map:
 0
+=======
+name:
+null
+x:
+298.0
+y:
+186.0
+dir
+DOWN
+map:
+2
+>>>>>>> branch 'master' of https://github.com/UD-CISC-275-15S/themis

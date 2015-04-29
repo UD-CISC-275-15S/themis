@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.TextInputHandler;
 
@@ -30,7 +31,7 @@ public class UserInfo extends GameState{
 	
 	Skin skin;
 	
-	Texture bg = new Texture(Gdx.files.internal("gfx/userinfobg.png"));
+	Texture bg = new Texture(Gdx.files.internal("gfx/infoscreen.png"));
 	TextInputHandler listener = new TextInputHandler();
 
 	public UserInfo(GameStateHandler gsh) {
@@ -39,8 +40,8 @@ public class UserInfo extends GameState{
 		Gdx.input.setInputProcessor(stage);
 		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));
 		start = new TextButton("Start", skin);
-		start.setPosition(200, 60);
-		start.setSize(80,60);
+		start.setPosition(320, 60);
+		start.setSize(80,30);
 		start.addListener(new ClickListener() {
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
@@ -50,22 +51,22 @@ public class UserInfo extends GameState{
 		});
 		
 		name = new Label("First Name:", skin);
-		name.setPosition(110, 200);
-		name.setSize(60, 60);
-		name.setColor(Color.BLACK);
+		name.setPosition(110, 190);
+		name.setSize(20, 20);
+		name.setColor(Color.WHITE);
 		
 		coll = new Label("College:", skin);
-		coll.setPosition(135, 130);
-		coll.setSize(60, 60);
-		coll.setColor(Color.BLACK);
+		coll.setPosition(135, 120);
+		coll.setSize(20, 20);
+		coll.setColor(Color.WHITE);
 		
 		txfuser = new TextField("", skin);
-		txfuser.setPosition(200, 200);
-		txfuser.setSize(240, 60);
+		txfuser.setPosition(200, 180);
+		txfuser.setSize(240, 40);
 		
 		txfcoll = new TextField("", skin);
-		txfcoll.setPosition(200, 130);
-		txfcoll.setSize(240, 60);
+		txfcoll.setPosition(200, 110);
+		txfcoll.setSize(240, 40);
 		
 		stage.addActor(name);
 		stage.addActor(coll);
@@ -102,7 +103,11 @@ public class UserInfo extends GameState{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 
 		sb.setProjectionMatrix(cam.combined);
 		stage.act();
+		stage.getBatch().begin();
+		stage.getBatch().draw(bg,0,0);
+		stage.getBatch().end();
 		stage.draw(); 
+		
 		
 	}
 	

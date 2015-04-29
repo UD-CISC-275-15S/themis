@@ -16,6 +16,7 @@ import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
+import edu.udel.cisc275_15S.themis.interactables.Online;
 import edu.udel.cisc275_15S.themis.interactables.UDMail;
 // A player is a Character that "owns" the following special attributes:
 // Bag 
@@ -30,6 +31,7 @@ public class Player extends Character {
 	public Objectives objB;
 	public Array<Objectives> obj;
 	public UDSIS udsis;
+	public Online online;
 	public UDMail udmail;
 	Texture left = new Texture("Sprites/left.png");
 	Texture right = new Texture("Sprites/right.png");
@@ -121,22 +123,31 @@ public class Player extends Character {
 		objB = new Objectives(objs, 96f, 32f);
 	}
 	public void setUDSIS(){
+		FileHandle filehandle = Gdx.files.internal("Button/bag.png");
+		System.out.println(filehandle.path());
+		Texture sis = new Texture(filehandle);
+		udsis = new UDSIS(sis, 160, 180);
+	}
+	
+	public void setOnline(){
 		FileHandle filehandle = Gdx.files.internal("Button/browser.png");
 		System.out.println(filehandle.path());
 		Texture sis = new Texture(filehandle);
-		udsis = new UDSIS(sis, 160f, 32f);
+		online = new Online(sis, 160f, 32f);
 	}
 	
 	public void setUDMail(){
 		FileHandle filehandle = Gdx.files.internal("Button/email_default.png");
 		System.out.println(filehandle.path());
 		Texture sis = new Texture(filehandle);
-		udmail = new UDMail(sis, 300f, 32f);
+		udmail = new UDMail(sis, 300, 180);
 	}
 	public static void main(String[] args) throws IOException {
 	}
 	public Backpack getBag(){ return bag;}
 	public Objectives getObjButton(){ return objB;}
 	public UDSIS getUDSIS(){ return udsis;}
+	public Online getOnline(){ return online;}
+	public UDMail getEmail() {return udmail;}
 
 }
