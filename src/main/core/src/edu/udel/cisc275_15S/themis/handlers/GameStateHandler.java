@@ -24,7 +24,7 @@ public class GameStateHandler {
 		public GameStateHandler(Themis game) throws FileNotFoundException {
 			this.game = game;
 			gameStates = new Stack<GameState>();
-//			pushState(WEB);
+			pushState(WEB);
 			pushState(MENU);
 //			pushState(PLAY);
 
@@ -37,7 +37,7 @@ public class GameStateHandler {
 			gameStates.peek().update(dt);
 		}
 		public void resize(int width, int height) {
-			gameStates.peek().resize(width, height);
+//			gameStates.peek().resize(width, height);
 		}
 		public void render() {
 			gameStates.peek().render();

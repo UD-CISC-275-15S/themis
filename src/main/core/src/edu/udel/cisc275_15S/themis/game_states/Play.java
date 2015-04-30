@@ -318,10 +318,10 @@ public class Play extends GameState {
 
 	public void update(float dt) {
 		handleInput();
-		player.update();
+//		player.update();
 
-		backpackOpened = player.getBag().isOpen();
-		objectivesOpened = player.getObjButton().isOpen();
+//		backpackOpened = player.getBag().isOpen();
+//		objectivesOpened = player.getObjButton().isOpen();
 //		Comment out this line to hide quiz
 //		testQuiz();
 		if (!newGame) {
@@ -335,10 +335,10 @@ public class Play extends GameState {
 			e.printStackTrace();
 		}
 		
-		if (newGame) {
-			Tutorial.update();
-			newGame = Tutorial.getcomplete();
-		}
+//		if (newGame) {
+//			Tutorial.update();
+//			newGame = Tutorial.getcomplete();
+//		}
 		
 		exited();
 		loadWeb();
@@ -365,13 +365,12 @@ public class Play extends GameState {
 			Tutorial.render(sb, hudCam);
 		}
 
-		if(backpackOpened){
-			player.getBag().render(sb);
-		}
-		if(objectivesOpened){
-			player.getObjButton().render(sb);
-		}
-		CIH.eventHandler(sb);
+//		if(backpackOpened){
+//			player.getBag().render(sb);
+//		}
+//		if(objectivesOpened){
+//			player.getObjButton().render(sb);
+//		}
 		CIH.update();
 		hud.render(sb);
 		sb.setProjectionMatrix(cam.combined);
@@ -390,13 +389,13 @@ public class Play extends GameState {
 	}
 	@Override
 	public void handleInput() {
-		if(player.getBag().isDown()){
-			player.getBag().setOpened(true);
-		}
+//		if(player.getBag().isDown()){
+//			player.getBag().setOpened(true);
+//		}
 		if (newGame) {return;}
-		if (backpackOpened) {return;}
-		else if(objectivesOpened){return;}
-		else {CIH.touchHandler();}
+//		else if (backpackOpened) {return;}
+//		else if(objectivesOpened){return;}
+		CIH.touchHandler();
 	}
 
 	@Override
@@ -408,6 +407,7 @@ public class Play extends GameState {
 		objects = null;
 		exits = null;
 		tileMap = null;
+		cam = null;
 	
 	}
 	public Player getPlayer() { return player;}

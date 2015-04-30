@@ -44,6 +44,7 @@ public class CharacterInteractionHandler {
 
 	}
 	public void update() {
+		eventHandler();
 		if (!event) {
 		currentEvent.update();
 		currentEvent.render(sb);
@@ -158,7 +159,7 @@ public class CharacterInteractionHandler {
 		    } 
 		} return false;
 	}
-	public void eventHandler(SpriteBatch sb) {
+	public void eventHandler() {
 		boolean incompleteEvent;
 		if (event) {
 		for(int i=0;i<npcs.size;i++){
