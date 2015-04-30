@@ -23,19 +23,20 @@ import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 //	Dialogue
 
 public class Data {
+	
 	public static File PlayerData = new File("Gamedata/PlayerData.txt");
-	public static ArrayList<Question> questions = new ArrayList<Question>();
+	public ArrayList<Question> questions = new ArrayList<Question>();
 	public Backpack bag;
-	public static Player player;
+	public Player player;
 	public UDSIS udsis;
 	public Online online;
 	
-	public static void readQ() throws FileNotFoundException {
+	public void readQ() throws FileNotFoundException {
 		
 		File QuestionFile = new File("Gamedata/Questions.txt");
 		Scanner infile = new Scanner(QuestionFile);
-		
-	    while (infile.hasNextLine()) {
+		int i = 0;
+	    while (infile.hasNextLine() && i < 5) {
 	        String currentLine = infile.nextLine();
 	        
 	        if (!currentLine.isEmpty()) {
@@ -43,6 +44,7 @@ public class Data {
 		        	Question q = new Question(new ArrayList<Answer>(), "" );
 	        		q.setQuestion(currentLine); 
 	        		questions.add(q);
+	        		i++;
 	        		} 
 	        }
 	    } infile.close();
@@ -50,7 +52,7 @@ public class Data {
 	
 //	In the textfile, always order correct answer directly after the question.
 
-	public static void readA() throws FileNotFoundException {
+	public void readA() throws FileNotFoundException {
 		
 		File QuestionFile = new File("Gamedata/Questions.txt");
 		Scanner infile = new Scanner(QuestionFile);
@@ -127,25 +129,25 @@ public class Data {
 	public static String getFilePath() {
 	    return PlayerData.getAbsolutePath();
 	}
-	public static ArrayList<Question> getQ() throws FileNotFoundException {
+	public ArrayList<Question> getQ() throws FileNotFoundException {
 		readQ();
 		readA();
 		return questions;
 	}
-	public static void main(String[] args) throws IOException {
-	    File pdata = new File("/Gamedata/PlayerData.txt");
-	    System.out.println(PlayerData.getAbsolutePath()+"\n");
-//		Testing Reading Questions
-		readQ();
-		readA();
-		for (Question aq : questions) {
-			System.out.println(aq.toString());
-			for (Answer a: aq.getAnswers()){
-				System.out.println(a.toString() + " = " + a.getBool());
-			} 
-		}
-		System.out.println(questions.size());
-		System.out.println(questions.get(2).getAnswers().size());
-
+	public void main(String[] args) throws IOException {
+//	    File pdata = new File("/Gamedata/PlayerData.txt");
+//	    System.out.println(PlayerData.getAbsolutePath()+"\n");
+////		Testing Reading Questions
+//		readQ();
+//		readA();
+//		for (Question aq : questions) {
+//			System.out.println(aq.toString());
+//			for (Answer a: aq.getAnswers()){
+//				System.out.println(a.toString() + " = " + a.getBool());
+//			} 
+//		}
+//		System.out.println(questions.size());
+//		System.out.println(questions.get(2).getAnswers().size());
+//
 	}
 }

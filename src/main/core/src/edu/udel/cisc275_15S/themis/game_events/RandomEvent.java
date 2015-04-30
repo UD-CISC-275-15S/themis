@@ -19,7 +19,7 @@ public class RandomEvent extends Event{
 		}
 
 		@Override
-		public void render(SpriteBatch sb, OrthographicCamera cam) {
+		public void render(SpriteBatch sb) {
 			// AUTO Auto-generated method stub
 			
 		}

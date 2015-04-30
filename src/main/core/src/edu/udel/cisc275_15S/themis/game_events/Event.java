@@ -24,7 +24,7 @@ public class Event {
 	public String name;//name of the event/quest/objective
 	public Player player;
 	protected Texture Avatar;
-	public boolean valid = true;
+	public boolean complete = true;
 	protected boolean dia = false; //Used to check if the current dialogue box is no longer writing text
 	protected boolean remainingdia = true; //used to check if theres any dialogue left
 	public boolean npccomplete = false; //This is used for NPC animation
@@ -44,7 +44,7 @@ public class Event {
 		diaAnimator();
 		DiaCounter();
 	}
-	public void render(SpriteBatch sb, OrthographicCamera cam) {
+	public void render(SpriteBatch sb) {
 		sb.begin();
 		tempDbg(sb);
 		sb.draw(Avatar, avatarX, animator, Avatar.getWidth(), Avatar.getHeight());
@@ -59,23 +59,23 @@ public class Event {
 		
 	}
 	
-	public Event(Player player, boolean valid, int animator, String name, Texture Avatar) {
+	public Event(Player player, boolean complete, int animator, String name, Texture Avatar) {
 		this.player = player;
-		this.valid = valid;
+		this.complete = complete;
 		this.animator = -200;
 		this.dialogue = 0;
 		this.name = name;
 	}
-	public Event(Player player, boolean valid, int animator, String name) {
+	public Event(Player player, boolean complete, int animator, String name) {
 		this.player = player;
-		this.valid = valid;
+		this.complete = complete;
 		this.animator = -200;
 		this.dialogue = 0;
 		this.name = name;
 	}
-	public Event(Player player, boolean valid, int animator, String name, String action, String item) {
+	public Event(Player player, boolean complete, int animator, String name, String action, String item) {
 		this.player = player;
-		this.valid = valid;
+		this.complete = complete;
 		this.animator = -200;
 		this.dialogue = 0;
 		this.name = name;
@@ -145,11 +145,11 @@ public class Event {
 //	Checks whether the Event has been completed and if so, set it to false.
 	public void EventComplete() {
 		if (dia && !remainingdia && TouchInputHandler.isClicked()) {
-			valid = false;
+			complete = false;
 		}
 	}
-	public boolean getValid() {
-		return valid;
+	public boolean getcomplete() {
+		return complete;
 	}
 	public boolean getnpccomplete() {
 		return npccomplete;

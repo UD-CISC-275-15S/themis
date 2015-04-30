@@ -17,10 +17,13 @@ public class NPC extends Character {
 	public NPC() {
 		
 	}
-	public NPC(TextureRegion[] sprite, float x, float y, int dir, String name, ArrayList<Event> event) {
+	public NPC(TextureRegion[] sprite, float x, float y, int dir, String name, ArrayList<Event> events) {
 		super(sprite, x, y, dir, name);
+		event = events;
 	}
-	public ArrayList<Event> getEvent() { return event;}
+	public ArrayList<Event> getEvents() { return event;}
+	public Event getEvent(int i) { return event.get(i);}
+
 	
 //	Method to have an NPC move randomly
 	private void randMovement() {

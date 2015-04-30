@@ -1,6 +1,7 @@
 package edu.udel.cisc275_15S.themis.handlers;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.utils.Array;
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_entities.NPC;
 import edu.udel.cisc275_15S.themis.game_entities.Player;
+import edu.udel.cisc275_15S.themis.game_entities.Character;
+import edu.udel.cisc275_15S.themis.game_events.Event;
 import edu.udel.cisc275_15S.themis.game_states.Play;
 import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
@@ -27,6 +30,9 @@ public class CharacterInteractionHandler {
 //	Tiles that the player cant pass through
 	public Play play;
 	private BitmapFont font;
+	public boolean event = true;
+	public Event currentEvent;
+	public SpriteBatch sb; 
 
 	
 	public CharacterInteractionHandler(Play gs) {
@@ -34,23 +40,39 @@ public class CharacterInteractionHandler {
 		player = gs.getPlayer();
 		npcs = gs.getNPCS();
 		play = gs;
+		sb = play.getSB();
 
 	}
-	public void update(float dt) {
-
-		touchHandler();
+	public void update() {
+		if (!event) {
+		currentEvent.update();
+		currentEvent.render(sb);
+		event = currentEvent.getcomplete();
+		}
+	}
+//	For moving NPC's
+	public void moveRight(Character ac) {
+		{ ac.setX(ac.getXpos()+MOVE); ac.setDir("right");	}
+	}
+	public void moveLeft(Character ac) {
+		{ ac.setX(ac.getXpos()-MOVE); ac.setDir("left");	}
+	}
+	public void moveUp(Character ac) {
+		{ ac.setY(ac.getYpos()+MOVE); ac.setDir("up");	}
+	}
+	public void moveDown(Character ac) {
+		{ ac.setY(ac.getYpos()-MOVE);; ac.setDir("down");	}
 	}
 	public void touchHandler() {
 		
-		if (TouchInputHandler.isClicked()) 
+		if (TouchInputHandler.isClicked() && event) 
 		{
 //			for testing purposes
 //			System.out.println("you are at screen cord: " + player.getXpos() + " , " + player.getYpos());
-			
-			if (checkright()) { player.setX(player.getXpos()+MOVE); player.setDir("right");}
-			if (checkleft()) { player.setX(player.getXpos()-MOVE); player.setDir("left");}
-			if (checkup()) { player.setY(player.getYpos()+MOVE); player.setDir("up");}
-			if (checkdown()){ player.setY(player.getYpos()-MOVE);; player.setDir("down");}
+			if (checkright()) {moveRight(player);}
+			if (checkleft()) {moveLeft(player);}
+			if (checkup()) {moveUp(player);}
+			if (checkdown()) {moveDown(player);}
 		}
 	}
 
@@ -59,9 +81,10 @@ public class CharacterInteractionHandler {
 		float LowerBound = Themis.HEIGHT - Themis.HEIGHT/4;
 		boolean check = false;
 		for (int i=0;i<play.getNPCS().size;i++){
-			if(((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20))
-					&&
-					((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
+			if(
+				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
+				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20)))
+			{
 				check = true;
 			}
 		}
@@ -76,9 +99,9 @@ public class CharacterInteractionHandler {
 		float LowerBound = Themis.HEIGHT - Themis.HEIGHT/4;
 		boolean check = false;
 		for (int i=0;i<play.getNPCS().size;i++){
-			if(((player.getX()+MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()+MOVE<=play.getNPCS().get(i).getX()+20))
-					&&
-					((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
+			if(
+				((player.getX()+MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()+MOVE<=play.getNPCS().get(i).getX()+20))&&
+				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
 				check = true;
 			}
 		}
@@ -135,7 +158,31 @@ public class CharacterInteractionHandler {
 		    } 
 		} return false;
 	}
-	
+	public void eventHandler(SpriteBatch sb) {
+		boolean incompleteEvent;
+		if (event) {
+		for(int i=0;i<npcs.size;i++){
+			if(
+					((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()-MOVE>=npcs.get(i).getY()-20)&&(player.getY()-MOVE<=npcs.get(i).getY()+20))
+			||		((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()+MOVE>=npcs.get(i).getY()-20)&&(player.getY()+MOVE<=npcs.get(i).getY()+20))
+			||
+				(
+				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
+				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20)))
+			||
+				(
+				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
+				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))))
+			{
+				incompleteEvent = npcs.get(i).getEvent(0).getcomplete();
+//				System.out.println(incompleteEvent);
+				if (!incompleteEvent){
+				currentEvent = npcs.get(i).getEvent(0);
+				event = false;} 
+				}
+			} 
+		} 
+	}
 	
 	public void render(SpriteBatch sb){
 //		Checking Collisions
@@ -148,10 +195,11 @@ public class CharacterInteractionHandler {
 		Rectangle rect1 = new Rectangle(player.getXpos()-MOVE, player.getYpos(), 20, 20);
 		Rectangle rect2 = new Rectangle(player.getXpos(), player.getYpos()+MOVE, 20, 20);
 		Rectangle rect3 = new Rectangle(player.getXpos()+MOVE, player.getYpos()-MOVE, 20, 20);
-
+		
 		if (Collision(rect)) {right.render(sb);}
 		if (Collision(rect1)) {left.render(sb);}
 		if (Collision(rect2)) {up.render(sb);}
 		if (Collision(rect3)) {down.render(sb);}
 	}
+	public boolean getEvent() { return event; }
 }

@@ -42,8 +42,6 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
-	private Quiz q;	
-	private boolean quiz = false;
 	private boolean newGame = false;
 	int i = 0;
 	public static String filepath = Data.getFilePath();
@@ -83,7 +81,6 @@ public class Play extends GameState {
 		CIH = new CharacterInteractionHandler(this);
 		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
 		hud = new HUD(player);
-		q = new Quiz();
 		back = new Buttons("<-- BACK",45,300);
 		
 		for (int i = 0; i < exits.size; i++) {
@@ -140,23 +137,35 @@ public class Play extends GameState {
 		npcs = new Array<NPC>();
 		randomEvent = new RandomEvent(null, false, 0, "name", null);
 
-		ArrayList<Event> al = new ArrayList<Event>();
-		al.add(randomEvent);
-		
 		MapLayer NPC = tileMap.getLayers().get("npc");	
 		MapObjects npcobjects;
-		npcobjects = NPC.getObjects();
-		
+		npcobjects = NPC.getObjects();		
+
 		for (RectangleMapObject npc : npcobjects.getByType(RectangleMapObject.class)) {
+			
 			float x =  (Float) npc.getProperties().get("x");
 			float y =  (Float) npc.getProperties().get("y");
 			Texture sprite = new Texture("Sprites/npcs/" + randNPC() + ".png");
-			TextureRegion[] NPCSprite = new TextureRegion[4];
+			TextureRegion[] NPCSprite = new TextureRegion[4];		
 			for(int j=0;j<4;j++){
 				NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
 			}
+			ArrayList<Event> al = new ArrayList<Event>();
+
+			try {
+				Data d = new Data();
+				Quiz Generic = new Quiz(d);
+				al.add(Generic);
+
+			} catch (FileNotFoundException e) {
+				System.out.print("Quiz cannot be loaded.");
+				e.printStackTrace();
+			}
 			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
 			npcs.add(anpc);
+			for (int i = 0; i < anpc.getEvents().size();i++){
+			if (anpc.getEvents().get(i) != null) {System.out.println("Event at index:" + i);}
+			}
 		}
 	}
 
@@ -306,23 +315,11 @@ public class Play extends GameState {
 		}
 	}
 
-	
-	public void testQuiz() {
-		if (!newGame && i == 0) {
-			quiz = true;
-			i++;
-		}
-		if (!newGame && i > 0) {
-			quiz = !q.getComplete(); 
-		}
-	}
 	public void update(float dt) {
 		handleInput();
 		player.update();
 		opened = player.getBag().isOpen() || player.getObjButton().isOpen();
-		if (quiz) { q.update(); }
-//		Comment out this line to hide quiz
-//		testQuiz();
+
 		if (!newGame) {
 			hud.update(dt);
 		}
@@ -336,7 +333,7 @@ public class Play extends GameState {
 		
 		if (newGame) {
 			Tutorial.update();
-			newGame = Tutorial.getValid();
+			newGame = Tutorial.getcomplete();
 		}
 		exited();
 	}
@@ -360,21 +357,12 @@ public class Play extends GameState {
 		if (newGame) {
 			Tutorial.render(sb, hudCam);
 		}
-		if (quiz) {
-			q.render(sb);
-		}
 		if(opened){
 			player.getBag().render(sb);
 			back.render(sb);
-			
 		}
-//		for(int i=0;i<npcs.size;i++){
-//			if(((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))
-//					&&
-//					((player.getY()-CharacterInteractionHandler.MOVE>=npcs.get(i).getY()-20)&&(player.getY()-CharacterInteractionHandler.MOVE<=npcs.get(i).getY()+20))){
-//				q.render(sb);
-//			}
-//		}
+		CIH.eventHandler(sb);
+		CIH.update();
 		hud.render(sb);
 		sb.setProjectionMatrix(cam.combined);
 //		System.out.println(sb.totalRenderCalls);
@@ -392,8 +380,7 @@ public class Play extends GameState {
 				opened=false;
 			}
 			return;} 
-		if (quiz) {return;}
-		else {CIH.touchHandler();}
+		CIH.touchHandler();
 	}
 
 	@Override
@@ -413,7 +400,6 @@ public class Play extends GameState {
 	public int getTMheight() { return tileMapHeight; }
 	public MapObjects getObjects() { return objects;}
 	public void setNewGame(boolean n) { newGame = n;}
-	public Quiz getQuiz(){return q;};
 	public SpriteBatch getSB(){return sb;}
 	public Array<Rectangle> getExits() { return exits;}
 

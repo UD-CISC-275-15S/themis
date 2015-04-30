@@ -37,21 +37,23 @@ public class Quiz extends Event {
 	public int currentQ;
 	public boolean complete = false;//Checks if the Quiz has been completed 
 	public boolean qVal = false;//Checks if the current question was answered correctly
+	static Data d;
 	
-	public Quiz() throws FileNotFoundException {
-		questions = Data.getQ();
+	public Quiz(Data d) throws FileNotFoundException {
+		Quiz.d = d;
+		questions = d.getQ();
 		shuffleAnswers();
 		currentQ = 0;
 		answers = questions.get(currentQ).getAnswers();
 		ans = convertToButtons();
 		complete = false;
+		System.out.println("This quiz has: " + questions.size() + " questions total.");
 	}
 	public void update() {
 		nextQ();
 		updateAns();
 	}
 	public void render(SpriteBatch sb) {
-		
 		
 		if (!complete) {
 			drawBoxes(sb);
@@ -107,7 +109,7 @@ public class Quiz extends Event {
 			Collections.shuffle(aq.getAnswers(), new Random(seed)); 
 //			System.out.println(aq.getQ());
 //			for (Answer an : aq.getAnswers()) {
-////				System.out.println(an.toString());
+//				System.out.println(an.toString());
 //			}
 		}
 	}
@@ -135,6 +137,8 @@ public class Quiz extends Event {
 			qVal = false;
 			currentQ++;
 			shuffleAnswers(); 
+			int remainingQ = questions.size() - currentQ;
+			System.out.println("Remaining Questions: " + remainingQ);
 			answers = questions.get(currentQ).getAnswers();
 			ans = convertToButtons();
 		}
@@ -157,7 +161,7 @@ public class Quiz extends Event {
 //			}
 //		}	
 	}
-	public boolean getComplete() {
+	public boolean getcomplete() {
 		return complete;
 	}
 }
