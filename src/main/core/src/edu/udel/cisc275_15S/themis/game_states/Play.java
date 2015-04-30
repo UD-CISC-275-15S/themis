@@ -42,7 +42,7 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
-	private boolean newGame = false;
+	private boolean newGame = true;
 	int i = 0;
 	public static String filepath = Data.getFilePath();
 	public static File PlayerData = new File(filepath);
@@ -320,8 +320,8 @@ public class Play extends GameState {
 		handleInput();
 //		player.update();
 
-//		backpackOpened = player.getBag().isOpen();
-//		objectivesOpened = player.getObjButton().isOpen();
+		backpackOpened = player.getBag().isOpen();
+		objectivesOpened = player.getObjButton().isOpen();
 //		Comment out this line to hide quiz
 //		testQuiz();
 		if (!newGame) {
@@ -335,11 +335,10 @@ public class Play extends GameState {
 			e.printStackTrace();
 		}
 		
-//		if (newGame) {
-//			Tutorial.update();
-//			newGame = Tutorial.getcomplete();
-//		}
-		
+		if (newGame) {
+			Tutorial.update();
+			newGame = Tutorial.getcomplete();
+		}
 		exited();
 		loadWeb();
 
@@ -365,12 +364,12 @@ public class Play extends GameState {
 			Tutorial.render(sb, hudCam);
 		}
 
-//		if(backpackOpened){
-//			player.getBag().render(sb);
-//		}
-//		if(objectivesOpened){
-//			player.getObjButton().render(sb);
-//		}
+		if(backpackOpened){
+			player.getBag().render(sb);
+		}
+		if(objectivesOpened){
+			player.getObjButton().render(sb);
+		}
 		CIH.update();
 		hud.render(sb);
 		sb.setProjectionMatrix(cam.combined);
@@ -389,12 +388,12 @@ public class Play extends GameState {
 	}
 	@Override
 	public void handleInput() {
-//		if(player.getBag().isDown()){
-//			player.getBag().setOpened(true);
-//		}
+		if(player.getBag().isDown()){
+			player.getBag().setOpened(true);
+		}
 		if (newGame) {return;}
-//		else if (backpackOpened) {return;}
-//		else if(objectivesOpened){return;}
+		else if (backpackOpened) {return;}
+		else if(objectivesOpened){return;}
 		CIH.touchHandler();
 	}
 
