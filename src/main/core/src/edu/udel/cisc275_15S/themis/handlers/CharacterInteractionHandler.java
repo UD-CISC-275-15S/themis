@@ -1,7 +1,8 @@
 package edu.udel.cisc275_15S.themis.handlers;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -33,6 +34,9 @@ public class CharacterInteractionHandler {
 	public boolean event = true;
 	public Event currentEvent;
 	public SpriteBatch sb; 
+	public int wallSwitch=0;
+	
+	private Sound wallHit = Gdx.audio.newSound(Gdx.files.internal("Audio/Bubble.mp3"));
 
 	
 	public CharacterInteractionHandler(Play gs) {
@@ -197,10 +201,32 @@ public class CharacterInteractionHandler {
 		Rectangle rect2 = new Rectangle(player.getXpos(), player.getYpos()+MOVE, 20, 20);
 		Rectangle rect3 = new Rectangle(player.getXpos()+MOVE, player.getYpos()-MOVE, 20, 20);
 		
-		if (Collision(rect)) {right.render(sb);}
-		if (Collision(rect1)) {left.render(sb);}
-		if (Collision(rect2)) {up.render(sb);}
-		if (Collision(rect3)) {down.render(sb);}
+		if (!Collision(rect) && !Collision(rect1) && !Collision(rect2) && !Collision(rect3))
+			wallSwitch=0;
+		if (Collision(rect)) {
+			right.render(sb);
+			if (wallSwitch == 0)
+				wallHit.play();
+				wallSwitch =1;
+			}
+		if (Collision(rect1)) {
+			left.render(sb);
+			if (wallSwitch == 0)
+				wallHit.play();
+				wallSwitch =1;
+			}
+		if (Collision(rect2)) {
+			up.render(sb);
+			if (wallSwitch == 0)
+				wallHit.play();
+				wallSwitch =1;
+			}
+		if (Collision(rect3)) {
+			down.render(sb);
+			if (wallSwitch == 0)
+				wallHit.play();
+				wallSwitch =1;
+			}
 	}
 	public boolean getEvent() { return event; }
 }
