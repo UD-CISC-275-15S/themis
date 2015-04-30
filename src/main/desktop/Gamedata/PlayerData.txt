@@ -1,10 +1,10 @@
 name:
 name
 x:
-134.0
+204.0
 y:
 494.0
 dir
-UP
+DOWN
 map:
 0
