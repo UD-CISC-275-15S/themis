@@ -1,7 +1,6 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,6 +24,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
+import edu.udel.cisc275_15S.themis.QuestionData;
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_entities.Character;
 import edu.udel.cisc275_15S.themis.game_entities.HUD;
@@ -64,9 +64,10 @@ public class Play extends GameState {
 	public MapObjects objects;
 	RandomEvent randomEvent;
 	private Tutorial Tutorial;
-	private boolean opened = false;
+	private boolean backpackOpened = false;
+	private boolean UDSISOpened = false;
+	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
-	private Buttons back;
 
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
@@ -84,7 +85,6 @@ public class Play extends GameState {
 		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
 		hud = new HUD(player);
 		q = new Quiz();
-		back = new Buttons("<-- BACK",45,300);
 		
 		for (int i = 0; i < exits.size; i++) {
 			System.out.println("Loaded: ");
@@ -319,7 +319,8 @@ public class Play extends GameState {
 	public void update(float dt) {
 		handleInput();
 		player.update();
-		opened = player.getBag().isOpen() || player.getObjButton().isOpen();
+		backpackOpened = player.getBag().isOpen();
+		objectivesOpened = player.getObjButton().isOpen();
 		if (quiz) { q.update(); }
 //		Comment out this line to hide quiz
 //		testQuiz();
@@ -365,9 +366,11 @@ public class Play extends GameState {
 		if (quiz) {
 			q.render(sb);
 		}
-		if(opened){
+		if(backpackOpened){
 			player.getBag().render(sb);
-			back.render(sb);
+		}
+		if(objectivesOpened){
+			player.getObjButton().render(sb);
 			
 		}
 //		for(int i=0;i<npcs.size;i++){
@@ -395,12 +398,8 @@ public class Play extends GameState {
 				e.printStackTrace();
 			}
 		}
-		if (opened) {
-			if(back.isDown()){
-				System.out.println("You pressed back!");
-				opened=false;
-			}
-			return;} 
+		if (backpackOpened) {return;}
+		if(objectivesOpened){return;}
 		if (quiz) {return;}
 		else {CIH.touchHandler();}
 	}
@@ -425,6 +424,7 @@ public class Play extends GameState {
 	public Quiz getQuiz(){return q;};
 	public SpriteBatch getSB(){return sb;}
 	public Array<Rectangle> getExits() { return exits;}
+	public String getFilepath(){ return filepath;}
 
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();

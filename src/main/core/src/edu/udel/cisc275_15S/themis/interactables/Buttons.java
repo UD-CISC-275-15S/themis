@@ -61,6 +61,7 @@ public class Buttons implements Interactable {
 			System.out.println("Button center is located at: " + x + "," + y);
 		}
 	}
+	public Texture getBGImage(){return bgImage;}
 	public boolean isDown() { return clicked; }
 	public float getX() {return x;}
 	public float getY() {return y;}

@@ -124,7 +124,8 @@ public class Quiz extends Event {
 						if (an.getBool()) {
 							qVal = true;
 							System.out.println("You just clicked the right Answer!!");
-						} else System.out.println("Thats...Wrong.");
+							//write line to QuestionData saying that user answered correctly
+						} else System.out.println("Thats...Wrong.");//edit line in questiondata to update wrong answers
 					}
 				}
 			}

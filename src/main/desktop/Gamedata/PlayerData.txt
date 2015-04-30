@@ -1,9 +1,9 @@
 name:
 name
 x:
-474.0
+494.0
 y:
-224.0
+294.0
 dir
 DOWN
 map:
