@@ -10,7 +10,7 @@ import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 public class Objectives extends Buttons implements Interactable {
 
 	
-	private Texture bgImage = new Texture(Gdx.files.internal("gfx/textbox.gif"));
+	
 	private boolean opened = false;
 	public boolean isOpen() {
 		return opened;

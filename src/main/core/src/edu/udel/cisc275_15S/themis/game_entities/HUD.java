@@ -56,9 +56,8 @@ public class HUD {
 		bag.render(sb);
 		obj.render(sb);
 		online.render(sb);
-		if (obj.isOpen()){
-			udsis.render(sb);
-			email.render(sb);
+		if (online.isDown()){
+			
 		}
 		
 	}

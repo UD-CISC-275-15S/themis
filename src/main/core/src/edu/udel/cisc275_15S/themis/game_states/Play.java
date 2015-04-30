@@ -338,6 +338,8 @@ public class Play extends GameState {
 			Tutorial.update();
 			newGame = Tutorial.getValid();
 		}
+		
+		
 		exited();
 	}
 
@@ -385,7 +387,14 @@ public class Play extends GameState {
 		if(player.getBag().isDown()){
 			player.getBag().setOpened(true);
 		}
-		if (newGame) {return;} 
+		if (newGame) {return;}
+		if (this.player.getOnline().isDown()){
+			try {
+				gsh.setState(GameStateHandler.WEB);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		if (opened) {
 			if(back.isDown()){
 				System.out.println("You pressed back!");
