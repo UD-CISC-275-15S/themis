@@ -73,7 +73,7 @@ public class Data {
 	    infile.close();
 	}
 	
-	public void readObjectives(Objectives obj) throws FileNotFoundException{
+	public static void readObjectives(Objectives obj) throws FileNotFoundException{
 		File ObjectiveFile = new File("Gamedata/Objectives.txt");
 		Scanner infile = new Scanner(ObjectiveFile);
 		obj.setNumObjectives(infile.nextInt());
@@ -86,7 +86,7 @@ public class Data {
 		infile.close();
 	}
 	
-	public void updateObjectives(Objectives obj) throws FileNotFoundException{
+	public static void updateObjectives(Objectives obj) throws FileNotFoundException{
 		File ObjectiveFile = new File("Gamedata/Objectives.txt");
 		Scanner infile = new Scanner(ObjectiveFile);
 		infile.nextLine();
