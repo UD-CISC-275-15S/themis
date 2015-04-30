@@ -55,8 +55,7 @@ public class Themis implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// AUTO Auto-generated method stub
-		
+		gsh.resize(width, height);
 	}
 
 	@Override

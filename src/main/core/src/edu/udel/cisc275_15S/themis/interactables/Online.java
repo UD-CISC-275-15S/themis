@@ -24,12 +24,6 @@ public class Online extends Buttons implements Interactable {
 	}
 
 	@Override
-	public void handleInput() {
-		// AUTO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void update(float dt) {
 		   dt = Gdx.graphics.getDeltaTime();
 	        if (dt < .016) {
@@ -41,11 +35,7 @@ public class Online extends Buttons implements Interactable {
 	@Override
 	public void render(SpriteBatch sb) {
 		super.render(sb);
-		if (opened) {
-			System.out.println("opening browser");
-			sb.begin();
-			sb.end();
-		}
+		
 	}
 
 }

@@ -35,8 +35,8 @@ public class TouchInputHandler {
 		} else down = false; 
 	}
 	public static boolean isWithinBounds(float x1, float y1, float width, float height){
-		Rectangle cursor = new Rectangle(TouchInputHandler.x - 7, TouchInputHandler.y - 7, 10, 10);
-		Rectangle button = new Rectangle(x1 - 20, Themis.HEIGHT - y1 - 20, width - 20, height);
+		Rectangle cursor = new Rectangle(TouchInputHandler.x - 15, TouchInputHandler.y - 15, 15, 15);
+		Rectangle button = new Rectangle(x1 - 10, Themis.HEIGHT - y1 - 10, width - 20, height);
 	    if (Intersector.overlaps(cursor, button)) {
 	        return true;
 	    } else return false;

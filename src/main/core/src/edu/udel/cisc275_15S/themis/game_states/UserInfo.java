@@ -116,6 +116,12 @@ public class UserInfo extends GameState{
 		skin = null;													// get rid of the UI settings data
 	}
 
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	
 }

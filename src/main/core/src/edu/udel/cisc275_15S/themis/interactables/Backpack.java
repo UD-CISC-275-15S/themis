@@ -12,9 +12,7 @@ import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 public class Backpack extends Buttons implements Interactable {
 	
 	private Array<item> items;
-	private Texture bgImage = new Texture(Gdx.files.internal("gfx/textbox.gif"));
 	private boolean opened = false;
-	private Buttons back;
 	public boolean isOpen() {
 		return opened;
 	}
@@ -48,7 +46,7 @@ public class Backpack extends Buttons implements Interactable {
 		if (opened) {
 			sb.begin();
 			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
-			sb.draw(bgImage, getX(), getY() + 32f);
+			sb.draw(super.getBGImage(), getX(), getY() + 32f);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			sb.end();
 		}

@@ -29,7 +29,7 @@ public abstract class GameState {
 	public abstract void update(float dt);
 	public abstract void render();
 	public abstract void dispose();
-	
+	public abstract void resize(int width, int height);
 }
 	
 

@@ -1,5 +1,6 @@
 package edu.udel.cisc275_15S.themis.interactables;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +16,7 @@ public class Buttons implements Interactable {
 	protected Texture image;
 	protected boolean clicked = false;
 	protected String string;
+	protected Texture bgImage = new Texture(Gdx.files.internal("gfx/textbox.gif"));
 	
 	public Buttons(Texture image, float x, float y) {
 		this.image = image;
@@ -54,11 +56,12 @@ public class Buttons implements Interactable {
 
 	@Override
 	public void handleInput() {
-		if (TouchInputHandler.isClicked() && TouchInputHandler.isWithinBounds(x + 20, y, width, Themis.HEIGHT - height)){
+		if (Gdx.input.justTouched() && TouchInputHandler.isWithinBounds(x, y, width, Themis.HEIGHT - height)){
 			clicked = !clicked;
-			System.out.println(this.toString() + "Button center is located at: " + x + "," + y);
+			System.out.println("Button center is located at: " + x + "," + y);
 		}
 	}
+	public Texture getBGImage(){return bgImage;}
 	public boolean isDown() { return clicked; }
 	public float getX() {return x;}
 	public float getY() {return y;}

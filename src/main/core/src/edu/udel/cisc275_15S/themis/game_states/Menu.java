@@ -97,4 +97,10 @@ public class Menu extends GameState {
 			// AUTO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void resize(int width, int height) {
+			// TODO Auto-generated method stub
+			
+		}
 }

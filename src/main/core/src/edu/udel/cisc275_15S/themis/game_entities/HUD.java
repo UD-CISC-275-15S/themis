@@ -55,12 +55,7 @@ public class HUD {
 	public void render(SpriteBatch sb){
 		bag.render(sb);
 		obj.render(sb);
-		online.render(sb);
-		if (obj.isOpen()){
-			udsis.render(sb);
-			email.render(sb);
-		}
-		
+		online.render(sb);		
 	}
 	
 }

@@ -36,7 +36,9 @@ public class GameStateHandler {
 //		Look at the current GameState without popping it off the stack, and use its update && render methods
 			gameStates.peek().update(dt);
 		}
-		
+		public void resize(int width, int height) {
+			gameStates.peek().resize(width, height);
+		}
 		public void render() {
 			gameStates.peek().render();
 		}
