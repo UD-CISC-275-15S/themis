@@ -42,7 +42,7 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
-	private boolean newGame = true;
+	private boolean newGame = false;
 	int i = 0;
 	public static String filepath = Data.getFilePath();
 	public static File PlayerData = new File(filepath);
