@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +27,7 @@ public class Themis implements ApplicationListener {
 	private float accum;
 	public static final float STEP = 1/60f; // frames per second
 	
+	private Music background;
 	private SpriteBatch sb;
 	private OrthographicCamera hudcam; // our HUD which will display the backpack, UDSIS, resources, info etc. Does not move
 	private MainCamera cam; // main game camera
@@ -38,6 +40,9 @@ public class Themis implements ApplicationListener {
 	@Override
 	public void create() {
 		
+		background = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
+		background.play();
+		background.setLooping(true);
 		sb = new SpriteBatch();
 		cam = new MainCamera();
 		cam.setToOrtho(false, WIDTH, HEIGHT);

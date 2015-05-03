@@ -1,14 +1,13 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
 import java.io.FileNotFoundException;
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,6 +37,8 @@ public class Quiz extends Event {
 	public boolean complete = false;//Checks if the Quiz has been completed 
 	public boolean qVal = false;//Checks if the current question was answered correctly
 	static Data d;
+	public Sound right = Gdx.audio.newSound(Gdx.files.internal("Audio/Bright.mp3"));
+	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
 	
 	public Quiz(Data d) throws FileNotFoundException {
 		Quiz.d = d;
@@ -126,8 +127,13 @@ public class Quiz extends Event {
 						if (an.getBool()) {
 							qVal = true;
 							System.out.println("You just clicked the right Answer!!");
+							right.play();
 							//write line to QuestionData saying that user answered correctly
-						} else System.out.println("Thats...Wrong.");//edit line in questiondata to update wrong answers
+						} else{
+							System.out.println("Thats...Wrong.");
+							wrong.play();
+							//edit line in questiondata to update wrong answers
+						}
 					}
 				}
 			}
