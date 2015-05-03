@@ -42,7 +42,7 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
-	private boolean newGame = false;
+	private boolean newGame = true;
 	int i = 0;
 	public static String filepath = Data.getFilePath();
 	public static File PlayerData = new File(filepath);
@@ -180,7 +180,7 @@ public class Play extends GameState {
 	//	Load the tile map, surface layers
 	//	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
 	private void LoadMap() {
-		//		When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
+	//	When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
 		
 		String map = "trabant.tmx";
 		switch (mapIndex) {
@@ -335,10 +335,10 @@ public class Play extends GameState {
 			e.printStackTrace();
 		}
 		
-//		if (newGame) {
-//			Tutorial.update();
-//			newGame = Tutorial.getcomplete();
-//		}
+		if (newGame) {
+			Tutorial.update();
+			newGame = Tutorial.getcomplete();
+		}
 		
 		exited();
 		loadWeb();
