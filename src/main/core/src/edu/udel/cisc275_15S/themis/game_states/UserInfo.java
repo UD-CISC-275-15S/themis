@@ -79,6 +79,7 @@ public class UserInfo extends GameState{
 	public void startClicked(){
 		try {
 			gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
+			gsh.game().background.dispose();
 			bg.dispose();												// dispose of the large image file
 			this.dispose();												// dispose the data loaded into this class
 		} catch (FileNotFoundException e) {
