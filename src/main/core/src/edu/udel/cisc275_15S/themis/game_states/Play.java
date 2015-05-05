@@ -189,6 +189,16 @@ public class Play extends GameState {
 				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Glass.mp3"));
 				music.play();
 				break;
+			case 1: 
+				musicMap=1;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
+				music.play();
+				break;
+			case 2:
+				musicMap= 2;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Happy.mp3"));
+				music.play();
+				break;
 			default:
 				musicMap = mapIndex;
 				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
