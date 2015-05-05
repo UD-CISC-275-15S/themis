@@ -1,0 +1,20 @@
+Author: Chris Beam
+Readers: Kyle
+Recorder: Mark
+
+Objectives and data class
+New images for Objective circles
+Fix update method to update once and check whether objectives have been completed
+- change images accordingly
+Change Data class to use libGDX filehandle
+
+Author: Kyle Holmes
+Readers: Chris
+Recorder: Mark
+
+Play → Update Music
+CharacterInteractionHandler
+
+Adding additional music methods for UserInfo 
+Add comments surrounding audio methods in classes 
+wallHit/other value checkers inilitialized to an integer so that a certain sounds can be played multiple times
