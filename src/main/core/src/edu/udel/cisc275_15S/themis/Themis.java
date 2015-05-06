@@ -27,7 +27,7 @@ public class Themis implements ApplicationListener {
 	private float accum;
 	public static final float STEP = 1/60f; // frames per second
 	
-	private Music background;
+	public Music background;
 	private SpriteBatch sb;
 	private OrthographicCamera hudcam; // our HUD which will display the backpack, UDSIS, resources, info etc. Does not move
 	private MainCamera cam; // main game camera

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -66,6 +67,9 @@ public class Play extends GameState {
 	private boolean UDSISOpened = false;
 	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
+	
+	private Music music;
+	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
 
 	public Play(GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
@@ -174,6 +178,32 @@ public class Play extends GameState {
 	private void populateNPCs(){
 		for(int i=0;i<npcs.size;i++){
 			npcs.get(i).render(sb);
+		}
+	}
+	
+	public void updateMusic(){
+		if (musicMap != mapIndex){
+			switch (mapIndex) {
+			case 0:
+				musicMap = 0;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Glass.mp3"));
+				music.play();
+				break;
+			case 1: 
+				musicMap=1;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
+				music.play();
+				break;
+			case 2:
+				musicMap= 2;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Happy.mp3"));
+				music.play();
+				break;
+			default:
+				musicMap = mapIndex;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
+				music.play();
+			}
 		}
 	}
 
@@ -350,6 +380,8 @@ public class Play extends GameState {
 
 		cam.setPosition(player.getXpos(), player.getYpos());
 		cam.update();
+		
+		updateMusic();
 		
 		renderer.setView(cam);
 		renderer.render();
