@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
-public class Buttons implements Interactable {
+public class Buttons extends Button implements Interactable {
 	protected float x;
 	protected float y;
 	protected float width;
@@ -26,6 +27,7 @@ public class Buttons implements Interactable {
 		height = image.getHeight();
 		System.out.println("This button is at "+x+" "+width+", "+y+" "+height);
 	}
+	
 	public Buttons(String string, float x, float y) {
 		this.string = string;
 		this.y = y;
