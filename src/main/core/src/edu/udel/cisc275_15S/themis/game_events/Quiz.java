@@ -42,7 +42,7 @@ public class Quiz extends Event {
 	static Data d;
 	public Sound right = Gdx.audio.newSound(Gdx.files.internal("Audio/Bright.mp3"));
 	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
-	public static File QuestionData = new File("Gamedata/QuestionData.txt");
+	public static File QuestionData = new File("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
 	
 	public Quiz(Data d) throws FileNotFoundException {
 		Quiz.d = d;
@@ -192,7 +192,6 @@ public class Quiz extends Event {
 			int thirdSlashIndex = currentLine.indexOf("/", nextSlashIndex + 1);
 			int numWrong = Integer.parseInt(currentLine.substring(slashIndex + 1, nextSlashIndex));
 			int questionTime = Integer.parseInt(currentLine.substring(nextSlashIndex + 1, thirdSlashIndex));
-			
 			
 			if(currentLine.isEmpty()) {
 				if(correct) { writer.println(question+"/0/"+time+"/yes"); }
