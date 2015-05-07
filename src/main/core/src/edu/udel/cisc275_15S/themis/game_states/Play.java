@@ -25,7 +25,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
-import edu.udel.cisc275_15S.themis.QuestionData;
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_entities.Character;
 import edu.udel.cisc275_15S.themis.game_entities.HUD;
