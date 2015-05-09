@@ -37,6 +37,7 @@ public class Quiz extends Event {
 	public int currentQ;
 	public boolean complete = false;//Checks if the Quiz has been completed 
 	public boolean qVal = false;//Checks if the current question was answered correctly
+	public BitmapFont q = new BitmapFont();
 	static Data d;
 	
 	public Quiz(Data d) throws FileNotFoundException {
@@ -96,7 +97,6 @@ public class Quiz extends Event {
 		sb.end();
 	}
 	public void drawQ(SpriteBatch sb) {
-		BitmapFont q = new BitmapFont();
 		drawBoxes(sb);
 		sb.begin();	
 		q.drawWrapped(sb, questions.get(currentQ).getQ(), Themis.WIDTH / 18 , Themis.HEIGHT-Themis.HEIGHT/8, Themis.WIDTH);

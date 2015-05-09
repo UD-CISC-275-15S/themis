@@ -42,7 +42,7 @@ import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
-	private boolean newGame = true;
+	private boolean newGame = false;
 	int i = 0;
 	public static String filepath = Data.getFilePath();
 	public static File PlayerData = new File(filepath);
@@ -162,6 +162,7 @@ public class Play extends GameState {
 				System.out.print("Quiz cannot be loaded.");
 				e.printStackTrace();
 			}
+//			al.add(randomEvent);
 			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
 			npcs.add(anpc);
 			for (int i = 0; i < anpc.getEvents().size();i++){
@@ -320,26 +321,25 @@ public class Play extends GameState {
 		handleInput();
 //		player.update();
 
-//		backpackOpened = player.getBag().isOpen();
-//		objectivesOpened = player.getObjButton().isOpen();
+		backpackOpened = player.getBag().isOpen();
+		objectivesOpened = player.getObjButton().isOpen();
 //		Comment out this line to hide quiz
 //		testQuiz();
 		if (!newGame) {
 			hud.update(dt);
 		}
-		try {
-			Data.savePlayerData(filepath, "name" ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Data.savePlayerData(filepath, "name" ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		
 		if (newGame) {
 			Tutorial.update();
 			newGame = Tutorial.getcomplete();
 		}
-		
 		exited();
 		loadWeb();
 
@@ -365,12 +365,12 @@ public class Play extends GameState {
 			Tutorial.render(sb, hudCam);
 		}
 
-//		if(backpackOpened){
-//			player.getBag().render(sb);
-//		}
-//		if(objectivesOpened){
-//			player.getObjButton().render(sb);
-//		}
+		if(backpackOpened){
+			player.getBag().render(sb);
+		}
+		if(objectivesOpened){
+			player.getObjButton().render(sb);
+		}
 		CIH.update();
 		hud.render(sb);
 		sb.setProjectionMatrix(cam.combined);
@@ -389,12 +389,12 @@ public class Play extends GameState {
 	}
 	@Override
 	public void handleInput() {
-//		if(player.getBag().isDown()){
-//			player.getBag().setOpened(true);
-//		}
+		if(player.getBag().isDown()){
+			player.getBag().setOpened(true);
+		}
 		if (newGame) {return;}
-//		else if (backpackOpened) {return;}
-//		else if(objectivesOpened){return;}
+		else if (backpackOpened) {return;}
+		else if(objectivesOpened){return;}
 		CIH.touchHandler();
 	}
 

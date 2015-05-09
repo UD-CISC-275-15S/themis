@@ -15,6 +15,7 @@ import edu.udel.cisc275_15S.themis.interactables.Online;
 import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
 
+import com.badlogic.gdx.graphics.Texture;
 //	This class is used for loading Data from our GameData folder
 //	GameData consists of:
 //	In Game Questions
@@ -31,7 +32,6 @@ public class Data {
 	public Player player;
 	public UDSIS udsis;
 	public Online online;
-	private Objectives obj;
 	
 	public void readQ() throws FileNotFoundException {
 		
@@ -73,12 +73,22 @@ public class Data {
 	    infile.close();
 	}
 	
-	public static void readObjectives(Objectives obj) throws FileNotFoundException{
+	public void readObjectives(Objectives obj, Texture incomplete, Texture attempt, Texture complete) throws FileNotFoundException{
 		File ObjectiveFile = new File("Gamedata/Objectives.txt");
+		
 		Scanner infile = new Scanner(ObjectiveFile);
 		obj.setNumObjectives(infile.nextInt());
 		while(infile.hasNext()){
-			obj.addComplete(new Integer(infile.nextInt()));
+			String s = infile.next();
+			if(s.equals("0")){
+				obj.addComplete(incomplete);
+			}
+			if(s.equals("1")){
+				obj.addComplete(attempt);
+			}
+			if(s.equals("2")){
+				obj.addComplete(complete);
+			}
 			System.out.println(0);
 			obj.addText(infile.nextLine());
 			System.out.println(1);
@@ -86,7 +96,7 @@ public class Data {
 		infile.close();
 	}
 	
-	public static void updateObjectives(Objectives obj) throws FileNotFoundException{
+/*	public void updateObjectives(Objectives obj) throws FileNotFoundException{
 		File ObjectiveFile = new File("Gamedata/Objectives.txt");
 		Scanner infile = new Scanner(ObjectiveFile);
 		infile.nextLine();
@@ -96,7 +106,7 @@ public class Data {
 			infile.nextLine();
 		}
 		infile.close();
-	}
+	}*/
 	
 	public static float readPlayer(File data, String p) throws FileNotFoundException {
 		Scanner infile = new Scanner(data);
