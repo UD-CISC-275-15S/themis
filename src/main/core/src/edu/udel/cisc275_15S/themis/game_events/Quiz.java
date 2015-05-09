@@ -1,14 +1,16 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-
-
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,6 +41,9 @@ public class Quiz extends Event {
 	public boolean qVal = false;//Checks if the current question was answered correctly
 	public BitmapFont q = new BitmapFont();
 	static Data d;
+	public Sound right = Gdx.audio.newSound(Gdx.files.internal("Audio/Bright.mp3"));
+	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
+	public static File QuestionData = new File("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
 	
 	public Quiz(Data d) throws FileNotFoundException {
 		Quiz.d = d;
@@ -52,7 +57,12 @@ public class Quiz extends Event {
 	}
 	public void update() {
 		nextQ();
-		updateAns();
+		try {
+			updateAns();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void render(SpriteBatch sb) {
 		
@@ -113,7 +123,7 @@ public class Quiz extends Event {
 //			}
 		}
 	}
-	public void updateAns() {
+	public void updateAns() throws FileNotFoundException {
 		float x = 0;
 		float y = 0; 
 		for (Buttons but : ans) {
@@ -126,8 +136,13 @@ public class Quiz extends Event {
 						if (an.getBool()) {
 							qVal = true;
 							System.out.println("You just clicked the right Answer!!");
-							//write line to QuestionData saying that user answered correctly
-						} else System.out.println("Thats...Wrong.");//edit line in questiondata to update wrong answers
+							right.play();
+							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
+						} else{
+							System.out.println("Thats...Wrong.");
+							wrong.play();
+							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
+						}
 					}
 				}
 			}
@@ -164,5 +179,28 @@ public class Quiz extends Event {
 	}
 	public boolean getcomplete() {
 		return complete;
+	}
+	
+	public static void processAnswer(String question, boolean correct, int time) throws FileNotFoundException {
+		Scanner infile = new Scanner(QuestionData);
+		PrintWriter writer = new PrintWriter(QuestionData);
+		
+		while(infile.hasNextLine()) {
+			String currentLine = infile.nextLine();
+			int slashIndex = currentLine.indexOf("/", 0);
+			int nextSlashIndex = currentLine.indexOf("/", slashIndex + 1);
+			int thirdSlashIndex = currentLine.indexOf("/", nextSlashIndex + 1);
+			int numWrong = Integer.parseInt(currentLine.substring(slashIndex + 1, nextSlashIndex));
+			int questionTime = Integer.parseInt(currentLine.substring(nextSlashIndex + 1, thirdSlashIndex));
+			
+			if(currentLine.isEmpty()) {
+				if(correct) { writer.println(question+"/0/"+time+"/yes"); }
+				else { writer.println(question+"/1/"+time+"/no"); }
+			}
+			else if(currentLine.startsWith(question)) {
+				if(correct) { writer.println(question+"/"+Integer.toString(numWrong)+"/"+Integer.toString(time+questionTime)+"/yes"); }
+				else { writer.println(question+"/"+Integer.toString(numWrong + 1)+"/"+Integer.toString(time+questionTime)+"/no"); }
+			}
+		}
 	}
 }
