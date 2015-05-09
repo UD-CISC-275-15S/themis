@@ -21,7 +21,7 @@ public class Objectives extends Buttons implements Interactable{
 	private boolean opened=false;
 	private int numObjectives;
 	private ArrayList<String> objectiveText;
-	private ArrayList<Texture> objectiveCompleteness;
+	private ArrayList<Texture> objectiveCompleteness = new ArrayList<Texture>();
 	private Data d = new Data();
 	BitmapFont text = new BitmapFont();
 	
@@ -87,7 +87,7 @@ public class Objectives extends Buttons implements Interactable{
 		}
 	}*/
 	public void updateObjectives(){
-		objectiveCompleteness = new ArrayList<Texture>();
+//		objectiveCompleteness = new ArrayList<Texture>();
 		/*try{
 			d.updateObjectives(this);
 		}

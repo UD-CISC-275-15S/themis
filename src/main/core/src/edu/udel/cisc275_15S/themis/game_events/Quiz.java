@@ -137,11 +137,11 @@ public class Quiz extends Event {
 							qVal = true;
 							System.out.println("You just clicked the right Answer!!");
 							right.play();
-							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
+//							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
 						} else{
 							System.out.println("Thats...Wrong.");
 							wrong.play();
-							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
+//							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
 						}
 					}
 				}
