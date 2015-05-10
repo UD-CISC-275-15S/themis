@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.Data;
@@ -36,7 +36,7 @@ public class Objectives extends Buttons implements Interactable{
 		try{
 			d.readObjectives(this,incompleteImage,attemptedImage,completedImage);
 		}
-		catch(FileNotFoundException e){
+		catch(IOException e){
 			e.printStackTrace();
 		}
 	}

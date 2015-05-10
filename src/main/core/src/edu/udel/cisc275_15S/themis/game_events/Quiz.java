@@ -1,20 +1,20 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import edu.udel.cisc275_15S.themis.Answer;
 import edu.udel.cisc275_15S.themis.Data;
@@ -30,8 +30,8 @@ public class Quiz extends Event {
 //	Button Width & Height
 	public final int WIDTH = 130;
 	public final int HEIGHT = 25;
-	public ArrayList<Question> questions;
-	public ArrayList<Answer> answers;
+	public Array<Question> questions;
+	public Array<Answer> answers;
 	public Array<Buttons> ans;
 	public Texture temp = new Texture("gfx/themismenubg.jpg");
 	public Texture Qbg = new Texture("gfx/textbox.gif");
@@ -44,7 +44,7 @@ public class Quiz extends Event {
 	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
 	public static File QuestionData = new File("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
 	
-	public Quiz(Data d) throws FileNotFoundException {
+	public Quiz(Data d) throws IOException {
 		Quiz.d = d;
 		questions = d.getQ();
 		shuffleAnswers();
@@ -52,13 +52,13 @@ public class Quiz extends Event {
 		answers = questions.get(currentQ).getAnswers();
 		ans = convertToButtons();
 		complete = false;
-		System.out.println("This quiz has: " + questions.size() + " questions total.");
+		System.out.println("This quiz has: " + questions.size + " questions total.");
 	}
 	public void update() {
 		nextQ();
 		try {
 			updateAns();
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -114,16 +114,16 @@ public class Quiz extends Event {
 	
 	}
 	public void shuffleAnswers() {
-		long seed = System.nanoTime();
+		long seed = TimeUtils.nanoTime();
 		for (Question aq : questions) {
-			Collections.shuffle(aq.getAnswers(), new Random(seed)); 
+			aq.getAnswers().shuffle();
 //			System.out.println(aq.getQ());
 //			for (Answer an : aq.getAnswers()) {
 //				System.out.println(an.toString());
 //			}
 		}
 	}
-	public void updateAns() throws FileNotFoundException {
+	public void updateAns() throws IOException {
 		float x = 0;
 		float y = 0; 
 		for (Buttons but : ans) {
@@ -149,16 +149,16 @@ public class Quiz extends Event {
 		}
 	}
 	public void nextQ() {
-		if (qVal && currentQ != questions.size()-1) {
+		if (qVal && currentQ != questions.size-1) {
 			qVal = false;
 			currentQ++;
 			shuffleAnswers(); 
-			int remainingQ = questions.size() - currentQ;
+			int remainingQ = questions.size - currentQ;
 			System.out.println("Remaining Questions: " + remainingQ);
 			answers = questions.get(currentQ).getAnswers();
 			ans = convertToButtons();
 		}
-		if (qVal && currentQ == questions.size()-1) {
+		if (qVal && currentQ == questions.size-1) {
 			complete = true;
 			temp.dispose();
 			Qbg.dispose();
@@ -181,26 +181,27 @@ public class Quiz extends Event {
 		return complete;
 	}
 	
-	public static void processAnswer(String question, boolean correct, int time) throws FileNotFoundException {
-		Scanner infile = new Scanner(QuestionData);
-		PrintWriter writer = new PrintWriter(QuestionData);
-		
-		while(infile.hasNextLine()) {
-			String currentLine = infile.nextLine();
-			int slashIndex = currentLine.indexOf("/", 0);
-			int nextSlashIndex = currentLine.indexOf("/", slashIndex + 1);
-			int thirdSlashIndex = currentLine.indexOf("/", nextSlashIndex + 1);
-			int numWrong = Integer.parseInt(currentLine.substring(slashIndex + 1, nextSlashIndex));
-			int questionTime = Integer.parseInt(currentLine.substring(nextSlashIndex + 1, thirdSlashIndex));
+	public static void processAnswer(String question, boolean correct, int time) throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		FileHandle outfile = Gdx.files.local("Gamedata/PlayerData.txt");
+		String str = null;
+		while((str = br.readLine())!=null) {
+			int slashIndex = str.indexOf("/", 0);
+			int nextSlashIndex = str.indexOf("/", slashIndex + 1);
+			int thirdSlashIndex = str.indexOf("/", nextSlashIndex + 1);
+			int numWrong = Integer.parseInt(str.substring(slashIndex + 1, nextSlashIndex));
+			int questionTime = Integer.parseInt(str.substring(nextSlashIndex + 1, thirdSlashIndex));
 			
-			if(currentLine.isEmpty()) {
-				if(correct) { writer.println(question+"/0/"+time+"/yes"); }
-				else { writer.println(question+"/1/"+time+"/no"); }
+			if(str.isEmpty()) {
+				if(correct) { outfile.writeString(question+"/0/"+time+"/yes\n",false); }
+				else { outfile.writeString(question+"/1/"+time+"/no\n",false); }
 			}
-			else if(currentLine.startsWith(question)) {
-				if(correct) { writer.println(question+"/"+Integer.toString(numWrong)+"/"+Integer.toString(time+questionTime)+"/yes"); }
-				else { writer.println(question+"/"+Integer.toString(numWrong + 1)+"/"+Integer.toString(time+questionTime)+"/no"); }
+			else if(str.startsWith(question)) {
+				if(correct) { outfile.writeString(question+"/"+Integer.toString(numWrong)+"/"+Integer.toString(time+questionTime)+"/yes\n",false); }
+				else { outfile.writeString(question+"/"+Integer.toString(numWrong + 1)+"/"+Integer.toString(time+questionTime)+"/no\n",false); }
 			}
 		}
+		br.close();
 	}
 }

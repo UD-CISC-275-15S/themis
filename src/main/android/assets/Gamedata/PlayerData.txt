@@ -1,8 +1,10 @@
 name:
-RandomName
-x
-400
-y
-300
+name
+x:
+64.0
+y:
+336.0
 dir
 UP
+map:
+1

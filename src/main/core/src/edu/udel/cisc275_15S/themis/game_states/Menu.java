@@ -1,6 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -45,7 +46,7 @@ public class Menu extends GameState {
 					bg.dispose();
 					ud.dispose();
 					play.dispose();
-				} catch (FileNotFoundException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}

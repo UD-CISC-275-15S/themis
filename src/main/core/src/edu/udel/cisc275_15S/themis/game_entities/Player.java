@@ -97,11 +97,11 @@ public class Player extends Character {
 //	Use I/O methods to read and set the players bag, objectives and X and Y positions
 //	Also save the users X and Y position on update
 	
-	public void setPos(File data) throws FileNotFoundException {
-		setX(Data.readPlayer(data, "x"));
-		setY(Data.readPlayer(data, "y"));
-		setName(Data.readPlayerName(data, "name"));
-		setDir(Data.readPlayerDir(data));
+	public void setPos() throws IOException {
+		setX(Data.readPlayer( "x"));
+		setY(Data.readPlayer( "y"));
+		setName(Data.readPlayerName( "name"));
+		setDir(Data.readPlayerDir());
 
 	}
 	public Backpack setUserBag() {

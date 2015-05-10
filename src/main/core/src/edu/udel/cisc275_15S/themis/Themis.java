@@ -2,6 +2,7 @@ package edu.udel.cisc275_15S.themis;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -50,7 +51,7 @@ public class Themis implements ApplicationListener {
 		hudcam.setToOrtho(false,WIDTH,HEIGHT);
 		try {
 			gsh = new GameStateHandler(this);
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			// AUTO Auto-generated catch block
 			e.printStackTrace();
 		}

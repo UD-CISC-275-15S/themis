@@ -1,6 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -82,7 +83,7 @@ public class UserInfo extends GameState{
 			gsh.game().background.dispose();
 			bg.dispose();												// dispose of the large image file
 			this.dispose();												// dispose the data loaded into this class
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -1,7 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.FileNotFoundException;
-
+import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -52,7 +52,7 @@ public class Web extends GameState {
 		if (back.isDown()){
 			try {
 				gsh.setState(GameStateHandler.PLAY);
-			} catch (FileNotFoundException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}

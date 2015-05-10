@@ -44,8 +44,6 @@ public class Play extends GameState {
 
 	private boolean newGame = false;
 	int i = 0;
-	public static String filepath = Data.getFilePath();
-	public static File PlayerData = new File(filepath);
 	private static Player player;
 	
 	private int tileMapWidth;
@@ -70,7 +68,7 @@ public class Play extends GameState {
 	private Music music;
 	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
 
-	public Play(GameStateHandler gsh) throws FileNotFoundException {
+	public Play(GameStateHandler gsh) throws IOException {
 		super(gsh);
 		this.gsh=gsh;
 		
@@ -93,7 +91,7 @@ public class Play extends GameState {
 		
 	}
 
-	private static void CreatePlayer() throws FileNotFoundException {
+	private static void CreatePlayer() throws IOException {
 
 		Texture sprite = new Texture("Sprites/link.png");
 
@@ -101,16 +99,16 @@ public class Play extends GameState {
 		for (int i = 0; i < 4; i++){
 			PlayerSprite[i] = new TextureRegion(sprite, i * 50, 0, 32, 32);
 		}
-		String name = Data.readPlayerName(PlayerData, "name");
-		Float x = (Data.readPlayer(PlayerData, "x"));
-		Float y = (Data.readPlayer(PlayerData, "y"));
+		String name = Data.readPlayerName("name");
+		Float x = (Data.readPlayer("x"));
+		Float y = (Data.readPlayer("y"));
 		
-		float map = (Data.readPlayer(PlayerData, "map"));
+		float map = (Data.readPlayer("map"));
 		mapIndex = (int) map;
 //		
 //		Float x = 50f;
 //		Float y = 450f;
-		String dir = (Data.readPlayerDir(PlayerData));
+		String dir = (Data.readPlayerDir());
 
 		player = new Player(PlayerSprite, x, y, Character.DOWN, name);
 		player.setUserBag();
@@ -161,7 +159,7 @@ public class Play extends GameState {
 				Quiz Generic = new Quiz(d);
 				al.add(Generic);
 
-			} catch (FileNotFoundException e) {
+			} catch (IOException e) {
 				System.out.print("Quiz cannot be loaded.");
 				e.printStackTrace();
 			}
@@ -334,15 +332,12 @@ public class Play extends GameState {
 			}
 		
 				try {
-			Data.savePlayerData(filepath, "" ,x , y,player.getDirString(player.getDir()),map); // TODO get player name from textfield
+			Data.savePlayerData(player.getName() ,x , y,player.getDirString(player.getDir()),map); // TODO get player name from textfield
 			gsh.setState(GameStateHandler.PLAY);
 			
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		}
+		}}
 	}
 
 	public void update(float dt) {
@@ -357,13 +352,10 @@ public class Play extends GameState {
 			hud.update(dt);
 		}
 		try {
-			Data.savePlayerData(filepath, "name" ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		if (newGame) {
 			Tutorial.update();
 			newGame = Tutorial.getcomplete();
@@ -412,7 +404,7 @@ public class Play extends GameState {
 			try {
 				gsh.setState(GameStateHandler.WEB);
 				System.out.println("Web loaded");
-			} catch (FileNotFoundException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -448,7 +440,6 @@ public class Play extends GameState {
 	public void setNewGame(boolean n) { newGame = n;}
 	public SpriteBatch getSB(){return sb;}
 	public Array<Rectangle> getExits() { return exits;}
-	public String getFilepath(){ return filepath;}
 
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();

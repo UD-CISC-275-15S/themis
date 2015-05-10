@@ -4,10 +4,10 @@ package edu.udel.cisc275_15S.themis;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.OutputStream;
 
 import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
@@ -15,7 +15,10 @@ import edu.udel.cisc275_15S.themis.interactables.Online;
 import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.Gdx;
 //	This class is used for loading Data from our GameData folder
 //	GameData consists of:
 //	In Game Questions
@@ -26,74 +29,70 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Data {
 	
-	public static File PlayerData = new File("Gamedata/PlayerData.txt");
-	public ArrayList<Question> questions = new ArrayList<Question>();
+	public Array<Question> questions = new Array<Question>();
 	public Backpack bag;
 	public Player player;
 	public UDSIS udsis;
 	public Online online;
 	
-	public void readQ() throws FileNotFoundException {
-		
-		File QuestionFile = new File("Gamedata/Questions.txt");
-		Scanner infile = new Scanner(QuestionFile);
+	public void readQ() throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/Questions.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String string = null;
 		int i = 0;
-	    while (infile.hasNextLine() && i < 5) {
-	        String currentLine = infile.nextLine();
+	    while ((string = br.readLine())!=null && i < 5) {
 	        
-	        if (!currentLine.isEmpty()) {
-	        	if (currentLine.endsWith("?")) { 
-		        	Question q = new Question(new ArrayList<Answer>(), "" );
-	        		q.setQuestion(currentLine); 
+	        if (!string.isEmpty()) {
+	        	if (string.endsWith("?")) { 
+		        	Question q = new Question(new Array<Answer>(), "" );
+	        		q.setQuestion(string); 
 	        		questions.add(q);
 	        		i++;
 	        		} 
 	        }
-	    } infile.close();
+	    } br.close();
 	}
 	
 //	In the textfile, always order correct answer directly after the question.
 
-	public void readA() throws FileNotFoundException {
+	public void readA() throws IOException {
 		
-		File QuestionFile = new File("Gamedata/Questions.txt");
-		Scanner infile = new Scanner(QuestionFile);
+		FileHandle infile = Gdx.files.internal("Gamedata/Questions.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
         int i = 0;
-	    while (infile.hasNextLine()) {
-	        String currentLine = infile.nextLine();
-	        if (questions.get(i).getAnswers().size() == 4) {
+        String str = null;
+	    while ((str = br.readLine())!=null) {
+	        if (questions.get(i).getAnswers().size == 4) {
 					i++;
 	        }
-	        	if (questions.get(i).getAnswers().size() == 0 && currentLine.endsWith(".")) { 
-		        	questions.get(i).addAnswer(new Answer(currentLine, true));
-	        	} else if (currentLine.endsWith(".") && questions.get(i).getAnswers().size() < 4) 
-	        	{ questions.get(i).addAnswer(new Answer(currentLine, false)); 
+	        	if (questions.get(i).getAnswers().size == 0 && str.endsWith(".")) { 
+		        	questions.get(i).addAnswer(new Answer(str, true));
+	        	} else if (str.endsWith(".") && questions.get(i).getAnswers().size < 4) 
+	        	{ questions.get(i).addAnswer(new Answer(str, false)); 
 	        }
 	    }
-	    infile.close();
+	    br.close();
 	}
 	
-	public void readObjectives(Objectives obj, Texture incomplete, Texture attempt, Texture complete) throws FileNotFoundException{
-		File ObjectiveFile = new File("Gamedata/Objectives.txt");
-		
-		Scanner infile = new Scanner(ObjectiveFile);
-		obj.setNumObjectives(infile.nextInt());
-		while(infile.hasNext()){
-			String s = infile.next();
-			if(s.equals("0")){
+	public void readObjectives(Objectives obj, Texture incomplete, Texture attempt, Texture complete) throws IOException{
+		FileHandle infile = Gdx.files.internal("Gamedata/Objectives.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String str = null;
+		while((str = br.readLine())!=null){
+			if(str.equals("0")){
 				obj.addComplete(incomplete);
 			}
-			if(s.equals("1")){
+			if(str.equals("1")){
 				obj.addComplete(attempt);
 			}
-			if(s.equals("2")){
+			if(str.equals("2")){
 				obj.addComplete(complete);
 			}
 			System.out.println(0);
-			obj.addText(infile.nextLine());
+			obj.addText(br.readLine());
 			System.out.println(1);
 		}
-		infile.close();
+		br.close();
 	}
 	
 /*	public void updateObjectives(Objectives obj) throws FileNotFoundException{
@@ -108,74 +107,70 @@ public class Data {
 		infile.close();
 	}*/
 	
-	public static float readPlayer(File data, String p) throws FileNotFoundException {
-		Scanner infile = new Scanner(data);
-		
-	    while (infile.hasNextLine()) {
-	        String currentLine = infile.nextLine();
-	        if (!currentLine.isEmpty()) {
-				if (currentLine.endsWith(p + ":")) {
-					float f = Float.parseFloat(infile.nextLine());
-					infile.close();
+	public static float readPlayer(String p) throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String str = null;
+	    while ((str = br.readLine())!=null) {
+	        if (!str.isEmpty()) {
+				if (str.endsWith(p + ":")) {
+					float f = Float.parseFloat(br.readLine());
+					br.close();
 					return f;
 				}
 	        }
-	    } 	   infile.close(); 
+	    } 	   br.close(); 
 	    return 0;
 	}
 	
-	public static String readPlayerName(File data, String p) throws FileNotFoundException {
-		Scanner infile = new Scanner(data);
-		
-	    while (infile.hasNextLine()) {
-	        String currentLine = infile.nextLine();
-	        if (!currentLine.isEmpty()) {
-	        	if (currentLine.endsWith(p + ":")) { 
-	        		String name = infile.nextLine();
-	        		infile.close();
+	public static String readPlayerName( String p) throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String str = null;
+	    while ((str = br.readLine())!=null) {
+	        if (!str.isEmpty()) {
+	        	if (str.endsWith(p + ":")) { 
+	        		String name = br.readLine();
+	        		br.close();
 	        		return name;
 	        		} 
 	        } 
 	    }
-	    infile.close();
+	    br.close();
 	    return "";
 	}
-	public static String readPlayerDir(File data) throws FileNotFoundException {
-		Scanner infile = new Scanner(data);
-		
-	    while (infile.hasNextLine()) {
-	        String currentLine = infile.nextLine();
-	        if (!currentLine.isEmpty()) {
-				if (currentLine.endsWith("dir")) {
-					String dir = infile.nextLine();
-					infile.close();
+	public static String readPlayerDir() throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String str = null;
+	    while ((str = br.readLine())!=null) {
+	        if (!str.isEmpty()) {
+				if (str.endsWith("dir")) {
+					String dir = br.readLine();
+					br.close();
 					return dir;
 	        	}
 	        }
-	    } infile.close();
+	    } br.close();
 	    return "";
 	}
-	public static void savePlayerData(String filename, String playername, Float x0, Float y0, String dir, int map) throws FileNotFoundException, UnsupportedEncodingException {
-			PrintWriter writer = new PrintWriter("Gamedata/PlayerData.txt", "UTF-8");
+	public static void savePlayerData(String playername, Float x0, Float y0, String dir, int map) throws FileNotFoundException {
+		FileHandle infile = Gdx.files.local("Gamedata/PlayerData.txt");
 			String x = Float.toString(x0);
 			String y = Float.toString(y0);
 			String z = Integer.toString(map);
-			writer.println("name:");
-			writer.println(playername);
-			writer.println("x:");
-			writer.println(x);
-			writer.println("y:");
-			writer.println(y);
-			writer.println("dir");
-			writer.println(dir);
-			writer.println("map:");
-			writer.println(z);
-			writer.close();
+			infile.writeString("name:"+"\n",false);
+			infile.writeString(playername+"\n",false);
+			infile.writeString("x:"+"\n",false);
+			infile.writeString(x+"\n",false);
+			infile.writeString("y:"+"\n",false);
+			infile.writeString(y+"\n",false);
+			infile.writeString("dir"+"\n",false);
+			infile.writeString(dir+"\n",false);
+			infile.writeString("map:"+"\n",false);
+			infile.writeString(z+"\n",false);
 	}
-	public static String getFilePath() {
-	    return PlayerData.getAbsolutePath();
-	}
-	public ArrayList<Question> getQ() throws FileNotFoundException {
+	public Array<Question> getQ() throws IOException {
 		readQ();
 		readA();
 		return questions;

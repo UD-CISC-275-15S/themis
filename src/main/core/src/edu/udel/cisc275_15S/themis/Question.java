@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.Array;
 // 	Each Question has four possible Answers: 3 Wrong Answers and 1 Correct Answer 
 //	A Question is a string that ends with a "?" mark
 public class Question {
-	private ArrayList<Answer> answers;
+	private Array<Answer> answers;
 	private String question;
 	
-	public Question(ArrayList<Answer> answers, String questions) {
+	public Question(Array<Answer> answers, String questions) {
 		this.answers = answers;
 		this.question = question;
 	}
@@ -22,11 +22,11 @@ public class Question {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-	public ArrayList<Answer> getAnswers() {
+	public Array<Answer> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(ArrayList<Answer> answers) {
+	public void setAnswers(Array<Answer> answers) {
 		this.answers = answers;
 	}
 	public void addAnswer(Answer ans) { answers.add(ans); }
