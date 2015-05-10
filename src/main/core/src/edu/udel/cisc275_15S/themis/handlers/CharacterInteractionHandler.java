@@ -37,7 +37,6 @@ public class CharacterInteractionHandler {
 	public int wallSwitch=0;
 	
 	private Sound wallHit = Gdx.audio.newSound(Gdx.files.internal("Audio/Bubble.mp3"));
-
 	
 	public CharacterInteractionHandler(Play gs) {
 

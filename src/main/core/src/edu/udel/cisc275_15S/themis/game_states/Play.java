@@ -163,6 +163,7 @@ public class Play extends GameState {
 				System.out.print("Quiz cannot be loaded.");
 				e.printStackTrace();
 			}
+//			al.add(randomEvent);
 			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
 			npcs.add(anpc);
 			for (int i = 0; i < anpc.getEvents().size();i++){
@@ -207,7 +208,7 @@ public class Play extends GameState {
 	//	Load the tile map, surface layers
 	//	link to API info: https://github.com/libgdx/libgdx/wiki/Tile-maps
 	private void LoadMap() {
-		//		When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
+	//	When making tiled maps make sure the filepath to the tilesets are relative to the map file. Open the tmx file in a text editor 
 		
 		String map = "trabant.tmx";
 		switch (mapIndex) {
@@ -351,11 +352,13 @@ public class Play extends GameState {
 		if (!newGame) {
 			hud.update(dt);
 		}
-		try {
-			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+
 		if (newGame) {
 			Tutorial.update();
 			newGame = Tutorial.getcomplete();

@@ -21,10 +21,9 @@ public class Objectives extends Buttons implements Interactable{
 	private boolean opened=false;
 	private int numObjectives;
 	private ArrayList<String> objectiveText;
-	private ArrayList<Texture> objectiveCompleteness;
+	private ArrayList<Texture> objectiveCompleteness = new ArrayList<Texture>();
 	private Data d = new Data();
-	
-	
+	BitmapFont text = new BitmapFont();
 	
 	public Objectives(Texture image, float x, float y){
 		super(image,x,y);
@@ -48,7 +47,6 @@ public class Objectives extends Buttons implements Interactable{
 			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
 			sb.draw(super.getBGImage(), getX(), getY() + 32f);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			BitmapFont text = new BitmapFont();
 			for(int i=0;i<numObjectives;i++){
 				sb.draw(objectiveCompleteness.get(i),100,75+(((Themis.HEIGHT-50)/numObjectives)*i)*2/3);
 				text.draw(sb, objectiveText.get(i), 135,90+((Themis.HEIGHT-50)/numObjectives)*2/3*i);
@@ -89,7 +87,7 @@ public class Objectives extends Buttons implements Interactable{
 		}
 	}*/
 	public void updateObjectives(){
-		objectiveCompleteness = new ArrayList<Texture>();
+//		objectiveCompleteness = new ArrayList<Texture>();
 		/*try{
 			d.updateObjectives(this);
 		}
