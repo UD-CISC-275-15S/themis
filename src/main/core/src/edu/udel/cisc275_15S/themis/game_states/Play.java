@@ -106,8 +106,8 @@ public class Play extends GameState {
 		float map = (Data.readPlayer("map"));
 		mapIndex = (int) map;
 //		
-//		Float x = 50f;
-//		Float y = 450f;
+//		Float x2 = 50f;
+//		Float y2 = 425f;
 		String dir = (Data.readPlayerDir());
 
 		player = new Player(PlayerSprite, x, y, Character.DOWN, name);

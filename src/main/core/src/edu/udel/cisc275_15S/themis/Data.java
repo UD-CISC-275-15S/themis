@@ -123,7 +123,7 @@ public class Data {
 	    return 0;
 	}
 	
-	public static String readPlayerName( String p) throws IOException {
+	public static String readPlayerName(String p) throws IOException {
 		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
 		BufferedReader br = new BufferedReader(infile.reader());
 		String str = null;
