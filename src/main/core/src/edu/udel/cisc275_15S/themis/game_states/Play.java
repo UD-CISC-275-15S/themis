@@ -443,6 +443,7 @@ public class Play extends GameState {
 	public void setNewGame(boolean n) { newGame = n;}
 	public SpriteBatch getSB(){return sb;}
 	public Array<Rectangle> getExits() { return exits;}
+	public boolean getNewGame(){ return newGame;}
 
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();

@@ -108,8 +108,6 @@ public class UserInfo extends GameState{
 		stage.getBatch().draw(bg,0,0);									// draw bg
 		stage.getBatch().end();											// tear down batch
 		stage.draw(); 													// draw the interactables
-		
-		
 	}
 	
 	@Override
@@ -123,7 +121,4 @@ public class UserInfo extends GameState{
 		// TODO Auto-generated method stub
 		
 	}
-
-
-	
 }
