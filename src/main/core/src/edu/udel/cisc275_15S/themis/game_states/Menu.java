@@ -62,7 +62,6 @@ public class Menu extends GameState {
 			try {
 				gsh.setState(GameStateHandler.USERINFO);
 				newGame = false;											// set the game state to the main play state
-				gsh.game().background.dispose();
 				bg.dispose();												// dispose of the large image file
 				this.dispose();												// dispose the data loaded into this class
 			} catch (IOException e) {
@@ -71,7 +70,6 @@ public class Menu extends GameState {
 		} else {
 			try {
 				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
-				gsh.game().background.dispose();
 				bg.dispose();												// dispose of the large image file
 				this.dispose();												// dispose the data loaded into this class
 			} catch (IOException e) {
