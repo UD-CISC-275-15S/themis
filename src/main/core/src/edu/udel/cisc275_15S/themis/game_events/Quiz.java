@@ -137,19 +137,15 @@ public class Quiz extends Event {
 							qVal = true;
 							System.out.println("You just clicked the right Answer!!");
 							right.play();
-<<<<<<< HEAD
+
 							//processAnswer(questions.get(currentQ).getQ(), qVal, 0);
-=======
+
 //							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
->>>>>>> branch 'master' of https://github.com/UD-CISC-275-15S/themis
 						} else{
 							System.out.println("Thats...Wrong.");
 							wrong.play();
-<<<<<<< HEAD
 							//processAnswer(questions.get(currentQ).getQ(), qVal, 0);
-=======
 //							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
->>>>>>> branch 'master' of https://github.com/UD-CISC-275-15S/themis
 						}
 					}
 				}
