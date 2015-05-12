@@ -160,15 +160,15 @@ public class Data {
 			String y = Float.toString(y0);
 			String z = Integer.toString(map);
 			infile.writeString("name:"+"\n",false);
-			infile.writeString(playername+"\n",false);
-			infile.writeString("x:"+"\n",false);
-			infile.writeString(x+"\n",false);
-			infile.writeString("y:"+"\n",false);
-			infile.writeString(y+"\n",false);
-			infile.writeString("dir"+"\n",false);
-			infile.writeString(dir+"\n",false);
-			infile.writeString("map:"+"\n",false);
-			infile.writeString(z+"\n",false);
+			infile.writeString(playername+"\n",true);
+			infile.writeString("x:"+"\n",true);
+			infile.writeString(x+"\n",true);
+			infile.writeString("y:"+"\n",true);
+			infile.writeString(y+"\n",true);
+			infile.writeString("dir"+"\n",true);
+			infile.writeString(dir+"\n",true);
+			infile.writeString("map:"+"\n",true);
+			infile.writeString(z+"\n",true);
 	}
 	public Array<Question> getQ() throws IOException {
 		readQ();
