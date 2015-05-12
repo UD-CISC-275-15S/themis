@@ -40,6 +40,7 @@ public class Quiz extends Event {
 	public boolean complete = false;//Checks if the Quiz has been completed 
 	public boolean qVal = false;//Checks if the current question was answered correctly
 	static Data d;
+	BitmapFont q = new BitmapFont();
 	public Sound right = Gdx.audio.newSound(Gdx.files.internal("Audio/Bright.mp3"));
 	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
 	public static File QuestionData = new File("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
@@ -106,7 +107,6 @@ public class Quiz extends Event {
 		sb.end();
 	}
 	public void drawQ(SpriteBatch sb) {
-		BitmapFont q = new BitmapFont();
 		drawBoxes(sb);
 		sb.begin();	
 		q.drawWrapped(sb, questions.get(currentQ).getQ(), Themis.WIDTH / 18 , Themis.HEIGHT-Themis.HEIGHT/8, Themis.WIDTH);

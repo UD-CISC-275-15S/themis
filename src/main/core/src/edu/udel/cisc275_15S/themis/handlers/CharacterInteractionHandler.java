@@ -35,6 +35,10 @@ public class CharacterInteractionHandler {
 	public Event currentEvent;
 	public SpriteBatch sb; 
 	public int wallSwitch=0;
+	Rectangle rect;
+	Rectangle rect1;
+	Rectangle rect2;
+	Rectangle rect3;
 	
 	private Sound wallHit = Gdx.audio.newSound(Gdx.files.internal("Audio/Bubble.mp3"));
 	
@@ -189,43 +193,43 @@ public class CharacterInteractionHandler {
 	}
 	
 	public void render(SpriteBatch sb){
-//		Checking Collisions
-		Buttons right = new Buttons("Ouch!!", player.getXpos(), player.getYpos()+50);
-		Buttons left = new Buttons("Ugh!!", player.getXpos(), player.getYpos()-25);
-		Buttons up = new Buttons("Gah!!", player.getXpos()+25, player.getYpos());
-		Buttons down = new Buttons("Oof!!", player.getXpos()-25, player.getYpos());
+////		Checking Collisions
+//		Buttons right = new Buttons("Ouch!!", player.getXpos(), player.getYpos()+50);
+//		Buttons left = new Buttons("Ugh!!", player.getXpos(), player.getYpos()-25);
+//		Buttons up = new Buttons("Gah!!", player.getXpos()+25, player.getYpos());
+//		Buttons down = new Buttons("Oof!!", player.getXpos()-25, player.getYpos());
 
-		Rectangle rect = new Rectangle(player.getXpos()+MOVE, player.getYpos(), 20, 20);
-		Rectangle rect1 = new Rectangle(player.getXpos()-MOVE, player.getYpos(), 20, 20);
-		Rectangle rect2 = new Rectangle(player.getXpos(), player.getYpos()+MOVE, 20, 20);
-		Rectangle rect3 = new Rectangle(player.getXpos()+MOVE, player.getYpos()-MOVE, 20, 20);
-		
-		if (!Collision(rect) && !Collision(rect1) && !Collision(rect2) && !Collision(rect3))
-			wallSwitch=0;
-		if (Collision(rect)) {
-			right.render(sb);
-			if (wallSwitch == 0)
-				wallHit.play();
-				wallSwitch =1;
-			}
-		if (Collision(rect1)) {
-			left.render(sb);
-			if (wallSwitch == 0)
-				wallHit.play();
-				wallSwitch =1;
-			}
-		if (Collision(rect2)) {
-			up.render(sb);
-			if (wallSwitch == 0)
-				wallHit.play();
-				wallSwitch =1;
-			}
-		if (Collision(rect3)) {
-			down.render(sb);
-			if (wallSwitch == 0)
-				wallHit.play();
-				wallSwitch =1;
-			}
+//		rect = new Rectangle(player.getXpos()+MOVE, player.getYpos(), 20, 20);
+//		rect1 = new Rectangle(player.getXpos()-MOVE, player.getYpos(), 20, 20);
+//		rect2 = new Rectangle(player.getXpos(), player.getYpos()+MOVE, 20, 20);
+//		rect3 = new Rectangle(player.getXpos()+MOVE, player.getYpos()-MOVE, 20, 20);
+//		
+//		if (!Collision(rect) && !Collision(rect1) && !Collision(rect2) && !Collision(rect3))
+//			wallSwitch=0;
+//		if (Collision(rect)) {
+//			right.render(sb);
+//			if (wallSwitch == 0)
+//				wallHit.play();
+//				wallSwitch =1;
+//			}
+//		if (Collision(rect1)) {
+//			left.render(sb);
+//			if (wallSwitch == 0)
+//				wallHit.play();
+//				wallSwitch =1;
+//			}
+//		if (Collision(rect2)) {
+//			up.render(sb);
+//			if (wallSwitch == 0)
+//				wallHit.play();
+//				wallSwitch =1;
+//			}
+//		if (Collision(rect3)) {
+//			down.render(sb);
+//			if (wallSwitch == 0)
+//				wallHit.play();
+//				wallSwitch =1;
+//			}
 	}
 	public boolean getEvent() { return event; }
 }
