@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,6 +32,8 @@ public class UserInfo extends GameState{
 	TextField txfcoll;
 	
 	Skin skin;
+	
+	private Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Click.mp3"));
 	
 	Texture bg = new Texture(Gdx.files.internal("gfx/infoscreen.png")); // Holds the background image
 
@@ -79,6 +82,7 @@ public class UserInfo extends GameState{
 
 	public void startClicked(){
 		try {
+			click.play();
 			gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
 			gsh.game().background.dispose();
 			bg.dispose();												// dispose of the large image file

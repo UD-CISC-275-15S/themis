@@ -60,6 +60,7 @@ public class Menu extends GameState {
 	public void playClicked(){
 		if (newGame){
 			try {
+				click.play();
 				gsh.setState(GameStateHandler.USERINFO);
 				newGame = false;											// set the game state to the main play state
 				bg.dispose();												// dispose of the large image file
@@ -69,6 +70,7 @@ public class Menu extends GameState {
 			}
 		} else {
 			try {
+				click.play();
 				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
 				bg.dispose();												// dispose of the large image file
 				this.dispose();												// dispose the data loaded into this class
