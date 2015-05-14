@@ -24,8 +24,12 @@ public class ScriptedEvent extends Event{
 
 	@Override
 	public void render(SpriteBatch sb) {
-		// AUTO Auto-generated method stub
-		
+		sb.begin();
+		tempDbg(sb);
+		sb.draw(Avatar, avatarX, animator, Avatar.getWidth(), Avatar.getHeight());
+		if (currentDia < Dias.size) {
+		drawDia(sb);}
+		sb.end();
 	}
 
 	@Override

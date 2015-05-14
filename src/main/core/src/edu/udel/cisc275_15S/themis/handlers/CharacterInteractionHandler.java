@@ -108,7 +108,7 @@ public class CharacterInteractionHandler {
 		boolean check = false;
 		for (int i=0;i<play.getNPCS().size;i++){
 			if(
-				((player.getX()+MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()+MOVE<=play.getNPCS().get(i).getX()+20))&&
+				((player.getX()-1>=play.getNPCS().get(i).getX()-20)&&(player.getX()+MOVE<=play.getNPCS().get(i).getX()+20))&&
 				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))){
 				check = true;
 			}
@@ -182,6 +182,11 @@ public class CharacterInteractionHandler {
 				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
 				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))))
 			{
+				if (player.getDir() == Character.DOWN) {npcs.get(i).setDir(Character.UP);}
+				if (player.getDir() == Character.UP) {npcs.get(i).setDir(Character.DOWN);}
+				if (player.getDir() == Character.LEFT) {npcs.get(i).setDir(Character.RIGHT);}
+				if (player.getDir() == Character.RIGHT) {npcs.get(i).setDir(Character.LEFT);}
+				
 				incompleteEvent = npcs.get(i).getEvent(0).getcomplete();
 //				System.out.println(incompleteEvent);
 				if (!incompleteEvent){

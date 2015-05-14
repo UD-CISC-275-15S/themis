@@ -131,17 +131,41 @@ public class Play extends GameState {
 	}
 	private int randNPC() {
 		Random rn=new Random();
-		int n = rn.nextInt(7) + 1;
+		int n = rn.nextInt(6) + 1;
 		return n;
 	}
 	private void CreateNPCs() {
 
 		npcs = new Array<NPC>();
-		randomEvent = new RandomEvent(null, false, 0, "name", null);
 
 		MapLayer NPC = tileMap.getLayers().get("npc");	
 		MapObjects npcobjects;
-		npcobjects = NPC.getObjects();		
+		npcobjects = NPC.getObjects();
+		
+		String questNPC;
+		String questSprite;
+		String sideQ;
+		
+		switch (mapIndex) {
+		case 0: questNPC = "guide";
+				questSprite = "1";
+				break;
+		case 1: questNPC = "guide";
+				questSprite = "2";
+				break;
+		case 2: questNPC = "advisor";
+				questSprite = "advisor";
+				break;
+		case 3: questNPC = "doctor";
+				questSprite = "doctor";
+				break;
+		default: questNPC = "guide";
+				questSprite = "1";
+				break;
+		}
+		MapLayer Quest = tileMap.getLayers().get(questNPC);
+		MapObjects mainNPCs;
+		mainNPCs = Quest.getObjects();
 
 		for (RectangleMapObject npc : npcobjects.getByType(RectangleMapObject.class)) {
 			
@@ -150,25 +174,50 @@ public class Play extends GameState {
 			Texture sprite = new Texture("Sprites/npcs/" + randNPC() + ".png");
 			TextureRegion[] NPCSprite = new TextureRegion[4];		
 			for(int j=0;j<4;j++){
+				NPCSprite[j]=new TextureRegion(sprite,j*52,0,32,32);
+			}
+			ArrayList<Event> al = new ArrayList<Event>();
+			
+			try {
+				randomEvent = new RandomEvent(player, false, "name");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+//			try {
+//				Data d = new Data();
+//				Quiz Generic = new Quiz(d);
+//				al.add(Generic);
+//
+//			} catch (IOException e) {
+//				System.out.print("Quiz cannot be loaded.");
+//				e.printStackTrace();
+//			}
+			al.add(randomEvent);
+			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
+			npcs.add(anpc);
+//			for (int i = 0; i < anpc.getEvents().size();i++){
+//			if (anpc.getEvents().get(i) != null) {System.out.println("Event at index:" + i);}
+//			}
+		}
+		for (RectangleMapObject quest : mainNPCs.getByType(RectangleMapObject.class)) {
+			
+			float x =  (Float) quest.getProperties().get("x");
+			float y =  (Float) quest.getProperties().get("y");
+			Texture sprite = new Texture("Sprites/npcs/" + questSprite + ".png");
+			TextureRegion[] NPCSprite = new TextureRegion[4];		
+			for(int j=0;j<4;j++){
 				NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
 			}
 			ArrayList<Event> al = new ArrayList<Event>();
 
-			try {
-				Data d = new Data();
-				Quiz Generic = new Quiz(d);
-				al.add(Generic);
-
-			} catch (IOException e) {
-				System.out.print("Quiz cannot be loaded.");
-				e.printStackTrace();
-			}
-//			al.add(randomEvent);
+			al.add(randomEvent);
 			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
 			npcs.add(anpc);
-			for (int i = 0; i < anpc.getEvents().size();i++){
-			if (anpc.getEvents().get(i) != null) {System.out.println("Event at index:" + i);}
-			}
+//			for (int i = 0; i < anpc.getEvents().size();i++){
+//			if (anpc.getEvents().get(i) != null) {System.out.println("Event at index:" + i);}
+//			}
 		}
 	}
 

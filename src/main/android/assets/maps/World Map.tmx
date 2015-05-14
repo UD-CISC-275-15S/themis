@@ -83,4 +83,5 @@
   <object x="521" y="459"/>
   <object x="485" y="231"/>
  </objectgroup>
+ <objectgroup name="guide" width="75" height="88"/>
 </map>

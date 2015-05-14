@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.io.BufferedReader;
 import java.io.OutputStream;
 
@@ -30,6 +31,7 @@ import com.badlogic.gdx.Gdx;
 public class Data {
 	
 	public Array<Question> questions = new Array<Question>();
+	public Array<String> rDialogue = new Array<String>();
 	public Backpack bag;
 	public Player player;
 	public UDSIS udsis;
@@ -93,6 +95,27 @@ public class Data {
 			System.out.println(1);
 		}
 		br.close();
+	}
+
+	public void readRDialogue() throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/rDialogue.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String string = null;
+		
+	    while ((string = br.readLine())!=null) {      
+	        if (!string.isEmpty()) {
+	        	if (string.endsWith(":")) { 
+	        		rDialogue.add(string);
+	        		} 
+	        }
+	    } br.close();
+	}
+	
+	public String loadRDialogue() {
+		Random rn=new Random();
+		int y = rDialogue.size;
+		int n = rn.nextInt(y);
+		return rDialogue.get(n);
 	}
 	
 /*	public void updateObjectives(Objectives obj) throws FileNotFoundException{
