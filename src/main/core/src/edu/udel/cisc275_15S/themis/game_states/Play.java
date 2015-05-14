@@ -65,7 +65,7 @@ public class Play extends GameState {
 	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
 	
-	private Music music;
+	private Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
 	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
 
 	public Play(GameStateHandler gsh) throws IOException {
@@ -236,7 +236,7 @@ public class Play extends GameState {
 				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Glass.mp3"));
 				music.play();
 				break;
-			case 1: 
+			case 1:
 				musicMap=1;
 				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
 				music.play();
@@ -250,6 +250,7 @@ public class Play extends GameState {
 				musicMap = mapIndex;
 				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
 				music.play();
+				
 			}
 		}
 	}
@@ -346,6 +347,7 @@ public class Play extends GameState {
 		float y = 0f;
 		
 		if (exited) {
+			music.dispose();
 		if (mapIndex == 0) {
 			map = 1;
 			x = 48f;
