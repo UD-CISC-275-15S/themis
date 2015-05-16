@@ -83,6 +83,14 @@ public class CharacterInteractionHandler {
 			if (checkdown()) {moveDown(player);}
 		}
 	}
+	
+	public void updateRevent() {
+			for(int i=0;i<npcs.size;i++){
+				if (npcs.get(i).getEvent(0).getcomplete() == true) {
+					npcs.get(i).getEvent(0).setcomplete(false);
+				}
+		}
+	}
 
 	public boolean checkleft() {
 		float UpperBound = Themis.HEIGHT/4;
@@ -171,8 +179,8 @@ public class CharacterInteractionHandler {
 		if (event) {
 		for(int i=0;i<npcs.size;i++){
 			if(
-					((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()-MOVE>=npcs.get(i).getY()-20)&&(player.getY()-MOVE<=npcs.get(i).getY()+20))
-			||		((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()+MOVE>=npcs.get(i).getY()-20)&&(player.getY()+MOVE<=npcs.get(i).getY()+20))
+				((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()-MOVE>=npcs.get(i).getY()-20)&&(player.getY()-MOVE<=npcs.get(i).getY()+20))
+			||	((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()+MOVE>=npcs.get(i).getY()-20)&&(player.getY()+MOVE<=npcs.get(i).getY()+20))
 			||
 				(
 				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
@@ -193,8 +201,9 @@ public class CharacterInteractionHandler {
 				currentEvent = npcs.get(i).getEvent(0);
 				event = false;} 
 				}
-			} 
+			}
 		} 
+		updateRevent();
 	}
 	
 	public void render(SpriteBatch sb){

@@ -161,5 +161,7 @@ public class Event {
 	public boolean getnpccomplete() {
 		return npccomplete;
 	}
-
+	public void setcomplete(boolean b) {
+		complete = b;
+	}
 }
