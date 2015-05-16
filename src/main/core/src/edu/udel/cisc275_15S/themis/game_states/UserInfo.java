@@ -48,7 +48,7 @@ public class UserInfo extends GameState{
 		start.addListener(new ClickListener() {							// adds a click listener
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-				start.setText("Have fun!");								// while you have it clicked, set the text to Have fun
+				start.setText("Play!");								// while you have it clicked, set the text to Have fun
 				startClicked();											// notify that the button is clicked and change states
 			}
 		});
@@ -81,14 +81,38 @@ public class UserInfo extends GameState{
 	}
 
 	public void startClicked(){
-		try {
-			click.play();
-			gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
-			gsh.game().background.dispose();
-			bg.dispose();												// dispose of the large image file
-			this.dispose();												// dispose the data loaded into this class
-		} catch (IOException e) {
-			e.printStackTrace();
+		click.play();
+		System.out.println("clicked");
+		if (txfuser.getText().equals("") || txfuser.getText().equals("Please type your name.")){
+			txfuser.setText("Please type your name.");
+			start.addListener(new ClickListener() {							// adds a click listener
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+					start.setText("Play!");								// while you have it clicked, set the text to Have fun
+					startClicked();											// notify that the button is clicked and change states
+				}
+			});
+		} 
+		if (txfcoll.getText().equals("") || txfcoll.getText().equals("Please type your college.")) {
+			txfcoll.setText("Please type your college.");
+			start.addListener(new ClickListener() {							// adds a click listener
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+					start.setText("Play!");								// while you have it clicked, set the text to Have fun
+					startClicked();											// notify that the button is clicked and change states
+				}
+			});
+		} 
+		if (!txfuser.getText().equals("") && !txfuser.getText().equals("Please type your name.") &&
+				!txfcoll.getText().equals("") && !txfcoll.getText().equals("Please type your college.")) {
+			try {
+				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
+				gsh.game().background.dispose();
+				bg.dispose();												// dispose of the large image file
+				this.dispose();												// dispose the data loaded into this class
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
