@@ -45,7 +45,7 @@ public class Objectives extends Buttons implements Interactable{
 		if (opened) {
 			sb.begin();
 			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
-			sb.draw(super.getBGImage(), getX(), getY() + 32f);
+			sb.draw(super.getBGImage(), 448f - getX(), getY() + 32f);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			for(int i=0;i<numObjectives;i++){
 				sb.draw(objectiveCompleteness.get(i),100,75+(((Themis.HEIGHT-50)/numObjectives)*i)*2/3);

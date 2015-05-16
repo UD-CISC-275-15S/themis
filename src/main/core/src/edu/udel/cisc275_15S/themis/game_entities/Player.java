@@ -108,14 +108,14 @@ public class Player extends Character {
 		FileHandle filehandle = Gdx.files.internal("Button/bag.png");
 		System.out.println(filehandle.path());
 		Texture pack = new Texture(filehandle);
-		bag = new Backpack(pack, 32, 32);
+		bag = new Backpack(pack, 448, 32);
 		return bag;
 	}
 	public void setObjButton(){
 		FileHandle filehandle = Gdx.files.internal("Button/info.png");
 		System.out.println(filehandle.path());
 		Texture objs = new Texture(filehandle);
-		objB = new Objectives(objs, 96f, 32f);
+		objB = new Objectives(objs, 384f, 32f);
 	}
 	public void setUDSIS(){
 		FileHandle filehandle = Gdx.files.internal("Button/bag.png");
@@ -128,7 +128,7 @@ public class Player extends Character {
 		FileHandle filehandle = Gdx.files.internal("Button/browser.png");
 		System.out.println(filehandle.path());
 		Texture sis = new Texture(filehandle);
-		online = new Online(sis, 160f, 32f);
+		online = new Online(sis, 320f, 32f);
 	}
 	
 	public void setUDMail(){
