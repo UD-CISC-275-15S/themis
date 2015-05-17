@@ -19,8 +19,9 @@ import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
 public class Event {
 //	modifiers for the dialogue and dialogue box's x andy pos
-	public static final int diaX = 30;
-	public static final int diaY = 115;
+	public int diaX = 110;
+	public int diaY = 115;
+	public int box = 350;
 	public Texture tex = new Texture(Gdx.files.internal("gfx/Dialogue.png"));
 	public String name;//name of the event/quest/objective
 	public Player player;
@@ -60,7 +61,7 @@ public class Event {
 		
 	}
 	
-	public Event(Player player, boolean complete, int animator, String name, Texture Avatar) {
+	public Event(Player player, boolean complete, String name, Texture Avatar) {
 		this.player = player;
 		this.complete = complete;
 		this.animator = -200;
@@ -98,7 +99,7 @@ public class Event {
 	public void tempDbg(SpriteBatch sb) {
 		if (npccomplete) {
 		sb.setColor(1.0f, 1.0f, 1.0f, .5f);
-		sb.draw(tex, diaX , Themis.HEIGHT/ 5, 400, diaY);
+		sb.draw(tex, diaX , Themis.HEIGHT/ 5, box, diaY);
 		sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 	}
@@ -115,7 +116,7 @@ public class Event {
 			astr = astr + hi[i];
 		}
 		dialoguebox = new BitmapFont();
-		dialoguebox.drawWrapped(sb, astr, diaX + 20, diaY + 20, 380);
+		dialoguebox.drawWrapped(sb, astr, diaX + 10, diaY + 20, box-10);
 	}
 //	Updates the dialogue index per second, together with drawDia this creates the typewriter effect
 	public void diaAnimator() {
@@ -144,7 +145,7 @@ public class Event {
 	}
 //	Draw the NPC at its default X, and change its Y every frame until it is in the middle of the screen
 	public void NPCAvatarAnimation() {
-		if (animator >= Themis.HEIGHT/4) {
+		if (animator >= Themis.HEIGHT/ 5) {
 			npccomplete = true;
 		} else animator+=3;
 		

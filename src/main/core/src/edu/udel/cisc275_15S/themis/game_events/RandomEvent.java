@@ -11,6 +11,8 @@ public class RandomEvent extends Event{
 	
 		public RandomEvent(Player player, boolean valid, String name) throws IOException {
 		super(player, valid, name);
+		diaX = 50;
+		box = 400;
 		Data d = new Data();
 		d.readRDialogue();
 		String dialogue = d.loadRDialogue();
