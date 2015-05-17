@@ -2,7 +2,6 @@ package edu.udel.cisc275_15S.themis.handlers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -30,7 +29,6 @@ public class CharacterInteractionHandler {
 	public Array<Rectangle> npcRectangles;
 //	Tiles that the player cant pass through
 	public Play play;
-	private BitmapFont font;
 	public boolean event = true;
 	public Event currentEvent;
 	public SpriteBatch sb; 

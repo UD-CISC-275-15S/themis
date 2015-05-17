@@ -1,14 +1,10 @@
 package edu.udel.cisc275_15S.themis;
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Random;
 import java.io.BufferedReader;
-import java.io.OutputStream;
 
 import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
@@ -17,7 +13,6 @@ import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.Gdx;
 //	This class is used for loading Data from our GameData folder
@@ -76,19 +71,20 @@ public class Data {
 	    br.close();
 	}
 	
-	public void readObjectives(Objectives obj, Texture incomplete, Texture attempt, Texture complete) throws IOException{
+	public static void readObjectives(Objectives obj) throws IOException{
 		FileHandle infile = Gdx.files.internal("Gamedata/Objectives.txt");
 		BufferedReader br = new BufferedReader(infile.reader());
 		String str = null;
+		str = br.readLine();
 		while((str = br.readLine())!=null){
 			if(str.equals("0")){
-				obj.addComplete(incomplete);
+				obj.addComplete(obj.getIncomplete());
 			}
 			if(str.equals("1")){
-				obj.addComplete(attempt);
+				obj.addComplete(obj.getAttempted());
 			}
 			if(str.equals("2")){
-				obj.addComplete(complete);
+				obj.addComplete(obj.getComplete());
 			}
 			System.out.println(0);
 			obj.addText(br.readLine());
@@ -140,18 +136,18 @@ public class Data {
 	
 	public static void updateObjectives(Objectives obj) throws FileNotFoundException{
 		FileHandle outfile = Gdx.files.local("Gamedata/Objectives.txt");
-		outfile.writeString(""+obj.getText().size(), false);
+		outfile.writeString(""+obj.getText().size()+"\n", false);
 		for(int i=0;i<obj.getText().size();i++){
 			if(obj.getTextures().get(i)==obj.getIncomplete()){
-				outfile.writeString("1",true);
+				outfile.writeString("1\n",true);
 			}
 			if(obj.getTextures().get(i)==obj.getAttempted()){
-				outfile.writeString("2", true);
+				outfile.writeString("2\n", true);
 			}
 			if(obj.getTextures().get(i)==obj.getComplete()){
-				outfile.writeString("3",true);
+				outfile.writeString("3\n",true);
 			}
-			outfile.writeString(obj.getText().get(i),true);
+			outfile.writeString(obj.getText().get(i)+"\n",true);
 		}
 	}
 	public static float readPlayer(String p) throws IOException {

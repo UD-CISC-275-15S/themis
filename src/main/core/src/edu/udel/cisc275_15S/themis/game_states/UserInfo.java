@@ -1,6 +1,5 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;

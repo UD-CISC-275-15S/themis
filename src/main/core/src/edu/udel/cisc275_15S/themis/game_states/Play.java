@@ -1,9 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,10 +34,8 @@ import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 import edu.udel.cisc275_15S.themis.game_events.ScriptedEvent;
 import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
-import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
-import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
@@ -63,7 +59,6 @@ public class Play extends GameState {
 	ScriptedEvent QuestEvent;
 	private Tutorial Tutorial;
 	private boolean backpackOpened = false;
-	private boolean UDSISOpened = false;
 	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
 	
@@ -77,7 +72,6 @@ public class Play extends GameState {
 		CreatePlayer();
 		LoadMap();
 		CreateNPCs();
-		
 		cam = new MainCamera();
 		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
 		cam.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
@@ -109,8 +103,7 @@ public class Play extends GameState {
 		mapIndex = (int) map;
 //		
 //		Float x2 = 50f;
-//		Float y2 = 425f;
-		String dir = (Data.readPlayerDir());
+//		Float y2 = 425f;;
 
 		player = new Player(PlayerSprite, x, y, Character.DOWN, name);
 		player.setUserBag();
@@ -146,7 +139,7 @@ public class Play extends GameState {
 		
 		String questNPC;
 		String questSprite;
-		String sideQ;
+//		String sideQ;
 		
 		switch (mapIndex) {
 		case 0: questNPC = "guide";
@@ -398,6 +391,8 @@ public class Play extends GameState {
 				try {
 			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
 			gsh.setState(GameStateHandler.PLAY);
+			Data.updateObjectives(player.getObjButton());
+			Data.readObjectives(player.getObjButton());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -447,7 +442,6 @@ public class Play extends GameState {
 		CIH.render(sb);
 		player.render(sb);
 		populateNPCs();
-		int n = 0;
 		
 		sb.setProjectionMatrix(hudCam.combined);
 		if (newGame) {
@@ -457,20 +451,8 @@ public class Play extends GameState {
 		if(backpackOpened){
 			player.getBag().render(sb);
 		}
-		if(objectivesOpened&&n==0){
-			try{
-				Data.updateObjectives(player.getObjButton());
-			}
-			catch(FileNotFoundException e){
-				e.printStackTrace();
-			}
-			n++;
+		if(objectivesOpened){
 			player.getObjButton().render(sb);
-		}
-		if(objectivesOpened&&n==1){
-			if(player.getObjButton().isDown()){
-				n=0;
-			}
 		}
 		CIH.update();
 		hud.render(sb);

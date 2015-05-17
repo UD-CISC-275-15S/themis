@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class UDSIS extends Buttons implements Interactable {
 
 	private boolean opened = false;
-	private Buttons back;
 	
 	
 	 

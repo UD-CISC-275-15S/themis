@@ -1,6 +1,5 @@
 package edu.udel.cisc275_15S.themis;
 
-import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -13,7 +12,6 @@ public class Question {
 	
 	public Question(Array<Answer> answers, String questions) {
 		this.answers = answers;
-		this.question = question;
 	}
 	public String toString() {
 		return question;

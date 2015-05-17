@@ -1,7 +1,6 @@
 package edu.udel.cisc275_15S.themis.game_entities;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;

@@ -12,7 +12,6 @@ import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 
 public class HUD {
 	
-	private Player player;
 	private Backpack bag;
 	private Objectives obj;
 	private UDSIS udsis;
@@ -20,7 +19,6 @@ public class HUD {
 	private Online online;
 	
 	public HUD(Player player) {
-		this.player = player;
 		bag = player.getBag();
 		obj = player.getObjButton();
 		online = player.getOnline();
