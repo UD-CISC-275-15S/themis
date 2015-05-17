@@ -3,9 +3,7 @@ package edu.udel.cisc275_15S.themis.game_events;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -14,8 +12,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
-
 import edu.udel.cisc275_15S.themis.Answer;
 import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.Question;
@@ -114,7 +110,6 @@ public class Quiz extends Event {
 	
 	}
 	public void shuffleAnswers() {
-		long seed = TimeUtils.nanoTime();
 		for (Question aq : questions) {
 			aq.getAnswers().shuffle();
 //			System.out.println(aq.getQ());

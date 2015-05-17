@@ -4,14 +4,12 @@ package edu.udel.cisc275_15S.themis.game_entities;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import edu.udel.cisc275_15S.themis.game_events.Event;
 
 public class NPC extends Character {
-	private boolean onMap; 
-	private boolean condition;//Used to determine whether an NPC can be interacted with and start/complete their Event
+
 	private ArrayList<Event> event;
 
 	public NPC() {
@@ -26,11 +24,11 @@ public class NPC extends Character {
 
 	
 //	Method to have an NPC move randomly
-	private void randMovement() {
+/*	private void randMovement() {
 		float accum = 0;
 		accum += Gdx.graphics.getDeltaTime();
 		if (accum >= 3) {
 		accum = 0;
 		}
-	};
+	};*/
 }

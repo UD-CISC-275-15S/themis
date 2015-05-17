@@ -1,7 +1,6 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,12 +18,14 @@ import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
 public class Event {
 //	modifiers for the dialogue and dialogue box's x andy pos
-	public static final int diaX = 40;
-	public static final int diaY = 100;
+	public int diaX = 110;
+	public int diaY = 115;
+	public int box = 350;
+	public Texture tex = new Texture(Gdx.files.internal("gfx/Dialogue.png"));
 	public String name;//name of the event/quest/objective
 	public Player player;
 	protected Texture Avatar;
-	public boolean complete = true;
+	public boolean complete = false;
 	protected boolean dia = false; //Used to check if the current dialogue box is no longer writing text
 	protected boolean remainingdia = true; //used to check if theres any dialogue left
 	public boolean npccomplete = false; //This is used for NPC animation
@@ -47,7 +48,7 @@ public class Event {
 	public void render(SpriteBatch sb) {
 		sb.begin();
 		tempDbg(sb);
-		sb.draw(Avatar, avatarX, animator, Avatar.getWidth(), Avatar.getHeight());
+//		sb.draw(Avatar, avatarX, animator, Avatar.getWidth(), Avatar.getHeight());
 		if (currentDia < Dias.size) {
 		drawDia(sb);}
 		sb.end();
@@ -59,7 +60,7 @@ public class Event {
 		
 	}
 	
-	public Event(Player player, boolean complete, int animator, String name, Texture Avatar) {
+	public Event(Player player, boolean complete, String name, Texture Avatar) {
 		this.player = player;
 		this.complete = complete;
 		this.animator = -200;
@@ -73,7 +74,14 @@ public class Event {
 		this.dialogue = 0;
 		this.name = name;
 	}
-	public Event(Player player, boolean complete, int animator, String name, String action, String item) {
+	public Event(Player player, boolean complete, String name) {
+		this.player = player;
+		this.complete = complete;
+		this.animator = -200;
+		this.dialogue = 0;
+		this.name = name;
+	}
+	public Event(Player player, boolean complete, int animator, String name, String action, Texture Avatar, String item) {
 		this.player = player;
 		this.complete = complete;
 		this.animator = -200;
@@ -89,9 +97,8 @@ public class Event {
 //	Constructs the Dialogue box's background
 	public void tempDbg(SpriteBatch sb) {
 		if (npccomplete) {
- 		Texture tex = new Texture(Gdx.files.internal("gfx/textbox.gif"));
 		sb.setColor(1.0f, 1.0f, 1.0f, .5f);
-		sb.draw(tex, Themis.WIDTH/5  + diaX , Themis.HEIGHT/ 5, 300, 120 + diaY);
+		sb.draw(tex, diaX , Themis.HEIGHT/ 5, box, diaY);
 		sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 	}
@@ -108,7 +115,7 @@ public class Event {
 			astr = astr + hi[i];
 		}
 		dialoguebox = new BitmapFont();
-		dialoguebox.drawWrapped(sb, astr, Themis.WIDTH / 3, Themis.HEIGHT / 2 + diaY, Themis.WIDTH / 2 + 10);
+		dialoguebox.drawWrapped(sb, astr, diaX + 10, diaY + 20, box-10);
 	}
 //	Updates the dialogue index per second, together with drawDia this creates the typewriter effect
 	public void diaAnimator() {
@@ -137,7 +144,7 @@ public class Event {
 	}
 //	Draw the NPC at its default X, and change its Y every frame until it is in the middle of the screen
 	public void NPCAvatarAnimation() {
-		if (animator >= Themis.HEIGHT/4) {
+		if (animator >= Themis.HEIGHT/ 5) {
 			npccomplete = true;
 		} else animator+=3;
 		
@@ -145,7 +152,7 @@ public class Event {
 //	Checks whether the Event has been completed and if so, set it to false.
 	public void EventComplete() {
 		if (dia && !remainingdia && TouchInputHandler.isClicked()) {
-			complete = false;
+			complete = true;
 		}
 	}
 	public boolean getcomplete() {
@@ -154,5 +161,7 @@ public class Event {
 	public boolean getnpccomplete() {
 		return npccomplete;
 	}
-
+	public void setcomplete(boolean b) {
+		complete = b;
+	}
 }

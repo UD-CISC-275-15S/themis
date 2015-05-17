@@ -5,13 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 //Technically a button on our HUD with a different update and render method
 //Doesn't actually need to implement Interactable but am leaving it alone atm
-import com.badlogic.gdx.utils.Array;
-
-import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 
 public class Backpack extends Buttons implements Interactable {
 	
-	private Array<item> items;
 	private boolean opened = false;
 	public boolean isOpen() {
 		return opened;
@@ -46,7 +42,7 @@ public class Backpack extends Buttons implements Interactable {
 		if (opened) {
 			sb.begin();
 			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
-			sb.draw(super.getBGImage(), getX(), getY() + 32f);
+			sb.draw(super.getBGImage(), 480f - getX(), getY() + 32f);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			sb.end();
 		}

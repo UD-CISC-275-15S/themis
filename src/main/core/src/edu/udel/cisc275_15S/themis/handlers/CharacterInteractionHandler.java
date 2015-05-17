@@ -2,7 +2,6 @@ package edu.udel.cisc275_15S.themis.handlers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -30,7 +29,6 @@ public class CharacterInteractionHandler {
 	public Array<Rectangle> npcRectangles;
 //	Tiles that the player cant pass through
 	public Play play;
-	private BitmapFont font;
 	public boolean event = true;
 	public Event currentEvent;
 	public SpriteBatch sb; 
@@ -81,6 +79,14 @@ public class CharacterInteractionHandler {
 			if (checkleft()) {moveLeft(player);}
 			if (checkup()) {moveUp(player);}
 			if (checkdown()) {moveDown(player);}
+		}
+	}
+	
+	public void updateRevent() {
+			for(int i=0;i<npcs.size;i++){
+				if (npcs.get(i).getEvent(0).getcomplete() == true) {
+					npcs.get(i).getEvent(0).setcomplete(false);
+				}
 		}
 	}
 
@@ -171,8 +177,8 @@ public class CharacterInteractionHandler {
 		if (event) {
 		for(int i=0;i<npcs.size;i++){
 			if(
-					((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()-MOVE>=npcs.get(i).getY()-20)&&(player.getY()-MOVE<=npcs.get(i).getY()+20))
-			||		((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()+MOVE>=npcs.get(i).getY()-20)&&(player.getY()+MOVE<=npcs.get(i).getY()+20))
+				((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()-MOVE>=npcs.get(i).getY()-20)&&(player.getY()-MOVE<=npcs.get(i).getY()+20))
+			||	((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()+MOVE>=npcs.get(i).getY()-20)&&(player.getY()+MOVE<=npcs.get(i).getY()+20))
 			||
 				(
 				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
@@ -182,14 +188,20 @@ public class CharacterInteractionHandler {
 				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
 				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20))))
 			{
+				if (player.getDir() == Character.DOWN) {npcs.get(i).setDir(Character.UP);}
+				if (player.getDir() == Character.UP) {npcs.get(i).setDir(Character.DOWN);}
+				if (player.getDir() == Character.LEFT) {npcs.get(i).setDir(Character.RIGHT);}
+				if (player.getDir() == Character.RIGHT) {npcs.get(i).setDir(Character.LEFT);}
+				
 				incompleteEvent = npcs.get(i).getEvent(0).getcomplete();
 //				System.out.println(incompleteEvent);
 				if (!incompleteEvent){
 				currentEvent = npcs.get(i).getEvent(0);
 				event = false;} 
 				}
-			} 
+			}
 		} 
+		updateRevent();
 	}
 	
 	public void render(SpriteBatch sb){

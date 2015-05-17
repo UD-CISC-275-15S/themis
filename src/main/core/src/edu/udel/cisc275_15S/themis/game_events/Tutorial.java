@@ -9,10 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
-import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_entities.Player;
-import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
-
 //  Explains the General workings of the game, and only loads at the beginning of a new game.
 // 	Has a different render method because of drawing the arrows pointing to the HUD 
 // 	Comment and uncomment the render method to see the difference between drawing a regular event and a Tutorial

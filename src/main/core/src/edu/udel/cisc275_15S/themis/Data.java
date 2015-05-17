@@ -1,13 +1,10 @@
 package edu.udel.cisc275_15S.themis;
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.Random;
 import java.io.BufferedReader;
-import java.io.OutputStream;
 
 import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
@@ -16,7 +13,6 @@ import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.Gdx;
 //	This class is used for loading Data from our GameData folder
@@ -30,6 +26,7 @@ import com.badlogic.gdx.Gdx;
 public class Data {
 	
 	public Array<Question> questions = new Array<Question>();
+	public Array<String> rDialogue = new Array<String>();
 	public Backpack bag;
 	public Player player;
 	public UDSIS udsis;
@@ -74,19 +71,20 @@ public class Data {
 	    br.close();
 	}
 	
-	public void readObjectives(Objectives obj, Texture incomplete, Texture attempt, Texture complete) throws IOException{
+	public static void readObjectives(Objectives obj) throws IOException{
 		FileHandle infile = Gdx.files.internal("Gamedata/Objectives.txt");
 		BufferedReader br = new BufferedReader(infile.reader());
 		String str = null;
+		str = br.readLine();
 		while((str = br.readLine())!=null){
 			if(str.equals("0")){
-				obj.addComplete(incomplete);
+				obj.addComplete(obj.getIncomplete());
 			}
 			if(str.equals("1")){
-				obj.addComplete(attempt);
+				obj.addComplete(obj.getAttempted());
 			}
 			if(str.equals("2")){
-				obj.addComplete(complete);
+				obj.addComplete(obj.getComplete());
 			}
 			System.out.println(0);
 			obj.addText(br.readLine());
@@ -94,19 +92,64 @@ public class Data {
 		}
 		br.close();
 	}
+
+	public void readRDialogue() throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/rDialogue.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String string = null;
+		
+	    while ((string = br.readLine())!=null) {      
+	        if (!string.isEmpty()) {
+	        	if (string.endsWith(":")) { 
+	        		rDialogue.add(string);
+	        		} 
+	        }
+	    } br.close();
+	}
 	
-/*	public void updateObjectives(Objectives obj) throws FileNotFoundException{
-		File ObjectiveFile = new File("Gamedata/Objectives.txt");
-		Scanner infile = new Scanner(ObjectiveFile);
-		infile.nextLine();
-		obj.updateObjectives();
-		while(infile.hasNext()){
-			obj.addComplete(new Integer(infile.nextInt()));
-			infile.nextLine();
+	public String loadRDialogue() {
+		Random rn=new Random();
+		int y = rDialogue.size;
+		int n = rn.nextInt(y);
+		return rDialogue.get(n);
+	}
+	
+	public Array<String> readSDialogue(String name) throws IOException {
+		Array<String> Dia = new Array<String>();
+		FileHandle infile = Gdx.files.internal("Gamedata/" + name + ".txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String string = null;
+		String line;
+	    while ((string = br.readLine())!=null) {      
+	        if (!string.isEmpty()) {
+	        	if (string.endsWith(":")) {
+	        		StringBuilder sb = new StringBuilder(string);
+	        		sb.deleteCharAt(string.length() -1);
+	        		line = sb.toString();
+	        		Dia.add(line);
+	        		} 
+	        }
+	    } br.close();
+	    return Dia;
+	}
+	
+	
+	public static void updateObjectives(Objectives obj) throws FileNotFoundException{
+		FileHandle outfile = Gdx.files.local("Gamedata/Objectives.txt");
+		outfile.writeString(""+obj.getText().size()+"\n", false);
+		for(int i=0;i<obj.getText().size();i++){
+			if(obj.getTextures().get(i)==obj.getIncomplete()){
+				outfile.writeString("1\n",true);
+			}
+			if(obj.getTextures().get(i)==obj.getAttempted()){
+				outfile.writeString("2\n", true);
+			}
+			if(obj.getTextures().get(i)==obj.getComplete()){
+				outfile.writeString("3\n",true);
+			}
+			outfile.writeString(obj.getText().get(i)+"\n",true);
 		}
-		infile.close();
-	}*/
-	
+	}
 	public static float readPlayer(String p) throws IOException {
 		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
 		BufferedReader br = new BufferedReader(infile.reader());
@@ -154,6 +197,21 @@ public class Data {
 	    } br.close();
 	    return "";
 	}
+	
+	public static void savePlayerName(String playername, String userid) throws FileNotFoundException { // inits with entrance to trabant
+		FileHandle infile = Gdx.files.local("Gamedata/PlayerData.txt");
+			infile.writeString("name:"+"\n",false);
+			infile.writeString(playername+"\n",true);
+			infile.writeString("x:"+"\n",true);
+			infile.writeString("226.0"+"\n",true);
+			infile.writeString("y:"+"\n",true);
+			infile.writeString("120.0"+"\n",true);
+			infile.writeString("dir"+"\n",true);
+			infile.writeString("UP"+"\n",true);
+			infile.writeString("map:"+"\n",true);
+			infile.writeString("0"+"\n",true);
+	}
+	
 	public static void savePlayerData(String playername, Float x0, Float y0, String dir, int map) throws FileNotFoundException {
 		FileHandle infile = Gdx.files.local("Gamedata/PlayerData.txt");
 			String x = Float.toString(x0);

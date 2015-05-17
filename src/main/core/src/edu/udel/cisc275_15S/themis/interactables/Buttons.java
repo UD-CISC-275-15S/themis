@@ -33,7 +33,6 @@ public class Buttons extends Button implements Interactable {
 		this.y = y;
 		this.x = x;
 
-		int len = string.length();
 //		Temporary height and widths for TextButtons
 		width = 30;
 		height = 30;

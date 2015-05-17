@@ -21,9 +21,9 @@ public class Objectives extends Buttons implements Interactable{
 	private boolean opened=false;
 	private int numObjectives;
 	private ArrayList<String> objectiveText;
-	private ArrayList<Texture> objectiveCompleteness = new ArrayList<Texture>();
-	private Data d = new Data();
-	BitmapFont text = new BitmapFont();
+	private ArrayList<Texture> objectiveCompleteness;
+	private BitmapFont text;
+	
 	
 	public Objectives(Texture image, float x, float y){
 		super(image,x,y);
@@ -32,8 +32,9 @@ public class Objectives extends Buttons implements Interactable{
 		completedImage = new Texture(Gdx.files.internal("gfx/completed.gif"));
 		objectiveText = new ArrayList<String>();
 		objectiveCompleteness = new ArrayList<Texture>();
+		text = new BitmapFont();
 		try{
-			d.readObjectives(this,incompleteImage,attemptedImage,completedImage);
+			Data.readObjectives(this);
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -45,7 +46,7 @@ public class Objectives extends Buttons implements Interactable{
 		if (opened) {
 			sb.begin();
 			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
-			sb.draw(super.getBGImage(), getX(), getY() + 32f);
+			sb.draw(super.getBGImage(), 448f - getX(), getY() + 32f);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			for(int i=0;i<numObjectives;i++){
 				sb.draw(objectiveCompleteness.get(i),100,75+(((Themis.HEIGHT-50)/numObjectives)*i)*2/3);
@@ -62,6 +63,18 @@ public class Objectives extends Buttons implements Interactable{
 	public void setOpened(boolean open) {
 		this.opened = open;
 	}
+	public void updateObjective(String str){
+		for(int i=0;i<objectiveText.size();i++){
+			if(objectiveText.get(i).equals(str)){
+				if(objectiveCompleteness.get(i)==incompleteImage){
+					objectiveCompleteness.set(i, attemptedImage);
+				}
+				if(objectiveCompleteness.get(i)==attemptedImage){
+					objectiveCompleteness.set(i, completedImage);
+				}
+			}
+		}
+	}
 	
 	public void update(float dt) {
         dt = Gdx.graphics.getDeltaTime();
@@ -70,35 +83,13 @@ public class Objectives extends Buttons implements Interactable{
 		opened = clicked;
 		
 	}
-	
-/*	public void readObjectives(){
-		try{
-			in = new Scanner(Gdx.files.internal("Objectives.txt").file());
-			numObjectives =Integer.parseInt(in.nextLine());
-			while(in.hasNext()){
-				objectiveCompleteness.add(Integer.parseInt(in.nextLine()));
-				objectiveText.add(in.nextLine());
-			}
-			in.close();
-		}
-		catch(FileNotFoundException e){
-			System.out.println("File not found");
-			e.printStackTrace();
-		}
-	}*/
-	public void updateObjectives(){
-//		objectiveCompleteness = new ArrayList<Texture>();
-		/*try{
-			d.updateObjectives(this);
-		}
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}*/
-		}
+
 	
 	public void setNumObjectives(int n){ numObjectives=n;}
 	public void addText(String s){objectiveText.add(s);}
 	public void addComplete(Texture t){objectiveCompleteness.add(t);}
+	public ArrayList<String> getText(){return objectiveText;}
+	public ArrayList<Texture> getTextures(){return objectiveCompleteness;}
 	public Texture getComplete(){return completedImage;}
 	public Texture getAttempted(){return attemptedImage;}
 	public Texture getIncomplete(){return incompleteImage;}
