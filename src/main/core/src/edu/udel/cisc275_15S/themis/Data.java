@@ -118,6 +118,26 @@ public class Data {
 		return rDialogue.get(n);
 	}
 	
+	public Array<String> readSDialogue(String name) throws IOException {
+		Array<String> Dia = new Array<String>();
+		FileHandle infile = Gdx.files.internal("Gamedata/" + name + ".txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String string = null;
+		String line;
+	    while ((string = br.readLine())!=null) {      
+	        if (!string.isEmpty()) {
+	        	if (string.endsWith(":")) {
+	        		StringBuilder sb = new StringBuilder(string);
+	        		sb.deleteCharAt(string.length() -1);
+	        		line = sb.toString();
+	        		Dia.add(line);
+	        		} 
+	        }
+	    } br.close();
+	    return Dia;
+	}
+	
+	
 	public static void updateObjectives(Objectives obj) throws FileNotFoundException{
 		FileHandle outfile = Gdx.files.local("Gamedata/Objectives.txt");
 		outfile.writeString(""+obj.getText().size(), false);

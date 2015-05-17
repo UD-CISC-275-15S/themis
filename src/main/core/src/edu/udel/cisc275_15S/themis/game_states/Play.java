@@ -33,6 +33,7 @@ import edu.udel.cisc275_15S.themis.game_entities.Player;
 import edu.udel.cisc275_15S.themis.game_events.Event;
 import edu.udel.cisc275_15S.themis.game_events.Quiz;
 import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
+import edu.udel.cisc275_15S.themis.game_events.ScriptedEvent;
 import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
 import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
@@ -59,6 +60,7 @@ public class Play extends GameState {
 	private CharacterInteractionHandler CIH;
 	public MapObjects objects;
 	RandomEvent randomEvent;
+	ScriptedEvent QuestEvent;
 	private Tutorial Tutorial;
 	private boolean backpackOpened = false;
 	private boolean UDSISOpened = false;
@@ -185,16 +187,19 @@ public class Play extends GameState {
 				e1.printStackTrace();
 			}
 			
-//			try {
-//				Data d = new Data();
-//				Quiz Generic = new Quiz(d);
-//				al.add(Generic);
-//
-//			} catch (IOException e) {
-//				System.out.print("Quiz cannot be loaded.");
-//				e.printStackTrace();
-//			}
-			al.add(randomEvent);
+			Random rn=new Random();
+			int n = rn.nextInt(2) + 1;
+			if (n == 1) {
+			try {
+				Data d = new Data();
+				Quiz Generic = new Quiz(d);
+					al.add(Generic);
+			} catch (IOException e) {
+				System.out.print("Quiz cannot be loaded.");
+				e.printStackTrace();
+			}
+		} else al.add(randomEvent);
+			
 			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
 			npcs.add(anpc);
 //			for (int i = 0; i < anpc.getEvents().size();i++){
@@ -206,14 +211,21 @@ public class Play extends GameState {
 			float x =  (Float) quest.getProperties().get("x");
 			float y =  (Float) quest.getProperties().get("y");
 			Texture sprite = new Texture("Sprites/npcs/" + questSprite + ".png");
-			TextureRegion[] NPCSprite = new TextureRegion[4];		
+			TextureRegion[] NPCSprite = new TextureRegion[4];
+			Texture avatar = new Texture("Avatars/" + questNPC + ".png");
 			for(int j=0;j<4;j++){
 				NPCSprite[j]=new TextureRegion(sprite,j*50,0,32,32);
 			}
 			ArrayList<Event> al = new ArrayList<Event>();
-
-			al.add(randomEvent);
-			NPC anpc = new NPC(NPCSprite, x, y, randDir(), "NPC",al);
+			
+			try {
+				QuestEvent = new ScriptedEvent(player, false, questNPC, avatar);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			al.add(QuestEvent);
+			NPC anpc = new NPC(NPCSprite, x, y, randDir(), questNPC,al);
 			npcs.add(anpc);
 //			for (int i = 0; i < anpc.getEvents().size();i++){
 //			if (anpc.getEvents().get(i) != null) {System.out.println("Event at index:" + i);}
