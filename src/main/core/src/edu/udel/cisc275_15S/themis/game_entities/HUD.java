@@ -12,9 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import edu.udel.cisc275_15S.themis.game_states.Play;
@@ -44,6 +41,7 @@ public class HUD {
 	Button Bag;
 	Button Obj;
 	Button Web;
+	
 	private Texture bagIcon = new Texture(Gdx.files.internal("gfx/themismenubg.jpg"));
 	private Texture objIcon = new Texture(Gdx.files.internal("gfx/themis.png"));
 	private Texture WebIcon = new Texture(Gdx.files.internal("gfx/themis.png"));
@@ -57,9 +55,9 @@ public class HUD {
 		email = player.getEmail();
 		gsh = play.getGsh();
 		
-		stage = new Stage();											// init the stage
-		Gdx.input.setInputProcessor(stage);								// add an input processor to the stage to see touch
-		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));		// init the skin to load the UI settings
+		stage = new Stage();											
+		Gdx.input.setInputProcessor(stage);								
+		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));		
 		
 		bagIcon = new Texture(Gdx.files.internal("Button/bag.png"));
 		objIcon = new Texture(Gdx.files.internal("Button/info.png"));
