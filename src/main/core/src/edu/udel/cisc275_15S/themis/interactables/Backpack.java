@@ -30,10 +30,8 @@ public class Backpack extends Buttons implements Interactable {
 
 	public void update(float dt) {
         dt = Gdx.graphics.getDeltaTime();
-        if (dt < .016) {
-		handleInput(); }
-		opened = clicked;
-		
+		handleInput(); 
+		opened = clicked;	
 	}
 
 	@Override

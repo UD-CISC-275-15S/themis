@@ -78,7 +78,7 @@ public class Play extends GameState {
 		
 		CIH = new CharacterInteractionHandler(this);
 		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
-		hud = new HUD(player);
+		hud = new HUD(player, this);
 
 		
 		for (int i = 0; i < exits.size; i++) {
@@ -510,6 +510,9 @@ public class Play extends GameState {
 	public SpriteBatch getSB(){return sb;}
 	public Array<Rectangle> getExits() { return exits;}
 	public boolean getNewGame(){ return newGame;}
+	public GameStateHandler getGsh() {
+		return gsh;
+	}
 
 	public static void main(String[] args) throws IOException {
 		String filePath = new File("").getAbsolutePath();

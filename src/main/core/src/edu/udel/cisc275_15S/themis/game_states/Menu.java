@@ -10,6 +10,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -28,7 +32,7 @@ public class Menu extends GameState {
 	private TextButton newgame;
 
 	Texture right = new Texture("Sprites/right.png");
-
+	Texture texture;
 	float statetime = 0f;
 	TextureRegion currentFrame;
 
@@ -44,19 +48,15 @@ public class Menu extends GameState {
 		play.setSize(75,25);
 		newgame = new TextButton("New Game", skin);							// create the start button
 		newgame.setPosition(205, 50);										// sets the position to 320, 60, about midway at the bottom
-		newgame.setSize(100,25);// sets the size to fit the text
+		newgame.setSize(100,25);										// sets the size to fit the text
+		
 		play.addListener(new ClickListener() {							// adds a click listener
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
 				playClicked();											// notify that the button is clicked and change states
 			}
 		});
-		newgame.addListener(new ClickListener() {							// adds a click listener
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-				newgameClicked();
-			}
-		});
+
 		stage.addActor(play);
 		stage.addActor(newgame);
 
