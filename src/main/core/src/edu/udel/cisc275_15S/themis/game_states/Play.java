@@ -447,13 +447,6 @@ public class Play extends GameState {
 		if (newGame) {
 			Tutorial.render(sb, hudCam);
 		}
-
-		if(backpackOpened){
-			player.getBag().render(sb);
-		}
-		if(objectivesOpened){
-			player.getObjButton().render(sb);
-		}
 		CIH.update();
 		hud.render(sb);
 		sb.setProjectionMatrix(cam.combined);
@@ -473,10 +466,10 @@ public class Play extends GameState {
 	@Override
 	public void handleInput() {
 		if(player.getBag().isDown()){
-			player.getBag().setOpened(true);
+			player.getBag().setOpened(!player.getBag().isOpen());
 		}
 		if(player.getObjButton().isDown()){
-			player.getObjButton().setOpened(true);
+			player.getObjButton().setOpened(!player.getObjButton().isOpen());
 		}
 		if (newGame) {return;}
 		else if (backpackOpened) {return;}

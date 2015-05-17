@@ -18,7 +18,7 @@ public class Objectives extends Buttons implements Interactable{
 	private Texture incompleteImage;
 	private Texture attemptedImage;
 	private Texture completedImage;
-	private boolean opened=false;
+	private boolean opened;
 	private int numObjectives;
 	private ArrayList<String> objectiveText;
 	private ArrayList<Texture> objectiveCompleteness;
@@ -32,6 +32,7 @@ public class Objectives extends Buttons implements Interactable{
 		completedImage = new Texture(Gdx.files.internal("gfx/completed.gif"));
 		objectiveText = new ArrayList<String>();
 		objectiveCompleteness = new ArrayList<Texture>();
+		opened = false;
 		text = new BitmapFont();
 		try{
 			Data.readObjectives(this);
@@ -39,6 +40,7 @@ public class Objectives extends Buttons implements Interactable{
 		catch(IOException e){
 			e.printStackTrace();
 		}
+		numObjectives=objectiveText.size();
 	}
 	
 	public void render(SpriteBatch sb) {

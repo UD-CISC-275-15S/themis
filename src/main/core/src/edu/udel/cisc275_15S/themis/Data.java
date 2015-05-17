@@ -75,8 +75,9 @@ public class Data {
 		FileHandle infile = Gdx.files.internal("Gamedata/Objectives.txt");
 		BufferedReader br = new BufferedReader(infile.reader());
 		String str = null;
-		str = br.readLine();
-		while((str = br.readLine())!=null){
+		br.readLine();
+		str=br.readLine();
+		while(str!=null){
 			if(str.equals("0")){
 				obj.addComplete(obj.getIncomplete());
 			}
@@ -86,9 +87,11 @@ public class Data {
 			if(str.equals("2")){
 				obj.addComplete(obj.getComplete());
 			}
-			System.out.println(0);
-			obj.addText(br.readLine());
-			System.out.println(1);
+			System.out.println(str);
+			str=br.readLine();
+			obj.addText(str);
+			System.out.println(str);
+			str=br.readLine();
 		}
 		br.close();
 	}
