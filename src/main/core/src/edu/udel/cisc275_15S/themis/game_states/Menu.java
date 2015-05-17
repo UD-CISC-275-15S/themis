@@ -1,6 +1,5 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
@@ -8,9 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,9 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
-import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
-import edu.udel.cisc275_15S.themis.interactables.Buttons;
-
 public class Menu extends GameState {
 
 	boolean newGame = true;

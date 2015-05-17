@@ -1,6 +1,5 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 
 public class UserInfo extends GameState{
@@ -25,11 +25,11 @@ public class UserInfo extends GameState{
 	Stage stage;
 	
 	Label name;
-	Label coll;
+	Label id;
 	
 	TextButton start;
 	TextField txfuser;
-	TextField txfcoll;
+	TextField txfid;
 	
 	Skin skin;
 	
@@ -58,23 +58,23 @@ public class UserInfo extends GameState{
 		name.setSize(20, 20);											// size
 		name.setColor(Color.WHITE);										// color
 		
-		coll = new Label("College:", skin);								// init the college label
-		coll.setPosition(135, 120);
-		coll.setSize(20, 20);
-		coll.setColor(Color.WHITE);
+		id = new Label("UDID:", skin);								// init the college label
+		id.setPosition(150, 120);
+		id.setSize(20, 20);
+		id.setColor(Color.WHITE);
 		
 		txfuser = new TextField("", skin);								// init the textfield for the first name
 		txfuser.setPosition(200, 180);
 		txfuser.setSize(240, 40);
 		
-		txfcoll = new TextField("", skin);								// init the college textfield
-		txfcoll.setPosition(200, 110);
-		txfcoll.setSize(240, 40);
+		txfid = new TextField("", skin);								// init the college textfield
+		txfid.setPosition(200, 110);
+		txfid.setSize(240, 40);
 		
 		stage.addActor(name);											// add all these interactables to the stage to be drawn
-		stage.addActor(coll);
+		stage.addActor(id);
 		stage.addActor(txfuser);
-		stage.addActor(txfcoll);
+		stage.addActor(txfid);
 		stage.addActor(start);
 		
 		
@@ -93,8 +93,8 @@ public class UserInfo extends GameState{
 				}
 			});
 		} 
-		if (txfcoll.getText().equals("") || txfcoll.getText().equals("Please type your college.")) {
-			txfcoll.setText("Please type your college.");
+		if (txfid.getText().equals("") || txfid.getText().equals("Please type your Student ID.")) {
+			txfid.setText("Please type your Student ID.");
 			start.addListener(new ClickListener() {							// adds a click listener
 				@Override
 				public void touchUp(InputEvent e, float x, float y, int pointer, int button){
@@ -104,8 +104,9 @@ public class UserInfo extends GameState{
 			});
 		} 
 		if (!txfuser.getText().equals("") && !txfuser.getText().equals("Please type your name.") &&
-				!txfcoll.getText().equals("") && !txfcoll.getText().equals("Please type your college.")) {
+				!txfid.getText().equals("") && !txfid.getText().equals("Please type your Student ID.")) {
 			try {
+				Data.savePlayerName(txfuser.getText(), txfid.getText());
 				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
 				gsh.game().background.dispose();
 				bg.dispose();												// dispose of the large image file

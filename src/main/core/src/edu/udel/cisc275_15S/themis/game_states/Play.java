@@ -1,9 +1,7 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,10 +34,8 @@ import edu.udel.cisc275_15S.themis.game_events.RandomEvent;
 import edu.udel.cisc275_15S.themis.game_events.ScriptedEvent;
 import edu.udel.cisc275_15S.themis.game_events.Tutorial;
 import edu.udel.cisc275_15S.themis.handlers.CharacterInteractionHandler;
-import edu.udel.cisc275_15S.themis.handlers.TouchInputHandler;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
-import edu.udel.cisc275_15S.themis.interactables.Buttons;
 
 public class Play extends GameState {
 
@@ -63,7 +59,6 @@ public class Play extends GameState {
 	ScriptedEvent QuestEvent;
 	private Tutorial Tutorial;
 	private boolean backpackOpened = false;
-	private boolean UDSISOpened = false;
 	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
 	
@@ -77,7 +72,6 @@ public class Play extends GameState {
 		CreatePlayer();
 		LoadMap();
 		CreateNPCs();
-		
 		cam = new MainCamera();
 		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
 		cam.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
@@ -109,8 +103,7 @@ public class Play extends GameState {
 		mapIndex = (int) map;
 //		
 //		Float x2 = 50f;
-//		Float y2 = 425f;
-		String dir = (Data.readPlayerDir());
+//		Float y2 = 425f;;
 
 		player = new Player(PlayerSprite, x, y, Character.DOWN, name);
 		player.setUserBag();
@@ -146,7 +139,7 @@ public class Play extends GameState {
 		
 		String questNPC;
 		String questSprite;
-		String sideQ;
+//		String sideQ;
 		
 		switch (mapIndex) {
 		case 0: questNPC = "guide";
@@ -255,7 +248,12 @@ public class Play extends GameState {
 				break;
 			case 2:
 				musicMap= 2;
-				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Happy.mp3"));
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Game5.mp3"));
+				music.play();
+				break;
+			case 3:
+				musicMap= 3;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
 				music.play();
 				break;
 			default:
@@ -396,8 +394,10 @@ public class Play extends GameState {
 			}
 		
 				try {
-			Data.savePlayerData(player.getName() ,x , y,player.getDirString(player.getDir()),map); // TODO get player name from textfield
+			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
 			gsh.setState(GameStateHandler.PLAY);
+			Data.updateObjectives(player.getObjButton());
+			Data.readObjectives(player.getObjButton());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -479,6 +479,9 @@ public class Play extends GameState {
 	public void handleInput() {
 		if(player.getBag().isDown()){
 			player.getBag().setOpened(true);
+		}
+		if(player.getObjButton().isDown()){
+			player.getObjButton().setOpened(true);
 		}
 		if (newGame) {return;}
 		else if (backpackOpened) {return;}

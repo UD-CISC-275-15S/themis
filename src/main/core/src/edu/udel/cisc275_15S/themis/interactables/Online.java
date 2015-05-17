@@ -1,7 +1,6 @@
 package edu.udel.cisc275_15S.themis.interactables;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 //Technically a button on our HUD with a different update and render method
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Online extends Buttons implements Interactable {
 
 	private boolean opened = false;
-	private Buttons back;
 	
 	
 	 

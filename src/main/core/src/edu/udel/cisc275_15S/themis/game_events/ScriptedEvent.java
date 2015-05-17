@@ -2,10 +2,8 @@ package edu.udel.cisc275_15S.themis.game_events;
 
 import java.io.IOException;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
 
 import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.game_entities.Player;
