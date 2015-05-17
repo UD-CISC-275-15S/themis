@@ -35,6 +35,7 @@ public class HUD {
 	boolean OpenObj;
 	private Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Click.mp3"));
 	public GameStateHandler gsh;
+	private Play mplay; // used to dispose play music
 
 	Stage stage;
 	Skin skin;
@@ -54,6 +55,7 @@ public class HUD {
 		udsis = player.getUDSIS();
 		email = player.getEmail();
 		gsh = play.getGsh();
+		mplay = play;
 		
 		stage = new Stage();											
 		Gdx.input.setInputProcessor(stage);								
@@ -104,6 +106,7 @@ public class HUD {
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
 				try {
+					mplay.getMusic().dispose();
 					click.play();
 					gsh.setState(GameStateHandler.WEB);						
 				} catch (IOException e1) {

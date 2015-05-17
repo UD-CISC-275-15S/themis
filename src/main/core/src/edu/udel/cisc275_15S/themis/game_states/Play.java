@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -62,7 +63,8 @@ public class Play extends GameState {
 	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
 	
-	private Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
+	public Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
+	public Sound knock = Gdx.audio.newSound(Gdx.files.internal("Audio/Knock2.mp3"));
 	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
 
 	public Play(GameStateHandler gsh) throws IOException {
@@ -233,6 +235,10 @@ public class Play extends GameState {
 		}
 	}
 	
+	public Music getMusic(){
+		return music;
+	}
+	
 	public void updateMusic(){
 		if (musicMap != mapIndex){
 			switch (mapIndex) {
@@ -374,6 +380,7 @@ public class Play extends GameState {
 			y = 124f;
 			
 		} else if (mapIndex == 1) {
+			knock.play();
 			for (int i = 0; i < exits.size; i++) {
 				if (exits.get(i) == exit) {
 					map = i;
@@ -427,7 +434,7 @@ public class Play extends GameState {
 			newGame = Tutorial.getcomplete();
 		}
 		exited();
-		loadWeb();
+		//loadWeb();
 
 	}
 
@@ -464,7 +471,7 @@ public class Play extends GameState {
 		sb.setProjectionMatrix(cam.combined);
 //		System.out.println(sb.totalRenderCalls);
 	}
-
+/*
 	public void loadWeb(){
 		if (player.getOnline().isDown()){
 			try {
@@ -475,6 +482,7 @@ public class Play extends GameState {
 			}
 		}
 	}
+	*/
 	@Override
 	public void handleInput() {
 		if(player.getBag().isDown()){

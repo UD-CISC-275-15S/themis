@@ -77,6 +77,7 @@ public class Menu extends GameState {
 			try {
 				click.play();
 				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
+				gsh.game().background.dispose();
 				bg.dispose();												// dispose of the large image file
 				this.dispose();												// dispose the data loaded into this class
 			} catch (IOException e) {
