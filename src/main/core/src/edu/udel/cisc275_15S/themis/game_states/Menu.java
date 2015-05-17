@@ -49,13 +49,11 @@ public class Menu extends GameState {
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
 				playClicked();											// notify that the button is clicked and change states
-				newgameClicked();
 			}
 		});
 		newgame.addListener(new ClickListener() {							// adds a click listener
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-				playClicked();											// notify that the button is clicked and change states
 				newgameClicked();
 			}
 		});
@@ -65,17 +63,17 @@ public class Menu extends GameState {
 	}
 
 	public void playClicked(){
-		if (newGame){
-			try {
-				click.play();
-				gsh.setState(GameStateHandler.USERINFO);
-				newGame = false;											// set the game state to the main play state
-				bg.dispose();												// dispose of the large image file
-				this.dispose();												// dispose the data loaded into this class
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
+//		if (newGame){
+//			try {
+//				click.play();
+//				gsh.setState(GameStateHandler.USERINFO);
+//				newGame = false;											// set the game state to the main play state
+//				bg.dispose();												// dispose of the large image file
+//				this.dispose();												// dispose the data loaded into this class
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		} else {
 			try {
 				click.play();
 				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
@@ -85,7 +83,7 @@ public class Menu extends GameState {
 				e.printStackTrace();
 			}
 		}
-	}
+	
 	public void newgameClicked(){
 		if (newGame){
 			try {
