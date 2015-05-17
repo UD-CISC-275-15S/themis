@@ -435,6 +435,7 @@ public class Play extends GameState {
 		CIH.render(sb);
 		player.render(sb);
 		populateNPCs();
+		int n = 0;
 		
 		sb.setProjectionMatrix(hudCam.combined);
 		if (newGame) {
@@ -444,8 +445,20 @@ public class Play extends GameState {
 		if(backpackOpened){
 			player.getBag().render(sb);
 		}
-		if(objectivesOpened){
+		if(objectivesOpened&&n==0){
+			try{
+				Data.updateObjectives(player.getObjButton());
+			}
+			catch(FileNotFoundException e){
+				e.printStackTrace();
+			}
+			n++;
 			player.getObjButton().render(sb);
+		}
+		if(objectivesOpened&&n==1){
+			if(player.getObjButton().isDown()){
+				n=0;
+			}
 		}
 		CIH.update();
 		hud.render(sb);
@@ -467,6 +480,9 @@ public class Play extends GameState {
 	public void handleInput() {
 		if(player.getBag().isDown()){
 			player.getBag().setOpened(true);
+		}
+		if(player.getObjButton().isDown()){
+			player.getObjButton().setOpened(true);
 		}
 		if (newGame) {return;}
 		else if (backpackOpened) {return;}
