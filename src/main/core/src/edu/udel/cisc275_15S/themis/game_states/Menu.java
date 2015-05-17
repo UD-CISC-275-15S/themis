@@ -31,6 +31,7 @@ public class Menu extends GameState {
 	private Texture ud = new Texture(Gdx.files.internal("gfx/themis.png"));
 	private int srcX = 0;
 	private TextButton play;
+	private TextButton newgame;
 
 	Texture right = new Texture("Sprites/right.png");
 
@@ -46,14 +47,26 @@ public class Menu extends GameState {
 		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));		// init the skin to load the UI settings
 		play = new TextButton("Play", skin);							// create the start button
 		play.setPosition(205, 80);										// sets the position to 320, 60, about midway at the bottom
-		play.setSize(75,30);											// sets the size to fit the text
+		play.setSize(75,25);
+		newgame = new TextButton("New Game", skin);							// create the start button
+		newgame.setPosition(205, 50);										// sets the position to 320, 60, about midway at the bottom
+		newgame.setSize(100,25);// sets the size to fit the text
 		play.addListener(new ClickListener() {							// adds a click listener
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
 				playClicked();											// notify that the button is clicked and change states
+				newgameClicked();
+			}
+		});
+		newgame.addListener(new ClickListener() {							// adds a click listener
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+				playClicked();											// notify that the button is clicked and change states
+				newgameClicked();
 			}
 		});
 		stage.addActor(play);
+		stage.addActor(newgame);
 
 	}
 
@@ -79,7 +92,28 @@ public class Menu extends GameState {
 			}
 		}
 	}
-
+	public void newgameClicked(){
+		if (newGame){
+			try {
+				click.play();
+				gsh.setState(GameStateHandler.USERINFO);
+				newGame = false;											// set the game state to the main play state
+				bg.dispose();												// dispose of the large image file
+				this.dispose();												// dispose the data loaded into this class
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				click.play();
+				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
+				bg.dispose();												// dispose of the large image file
+				this.dispose();												// dispose the data loaded into this class
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	@Override
 	public void handleInput() {
 	}
