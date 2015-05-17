@@ -197,6 +197,21 @@ public class Data {
 	    } br.close();
 	    return "";
 	}
+	
+	public static void savePlayerName(String playername, String userid) throws FileNotFoundException { // inits with entrance to trabant
+		FileHandle infile = Gdx.files.local("Gamedata/PlayerData.txt");
+			infile.writeString("name:"+"\n",false);
+			infile.writeString(playername+"\n",true);
+			infile.writeString("x:"+"\n",true);
+			infile.writeString("226.0"+"\n",true);
+			infile.writeString("y:"+"\n",true);
+			infile.writeString("120.0"+"\n",true);
+			infile.writeString("dir"+"\n",true);
+			infile.writeString("UP"+"\n",true);
+			infile.writeString("map:"+"\n",true);
+			infile.writeString("0"+"\n",true);
+	}
+	
 	public static void savePlayerData(String playername, Float x0, Float y0, String dir, int map) throws FileNotFoundException {
 		FileHandle infile = Gdx.files.local("Gamedata/PlayerData.txt");
 			String x = Float.toString(x0);

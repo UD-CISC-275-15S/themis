@@ -396,7 +396,7 @@ public class Play extends GameState {
 			}
 		
 				try {
-			Data.savePlayerData(player.getName() ,x , y,player.getDirString(player.getDir()),map); // TODO get player name from textfield
+			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
 			gsh.setState(GameStateHandler.PLAY);
 			
 		} catch (IOException e) {
