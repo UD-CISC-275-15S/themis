@@ -138,18 +138,22 @@ public class Data {
 	}
 	
 	
-/*	public void updateObjectives(Objectives obj) throws FileNotFoundException{
-		File ObjectiveFile = new File("Gamedata/Objectives.txt");
-		Scanner infile = new Scanner(ObjectiveFile);
-		infile.nextLine();
-		obj.updateObjectives();
-		while(infile.hasNext()){
-			obj.addComplete(new Integer(infile.nextInt()));
-			infile.nextLine();
+	public static void updateObjectives(Objectives obj) throws FileNotFoundException{
+		FileHandle outfile = Gdx.files.local("Gamedata/Objectives.txt");
+		outfile.writeString(""+obj.getText().size(), false);
+		for(int i=0;i<obj.getText().size();i++){
+			if(obj.getTextures().get(i)==obj.getIncomplete()){
+				outfile.writeString("1",true);
+			}
+			if(obj.getTextures().get(i)==obj.getAttempted()){
+				outfile.writeString("2", true);
+			}
+			if(obj.getTextures().get(i)==obj.getComplete()){
+				outfile.writeString("3",true);
+			}
+			outfile.writeString(obj.getText().get(i),true);
 		}
-		infile.close();
-	}*/
-	
+	}
 	public static float readPlayer(String p) throws IOException {
 		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
 		BufferedReader br = new BufferedReader(infile.reader());
