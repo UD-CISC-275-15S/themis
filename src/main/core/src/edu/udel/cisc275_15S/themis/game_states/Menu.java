@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 public class Menu extends GameState {
@@ -69,17 +70,6 @@ public class Menu extends GameState {
 	}
 
 	public void playClicked(){
-//		if (newGame){
-//			try {
-//				click.play();
-//				gsh.setState(GameStateHandler.USERINFO);
-//				newGame = false;											// set the game state to the main play state
-//				bg.dispose();												// dispose of the large image file
-//				this.dispose();												// dispose the data loaded into this class
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		} else {
 			try {
 				click.play();
 				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
