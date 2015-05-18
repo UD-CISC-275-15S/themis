@@ -89,7 +89,7 @@ public class HUD {
 				OpenBag = true;
 				click.play();
 				bag.setOpened(true);
-				System.out.println(bag.getOpen());
+				System.out.println(bag.isOpen());
 			}
 			else if (OpenBag) {	
 				OpenBag = false;
@@ -148,7 +148,11 @@ public class HUD {
 		online.render(sb);	
 		stage.act();
 		stage.draw();
-
 	}
-	
+	public Backpack getbag() {
+		return bag;
+	}
+	public Objectives getobj() {
+		return obj;
+	}
 }

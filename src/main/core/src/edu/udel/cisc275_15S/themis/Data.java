@@ -76,7 +76,7 @@ public class Data {
 		BufferedReader br = new BufferedReader(infile.reader());
 		String str = null;
 		br.readLine();
-		str = br.readLine();
+		str=br.readLine();
 		while(str!=null){
 			if(str.equals("0")){
 				obj.addComplete(obj.getIncomplete());
@@ -87,9 +87,11 @@ public class Data {
 			if(str.equals("2")){
 				obj.addComplete(obj.getComplete());
 			}
-			System.out.println(0);
-			obj.addText(br.readLine());
-			System.out.println(1);
+			System.out.println(str);
+			str=br.readLine();
+			obj.addText(str);
+			System.out.println(str);
+			str=br.readLine();
 		}
 		br.close();
 	}
