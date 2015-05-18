@@ -53,4 +53,5 @@ public class Backpack extends Buttons implements Interactable {
 //		remove an item from the bag
 //		items.remove(item);
 	}
+	public boolean getOpen() { return opened;}
 }

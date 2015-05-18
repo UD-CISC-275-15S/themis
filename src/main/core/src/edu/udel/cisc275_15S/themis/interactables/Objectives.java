@@ -39,6 +39,9 @@ public class Objectives extends Buttons implements Interactable{
 		catch(IOException e){
 			e.printStackTrace();
 		}
+		for(int i=0;i<numObjectives;i++){
+			System.out.println(objectiveText.get(i)+"\n");
+		}
 	}
 	
 	public void render(SpriteBatch sb) {
@@ -80,7 +83,6 @@ public class Objectives extends Buttons implements Interactable{
         dt = Gdx.graphics.getDeltaTime();
 		handleInput(); 
 		opened = clicked;
-		
 	}
 
 	
