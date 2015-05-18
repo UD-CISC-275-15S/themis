@@ -1,6 +1,8 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,7 +42,7 @@ import edu.udel.cisc275_15S.themis.handlers.MainCamera;
 
 public class Play extends GameState {
 
-	private boolean newGame = false;
+	private boolean newGame = true;
 	int i = 0;
 	private static Player player;
 	
@@ -70,7 +72,7 @@ public class Play extends GameState {
 	public Play(GameStateHandler gsh) throws IOException {
 		super(gsh);
 		this.gsh=gsh;
-		
+		Data.readNewGame(this);
 		CreatePlayer();
 		LoadMap();
 		CreateNPCs();
@@ -79,7 +81,7 @@ public class Play extends GameState {
 		cam.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
 		
 		CIH = new CharacterInteractionHandler(this);
-		Tutorial = new Tutorial(player, newGame, 0, "tutorial");
+		Tutorial = new Tutorial(player, false, 0, "tutorial");
 		hud = new HUD(player, this);
 
 		
@@ -453,9 +455,9 @@ public class Play extends GameState {
 		
 				try {
 			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
-			gsh.setState(GameStateHandler.PLAY);
 			Data.updateObjectives(player.getObjButton());
-			Data.readObjectives(player.getObjButton());
+//			Data.readObjectives(player.getObjButton());
+			gsh.setState(GameStateHandler.PLAY);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -472,16 +474,23 @@ public class Play extends GameState {
 //		testQuiz();
 		if (!newGame) {
 			hud.update(dt);
-//		try {
 		}
-//			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		if (newGame) {
 			Tutorial.update();
-			newGame = Tutorial.getcomplete();
+			if (Tutorial.getcomplete()) {
+				newGame = false;
+				try { 
+					Data.saveNewGame(false);
+				} catch (IOException e) {
+				e.printStackTrace();
+				}
+			}
 		}
 		exited();
 		//loadWeb();
@@ -514,18 +523,6 @@ public class Play extends GameState {
 		sb.setProjectionMatrix(cam.combined);
 //		System.out.println(sb.totalRenderCalls);
 	}
-/*
-	public void loadWeb(){
-		if (player.getOnline().isDown()){
-			try {
-				gsh.setState(GameStateHandler.WEB);
-				System.out.println("Web loaded");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	*/
 	@Override
 	public void handleInput() {
 		if(player.getBag().isDown()){
@@ -535,8 +532,8 @@ public class Play extends GameState {
 			player.getObjButton().setOpened(!player.getObjButton().isOpen());
 		}
 		if (newGame) {return;}
-		else if (backpackOpened) {return;}
-		else if(objectivesOpened){return;}
+		else if(hud.getbag().isOpen()){return;}
+		else if(hud.getobj().isOpen()){return;}
 		CIH.touchHandler();
 	}
 

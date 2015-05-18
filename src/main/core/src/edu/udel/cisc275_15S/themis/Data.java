@@ -7,6 +7,7 @@ import java.util.Random;
 import java.io.BufferedReader;
 
 import edu.udel.cisc275_15S.themis.game_entities.Player;
+import edu.udel.cisc275_15S.themis.game_states.Play;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Online;
 import edu.udel.cisc275_15S.themis.interactables.UDSIS;
@@ -109,7 +110,25 @@ public class Data {
 	        }
 	    } br.close();
 	}
-	
+	public static void readNewGame(Play play) throws IOException {
+		FileHandle infile = Gdx.files.internal("Gamedata/NewGame.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String string = null;
+		
+	    while ((string = br.readLine())!=null) {      
+	        if (!string.isEmpty()) {
+	        	if (string.endsWith("1")) { 
+	        		play.setNewGame(true);
+	        		} else play.setNewGame(false);
+	        }
+	    } br.close();
+	}
+	public static void saveNewGame(Boolean bool) throws FileNotFoundException { // inits with entrance to trabant
+		FileHandle infile = Gdx.files.local("Gamedata/NewGame.txt");
+		if (bool){
+ 			infile.writeString("1",true);
+		} else infile.writeString("0",true);
+	}
 	public String loadRDialogue() {
 		Random rn=new Random();
 		int y = rDialogue.size;

@@ -2,6 +2,7 @@ package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.IOException;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -14,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import edu.udel.cisc275_15S.themis.game_entities.Character;
+
 
 import edu.udel.cisc275_15S.themis.Data;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
@@ -107,6 +110,8 @@ public class UserInfo extends GameState{
 				!txfid.getText().equals("") && !txfid.getText().equals("Please type your Student ID.")) {
 			try {
 				Data.savePlayerName(txfuser.getText(), txfid.getText());
+				Data.savePlayerData(txfuser.getText(), 228f , 546f,"DOWN",0);
+				Data.saveNewGame(true);
 				gsh.setState(GameStateHandler.PLAY);						// set the game state to the main play state
 				gsh.game().background.dispose();
 				bg.dispose();												// dispose of the large image file

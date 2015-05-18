@@ -85,21 +85,34 @@ public class HUD {
 		Bag.addListener(new ClickListener() {							
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-			if (OpenBag) {	
+			if (!OpenBag) {	
 				OpenBag = true;
 				click.play();
+				bag.setOpened(true);
+				System.out.println(bag.isOpen());
 			}
-				update(1/60);
+			else if (OpenBag) {	
+				OpenBag = false;
+				click.play();
+				bag.setOpened(false);
+			}
+//				update(1/60);
 			}
 		});
 		Obj.addListener(new ClickListener() {							
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-			if (OpenObj) {
+			if (!OpenObj) {
 				OpenObj = true;
 				click.play();
+				obj.setOpened(true);
 			}
-				update(1/60);
+			else if (OpenObj) {
+				OpenObj = false;
+				click.play();
+				obj.setOpened(false);
+			} 
+//				update(1/60);
 			}
 		});
 		Web.addListener(new ClickListener() {							
@@ -121,10 +134,10 @@ public class HUD {
 
 	public void update(float dt) {
 //		So that the interfaces don't open over each other
-		if (!OpenBag) {
+		if (OpenBag) {
 			bag.update(dt);
 		}
-		if (!OpenObj) {
+		if (OpenObj) {
 			obj.update(dt);
 		}
 	}
@@ -135,7 +148,11 @@ public class HUD {
 		online.render(sb);	
 		stage.act();
 		stage.draw();
-
 	}
-	
+	public Backpack getbag() {
+		return bag;
+	}
+	public Objectives getobj() {
+		return obj;
+	}
 }

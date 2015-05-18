@@ -82,7 +82,6 @@ public class Objectives extends Buttons implements Interactable{
         dt = Gdx.graphics.getDeltaTime();
 		handleInput(); 
 		opened = clicked;
-		
 	}
 
 	
