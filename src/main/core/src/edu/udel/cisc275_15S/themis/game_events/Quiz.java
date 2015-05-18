@@ -1,7 +1,4 @@
 package edu.udel.cisc275_15S.themis.game_events;
-
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
@@ -40,7 +37,6 @@ public class Quiz extends Event {
 	BitmapFont q = new BitmapFont();
 	public Sound right = Gdx.audio.newSound(Gdx.files.internal("Audio/Bright.mp3"));
 	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
-	public static File QuestionDataFile = new File("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
 	public static Map<Integer, QuestionData> qdata = new HashMap<Integer, QuestionData>();
 	
 	public Quiz(Data d) throws IOException {
@@ -184,7 +180,7 @@ public class Quiz extends Event {
 	}
 	
 	public static void processAnswer(boolean correct, int time) throws IOException {
-		FileHandle outfile = Gdx.files.internal("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
+		FileHandle outfile = Gdx.files.local("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
 		outfile.writeString("",false);
 		for(Map.Entry<Integer, QuestionData> entry : qdata.entrySet()) {
 			outfile.writeString(entry.toString(), true);
