@@ -161,13 +161,13 @@ public class Data {
 		outfile.writeString(""+obj.getText().size()+"\n", false);
 		for(int i=0;i<obj.getText().size();i++){
 			if(obj.getTextures().get(i)==obj.getIncomplete()){
-				outfile.writeString("1\n",true);
+				outfile.writeString("0\n",true);
 			}
 			if(obj.getTextures().get(i)==obj.getAttempted()){
-				outfile.writeString("2\n", true);
+				outfile.writeString("1\n", true);
 			}
 			if(obj.getTextures().get(i)==obj.getComplete()){
-				outfile.writeString("3\n",true);
+				outfile.writeString("2\n",true);
 			}
 			outfile.writeString(obj.getText().get(i)+"\n",true);
 		}
