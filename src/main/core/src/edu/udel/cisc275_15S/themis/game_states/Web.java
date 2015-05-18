@@ -4,9 +4,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
@@ -21,42 +29,87 @@ public class Web extends GameState {
 	private Texture email = new Texture(Gdx.files.internal("gfx/email2.png"));
 	private Texture sis = new Texture(Gdx.files.internal("gfx/UDSISicon.png"));
 	private Texture bg = new Texture(Gdx.files.internal("gfx/udelhome.png"));
+	private Texture home = new Texture(Gdx.files.internal("gfx/udelhome.png"));
+	private Texture sispage = new Texture(Gdx.files.internal("gfx/udsis1.png"));
 	private Vector2 dragOld, dragNew;
 	private boolean udsis = false;
+	int i = 0;
+	Stage stage;
+	Skin skin;
+	Button BACK;
+	Button EMAIL;
+	Button SIS;
 	
-	public Web(GameStateHandler gsh) throws FileNotFoundException {
+	private Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Click.mp3"));
+	
+	public Web(final GameStateHandler gsh) throws FileNotFoundException {
 		super(gsh);
-		UDSIS = new Buttons(sis, 40, 280);
-		UDMail = new Buttons(email, 120, 280);
-		back = new Buttons(backicon, 400, 50);
+		
+		stage = new Stage();											
+		Gdx.input.setInputProcessor(stage);								
+		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));	
+		
+		TextureRegion backtr = new TextureRegion(backicon);
+		TextureRegion emailtr = new TextureRegion(email);
+		TextureRegion sistr = new TextureRegion(sis);
+		
+		BACK = new Button(new Image(backtr), skin);
+		EMAIL = new Button(new Image(emailtr), skin);
+		SIS = new Button(new Image(sistr), skin);
+		
+		BACK.setPosition(400, 10);
+		BACK.setSize(backicon.getWidth(), backicon.getHeight());
+		
+		EMAIL.setPosition(100, 10);
+		EMAIL.setSize(email.getWidth(), email.getHeight());
+
+		SIS.setPosition(20, 10);
+		SIS.setSize(sis.getWidth(), sis.getHeight());
+
+		BACK.addListener(new ClickListener() {							
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+				click.play();
+					try {
+						gsh.setState(GameStateHandler.PLAY);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+			}
+		});
+		
+		EMAIL.addListener(new ClickListener() {							
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+				click.play();
+			}
+		});
+		
+		SIS.addListener(new ClickListener() {							
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+				click.play();
+				if (i == 0) {
+					i = 1;
+					bg = sispage;
+					} else if (i == 1) {
+				i = 0;
+				bg = home;
+					}
+			}
+		});
+		
+		stage.addActor(BACK);
+		stage.addActor(EMAIL);
+		stage.addActor(SIS);
+		
 		cam = new MainCamera();
 		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
 		cam.setBounds(0, bg.getWidth(), 0, bg.getHeight());
+		
         dragNew = new Vector2(Gdx.input.getX(), Gdx.input.getY());
         dragOld = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-        
 		
-	}
-
-	@Override
-	public void handleInput() {
-//		temporary code for functionality
-		if (UDSIS.isDown() && !udsis){
-			bg = new Texture(Gdx.files.internal("gfx/udsis1.png"));
-			udsis = true;
-		}
-
-		if (UDMail.isDown()){
-		}
-		
-		if (back.isDown()){
-			try {
-				gsh.setState(GameStateHandler.PLAY);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
 	}
 	
 	public void dragInput() {
@@ -78,10 +131,10 @@ public class Web extends GameState {
 	}
 	@Override
 	public void update(float dt) {
-		handleInput();
-		UDSIS.update(dt);
-		UDMail.update(dt);
-		back.update(dt);
+//		handleInput();
+//		UDSIS.update(dt);
+//		UDMail.update(dt);
+//		back.update(dt);
 		dragInput();
 	}
 
@@ -94,9 +147,8 @@ public class Web extends GameState {
 		sb.draw(bg, 0, 0);
 		sb.end();
 		sb.setProjectionMatrix(hudCam.combined);
-		UDSIS.render(sb);
-		UDMail.render(sb);
-		back.render(sb);
+		stage.act();
+		stage.draw();
 	}
 
 	@Override
@@ -108,6 +160,12 @@ public class Web extends GameState {
 	@Override
 	public void resize(int width, int height) {
 
+	}
+
+	@Override
+	public void handleInput() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

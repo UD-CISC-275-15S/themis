@@ -80,8 +80,7 @@ public class Objectives extends Buttons implements Interactable{
 	
 	public void update(float dt) {
         dt = Gdx.graphics.getDeltaTime();
-        if (dt < .016) {
-		handleInput(); }
+		handleInput(); 
 		opened = clicked;
 		
 	}

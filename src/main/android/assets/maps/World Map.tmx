@@ -19,13 +19,13 @@
   <object x="61" y="355"/>
  </objectgroup>
  <objectgroup name="health" width="75" height="88">
-  <object x="364" y="558"/>
+  <object x="352" y="548" width="23" height="12"/>
  </objectgroup>
  <objectgroup name="perkins" width="75" height="88">
-  <object x="566" y="219"/>
+  <object x="553" y="212" width="22" height="17"/>
  </objectgroup>
  <objectgroup name="csc" width="75" height="88">
-  <object x="572" y="379"/>
+  <object x="559" y="370" width="23" height="15"/>
  </objectgroup>
  <objectgroup name="impassable" width="75" height="88">
   <object x="-9" y="-9" width="12" height="648"/>
@@ -40,26 +40,26 @@
   <object x="77" y="11" width="23" height="144"/>
   <object x="143" y="13" width="10" height="178"/>
   <object x="155" y="11" width="15" height="172"/>
-  <object x="241" y="11" width="16" height="237"/>
-  <object x="258" y="12" width="48" height="233"/>
+  <object x="241" y="11" width="15" height="233"/>
+  <object x="258" y="12" width="48" height="231"/>
   <object x="327" y="11" width="67" height="27"/>
   <object x="328" y="59" width="67" height="178"/>
-  <object x="239" y="271" width="66" height="111"/>
-  <object x="330" y="268" width="66" height="116"/>
+  <object x="240" y="273" width="64" height="104"/>
+  <object x="330" y="268" width="66" height="113"/>
   <object x="329" y="405" width="65" height="97"/>
   <object x="240" y="408" width="64" height="219"/>
   <object x="425" y="407" width="9" height="186"/>
   <object x="433" y="408" width="41" height="137"/>
   <object x="459" y="547" width="14" height="95"/>
-  <object x="424" y="287" width="51" height="97"/>
+  <object x="424" y="287" width="51" height="94"/>
   <object x="425" y="271" width="49" height="8"/>
   <object x="426" y="11" width="42" height="232"/>
   <object x="538" y="10" width="57" height="165"/>
   <object x="539" y="189" width="54" height="22"/>
-  <object x="538" y="210" width="16" height="18"/>
+  <object x="538" y="210" width="12" height="16"/>
   <object x="578" y="211" width="14" height="27"/>
   <object x="537" y="264" width="57" height="105"/>
-  <object x="538" y="369" width="21" height="18"/>
+  <object x="538" y="369" width="19" height="17"/>
   <object x="585" y="372" width="11" height="27"/>
   <object x="538" y="483" width="39" height="63"/>
   <object x="538" y="557" width="42" height="60"/>
@@ -75,7 +75,6 @@
  </objectgroup>
  <objectgroup name="npc" width="75" height="88">
   <object x="167" y="231"/>
-  <object x="94" y="200"/>
   <object x="147" y="371"/>
   <object x="357" y="346"/>
   <object x="357" y="195"/>
@@ -83,5 +82,7 @@
   <object x="521" y="459"/>
   <object x="485" y="231"/>
  </objectgroup>
- <objectgroup name="guide" width="75" height="88"/>
+ <objectgroup name="worldguide" width="75" height="88">
+  <object x="95" y="182"/>
+ </objectgroup>
 </map>
