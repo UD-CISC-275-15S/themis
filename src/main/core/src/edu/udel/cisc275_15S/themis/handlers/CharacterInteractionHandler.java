@@ -181,7 +181,7 @@ public class CharacterInteractionHandler {
 			||	((player.getX()>=npcs.get(i).getX()-20)&&(player.getX()<=npcs.get(i).getX()+20))&&((player.getY()+MOVE>=npcs.get(i).getY()-20)&&(player.getY()+MOVE<=npcs.get(i).getY()+20))
 			||
 				(
-				((player.getX()-MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()-MOVE<=play.getNPCS().get(i).getX()+20)) &&
+				((player.getX()+MOVE>=play.getNPCS().get(i).getX()-20)&&(player.getX()+MOVE<=play.getNPCS().get(i).getX()+20)) &&
 				((player.getY()>=play.getNPCS().get(i).getY()-20)&&(player.getY()<=play.getNPCS().get(i).getY()+20)))
 			||
 				(

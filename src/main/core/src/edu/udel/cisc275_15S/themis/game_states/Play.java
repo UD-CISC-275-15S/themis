@@ -147,7 +147,7 @@ public class Play extends GameState {
 		case 0: questNPC = "guide";
 				questSprite = "1";
 				break;
-		case 1: questNPC = "guide";
+		case 1: questNPC = "worldguide";
 				questSprite = "2";
 				break;
 		case 2: questNPC = "advisor";
@@ -155,6 +155,12 @@ public class Play extends GameState {
 				break;
 		case 3: questNPC = "doctor";
 				questSprite = "doctor";
+				break;
+		case 4: questNPC = "consultant";
+				questSprite = "consultant";
+				break;
+		case 5: questNPC = "counselor";
+				questSprite = "counselor";
 				break;
 		default: questNPC = "guide";
 				questSprite = "1";
@@ -261,6 +267,15 @@ public class Play extends GameState {
 				musicMap= 3;
 				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
 				music.play();
+			case 4:
+				musicMap= 3;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
+				music.play();
+				break;
+			case 5:
+				musicMap= 3;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
+				music.play();
 				break;
 			default:
 				musicMap = mapIndex;
@@ -287,7 +302,13 @@ public class Play extends GameState {
 		case 2: map = "smith.tmx"; 
 		System.out.println("Loaded " + map);
 		break; 
-		case 3: map = "health.tmx"; 
+		case 3: map = "health2.tmx"; 
+		System.out.println("Loaded " + map);
+		break; 
+		case 4: map = "csc.tmx"; 
+		System.out.println("Loaded " + map);
+		break; 
+		case 5: map = "counseling.tmx"; 
 		System.out.println("Loaded " + map);
 		break; 
 		default: map = "trabant.tmx";
@@ -327,6 +348,18 @@ public class Play extends GameState {
 			exits.add(as);
 		}
 		entrance = tileMap.getLayers().get("health");
+		entr = entrance.getObjects();
+		for (RectangleMapObject ae : entr.getByType(RectangleMapObject.class)) {
+			Rectangle as = ae.getRectangle();
+			exits.add(as);
+		}
+		entrance = tileMap.getLayers().get("csc");
+		entr = entrance.getObjects();
+		for (RectangleMapObject ae : entr.getByType(RectangleMapObject.class)) {
+			Rectangle as = ae.getRectangle();
+			exits.add(as);
+		}
+		entrance = tileMap.getLayers().get("perkins");
 		entr = entrance.getObjects();
 		for (RectangleMapObject ae : entr.getByType(RectangleMapObject.class)) {
 			Rectangle as = ae.getRectangle();
@@ -378,8 +411,18 @@ public class Play extends GameState {
 			map = 1;
 			x = 342f;
 			y = 124f;
-			
-		} else if (mapIndex == 1) {
+		} 
+		if (mapIndex == 4) {
+			map = 1;
+			x = 560f;
+			y = 292f;
+		}
+		if (mapIndex == 5) {
+			map = 1;
+			x = 548f;
+			y = 448f;
+		}
+		else if (mapIndex == 1) {
 			knock.play();
 			for (int i = 0; i < exits.size; i++) {
 				if (exits.get(i) == exit) {
@@ -395,6 +438,14 @@ public class Play extends GameState {
 					if (i == 3) {
 						x = 270f;
 						y = 110f;
+					}
+					if (i == 4) {
+						x = 292f;
+						y = 92f;
+					}
+					if (i == 5) {
+						x = 482f;
+						y = 72f;
 					}
 					}
 				}
@@ -421,13 +472,12 @@ public class Play extends GameState {
 //		testQuiz();
 		if (!newGame) {
 			hud.update(dt);
-		}
 //		try {
+		}
 //			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-
 
 		if (newGame) {
 			Tutorial.update();
