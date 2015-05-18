@@ -3,7 +3,8 @@ package edu.udel.cisc275_15S.themis.game_events;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.Map;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -39,7 +40,8 @@ public class Quiz extends Event {
 	BitmapFont q = new BitmapFont();
 	public Sound right = Gdx.audio.newSound(Gdx.files.internal("Audio/Bright.mp3"));
 	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
-	public static File QuestionData = new File("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
+	public static File QuestionDataFile = new File("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
+	public static Map<Integer, QuestionData> qdata = new HashMap<Integer, QuestionData>();
 	
 	public Quiz(Data d) throws IOException {
 		Quiz.d = d;
@@ -50,6 +52,9 @@ public class Quiz extends Event {
 		ans = convertToButtons();
 		complete = false;
 		System.out.println("This quiz has: " + questions.size + " questions total.");
+		for(int i = 0; i < questions.size; i++) {
+			qdata.put(i, new QuestionData(questions.get(i).getQ()));
+		}
 	}
 	public void update() {
 		nextQ();
@@ -132,15 +137,13 @@ public class Quiz extends Event {
 							qVal = true;
 							System.out.println("You just clicked the right Answer!!");
 							right.play();
-
-							//processAnswer(questions.get(currentQ).getQ(), qVal, 0);
-
-//							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
+							qdata.get(currentQ).updateQuestion(true,0);
+							processAnswer(true, 0);
 						} else{
 							System.out.println("Thats...Wrong.");
 							wrong.play();
-							//processAnswer(questions.get(currentQ).getQ(), qVal, 0);
-//							processAnswer(questions.get(currentQ).getQ(), qVal, 0);
+							qdata.get(currentQ).updateQuestion(false, 0);
+							processAnswer(false, 0);
 						}
 					}
 				}
@@ -180,27 +183,11 @@ public class Quiz extends Event {
 		return complete;
 	}
 	
-	public static void processAnswer(String question, boolean correct, int time) throws IOException {
-		FileHandle infile = Gdx.files.internal("Gamedata/PlayerData.txt");
-		BufferedReader br = new BufferedReader(infile.reader());
-		FileHandle outfile = Gdx.files.local("Gamedata/PlayerData.txt");
-		String str = null;
-		while((str = br.readLine())!=null) {
-			int slashIndex = str.indexOf("/", 0);
-			int nextSlashIndex = str.indexOf("/", slashIndex + 1);
-			int thirdSlashIndex = str.indexOf("/", nextSlashIndex + 1);
-			int numWrong = Integer.parseInt(str.substring(slashIndex + 1, nextSlashIndex));
-			int questionTime = Integer.parseInt(str.substring(nextSlashIndex + 1, thirdSlashIndex));
-			
-			if(str.isEmpty()) {
-				if(correct) { outfile.writeString(question+"/0/"+time+"/yes\n",false); }
-				else { outfile.writeString(question+"/1/"+time+"/no\n",false); }
-			}
-			else if(str.startsWith(question)) {
-				if(correct) { outfile.writeString(question+"/"+Integer.toString(numWrong)+"/"+Integer.toString(time+questionTime)+"/yes\n",false); }
-				else { outfile.writeString(question+"/"+Integer.toString(numWrong + 1)+"/"+Integer.toString(time+questionTime)+"/no\n",false); }
-			}
+	public static void processAnswer(boolean correct, int time) throws IOException {
+		FileHandle outfile = Gdx.files.internal("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
+		outfile.writeString("",false);
+		for(Map.Entry<Integer, QuestionData> entry : qdata.entrySet()) {
+			outfile.writeString(entry.toString(), true);
 		}
-		br.close();
 	}
 }
