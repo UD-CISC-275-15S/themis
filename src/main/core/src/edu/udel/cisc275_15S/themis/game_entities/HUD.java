@@ -32,7 +32,7 @@ public class HUD {
 	private UDMail email;
 	private Online online;
 	boolean OpenBag = false;
-	boolean OpenObj;
+	boolean OpenObj = false;
 	private Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Click.mp3"));
 	public GameStateHandler gsh;
 	private Play mplay; // used to dispose play music
@@ -123,6 +123,9 @@ public class HUD {
 //		So that the interfaces don't open over each other
 		if (!OpenBag) {
 			bag.update(dt);
+		}
+		if (!OpenObj) {
+			obj.update(dt);
 		}
 	}
 	
