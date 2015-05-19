@@ -1,1 +1,1 @@
-0=What is the best way to schedule an appointment with your advisor?/0/0/true1=Who should I contact if I need help with course selection?/1/00/true2=Where can I find contact information on my advisor?/2/000/true3=Where should you go to check on your finances?/4/00000/true
+0=I need help perfecting my resume, where should I go?/0/0/true1=If I need help picking classes for next semester, who can I talk to?/0/0/true2=I feel so stressed from exams, where can I talk to someone about that?/0/0/true

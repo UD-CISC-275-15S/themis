@@ -37,15 +37,12 @@ public class Data {
 		FileHandle infile = Gdx.files.internal("Gamedata/Questions.txt");
 		BufferedReader br = new BufferedReader(infile.reader());
 		String string = null;
-		int i = 0;
-	    while ((string = br.readLine())!=null && i < 5) {
-	        
+	    while ((string = br.readLine())!=null) {
 	        if (!string.isEmpty()) {
 	        	if (string.endsWith("?")) { 
 		        	Question q = new Question(new Array<Answer>(), "" );
 	        		q.setQuestion(string); 
 	        		questions.add(q);
-	        		i++;
 	        		} 
 	        }
 	    } br.close();
@@ -70,6 +67,17 @@ public class Data {
 	        }
 	    }
 	    br.close();
+	}
+	
+	public Array<Question> randQ() {
+		Array<Question> rand = new Array<Question>();
+		int y = questions.size;
+		Random rn=new Random();
+		for (int i = 0; i < 3; i++) {
+			int n = rn.nextInt(y);
+			rand.add(questions.get(n));
+			}
+		return rand;
 	}
 	
 	public static void readObjectives(Objectives obj) throws IOException{
