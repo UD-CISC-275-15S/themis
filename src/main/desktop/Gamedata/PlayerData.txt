@@ -1,9 +1,9 @@
 name:
 asd
 x:
-282.0
+200.0
 y:
-470.0
+442.0
 dir
 DOWN
 map:

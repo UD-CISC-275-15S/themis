@@ -18,6 +18,7 @@ public class Buttons extends Button implements Interactable {
 	protected boolean clicked = false;
 	protected String string;
 	protected Texture bgImage = new Texture(Gdx.files.internal("gfx/textbox.gif"));
+	BitmapFont TextButton;
 	
 	public Buttons(Texture image, float x, float y) {
 		this.image = image;
@@ -32,6 +33,7 @@ public class Buttons extends Button implements Interactable {
 		this.string = string;
 		this.y = y;
 		this.x = x;
+		TextButton = Themis.getBitmapFont();
 
 //		Temporary height and widths for TextButtons
 		width = 30;
@@ -42,7 +44,6 @@ public class Buttons extends Button implements Interactable {
 		sb.begin();
 //		If TextButton
 		if (string!=null) {
-			BitmapFont TextButton = new BitmapFont();
 			TextButton.draw(sb, string, x, y);
 //			If the button is an image
 		} else 

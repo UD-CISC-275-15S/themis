@@ -114,7 +114,7 @@ public class Event {
 		for (int i = 0; i < dialogue; i++) {
 			astr = astr + hi[i];
 		}
-		dialoguebox = new BitmapFont();
+		dialoguebox = Themis.getBitmapFont();
 		dialoguebox.drawWrapped(sb, astr, diaX + 10, diaY + 20, box-10);
 	}
 //	Updates the dialogue index per second, together with drawDia this creates the typewriter effect

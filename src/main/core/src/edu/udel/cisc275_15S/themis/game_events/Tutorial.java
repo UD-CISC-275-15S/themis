@@ -17,7 +17,6 @@ import edu.udel.cisc275_15S.themis.game_entities.Player;
 //	
 
 public class Tutorial extends Event {
-	BitmapFont Dialogue;
 	Texture arrows = new Texture(Gdx.files.internal("gfx/arrow.png"));
 	static String Introduction = 
 			"Hello and welcome to the University of Delaware! "

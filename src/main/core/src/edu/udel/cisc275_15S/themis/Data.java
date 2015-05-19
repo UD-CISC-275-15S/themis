@@ -136,6 +136,16 @@ public class Data {
 		return rDialogue.get(n);
 	}
 	
+	public static void ReadHandbook(Backpack bpk) throws IOException{
+		FileHandle infile= Gdx.files.internal("Gamedata/Handbook.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String string = null;
+		while((string = br.readLine())!=null){
+			bpk.getText().add(string);
+		}
+		br.close();
+	}
+	
 	public Array<String> readSDialogue(String name) throws IOException {
 		Array<String> Dia = new Array<String>();
 		FileHandle infile = Gdx.files.internal("Gamedata/" + name + ".txt");

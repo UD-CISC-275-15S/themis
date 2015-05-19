@@ -33,7 +33,7 @@ public class Objectives extends Buttons implements Interactable{
 		objectiveText = new ArrayList<String>();
 		objectiveCompleteness = new ArrayList<Texture>();
 		opened = false;
-		text = new BitmapFont();
+		text = Themis.getBitmapFont();
 		try{
 			Data.readObjectives(this);
 		}
