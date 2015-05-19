@@ -65,7 +65,7 @@ public class Data {
 	public static void makeNewObj(Objectives obj) throws IOException{
 		FileHandle infile = Gdx.files.local("Gamedata/Objectives.txt");
 		infile.writeString(""+obj.getText().size()+"\n",false);
-		for(int i=0;i<obj.getText().size()-1;i++){
+		for(int i=0;i<obj.getText().size();i++){
 			infile.writeString("0\n", true);
 			infile.writeString(obj.getText().get(i)+"\n", true);
 		}
