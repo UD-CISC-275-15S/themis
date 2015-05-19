@@ -66,7 +66,10 @@ public class Play extends GameState {
 	public Sound knock = Gdx.audio.newSound(Gdx.files.internal("Audio/Knock2.mp3"));
 	
 	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
+	
 
+	
+	
 	public Play(GameStateHandler gsh) throws IOException {
 		super(gsh);
 		this.gsh=gsh;
@@ -148,7 +151,7 @@ public class Play extends GameState {
 				questSprite = "1";
 				break;
 		case 1: questNPC = "worldguide";
-				questSprite = "2";
+				questSprite = "4";
 				break;
 		case 2: questNPC = "advisor";
 				questSprite = "advisor";
