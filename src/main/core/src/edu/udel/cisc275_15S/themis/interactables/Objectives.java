@@ -32,7 +32,6 @@ public class Objectives extends Buttons implements Interactable{
 		completedImage = new Texture(Gdx.files.internal("gfx/obj-completed.png"));
 		objectiveText = new ArrayList<String>();
 		objectiveCompleteness = new ArrayList<Texture>();
-		opened = false;
 		text = Themis.getBitmapFont();
 		try{
 			Data.readObjectives(this);
