@@ -32,7 +32,47 @@ public class Data {
 	public Player player;
 	public UDSIS udsis;
 	public Online online;
+	public static String readTutIntro() throws IOException{
+		FileHandle infile = Gdx.files.internal("Gamedata/TutIntro.txt");
+		BufferedReader br = new BufferedReader(infile.reader());
+		String str = null;
+		String fin = "";
+		while((str=br.readLine())!=null){
+			fin+=str+'\n';
+		}
+		return(fin);
+	}
+	public static String readTutObj() throws IOException{
+		FileHandle infile = Gdx.files.internal("Gamedata/TutObj.txt");
+		BufferedReader br =  new BufferedReader(infile.reader());
+		String str = null;
+		String fin = "";
+		while((str=br.readLine())!=null){
+			fin+=str+'\n';
+		}
+		return(fin);
+	}
+	public static String readUDSIS() throws IOException{
+		FileHandle infile = Gdx.files.internal("Gamedata/TutUDSIS.txt");
+		BufferedReader br =  new BufferedReader(infile.reader());
+		String str = null;
+		String fin = "";
+		while((str=br.readLine())!=null){
+			fin+=str+'\n';
+		}
+		return(fin);
+	}
 	
+	public static String readEnd() throws IOException{
+		FileHandle infile = Gdx.files.internal("Gamedata/TutEnd.txt");
+		BufferedReader br =  new BufferedReader(infile.reader());
+		String str = null;
+		String fin = "";
+		while((str=br.readLine())!=null){
+			fin+=str+'\n';
+		}
+		return(fin);
+	}
 	public void readQ() throws IOException {
 		FileHandle infile = Gdx.files.internal("Gamedata/Questions.txt");
 		BufferedReader br = new BufferedReader(infile.reader());

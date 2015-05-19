@@ -1,11 +1,11 @@
 package edu.udel.cisc275_15S.themis.game_events;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
@@ -17,33 +17,26 @@ import edu.udel.cisc275_15S.themis.game_entities.Player;
 //	
 
 public class Tutorial extends Event {
-	Texture arrows = new Texture(Gdx.files.internal("gfx/arrow.png"));
-	static String Introduction = 
-			"Hello and welcome to the University of Delaware! "
-			+ "Today you are here to learn about the resources you will need to become a successful student. "
-			+ "This is your bookbag, and it contains multiple resources. " 
-			+ "First and foremost, there is a reference book, where you can find information about the available resources around campus. ";
-	String Obj = 
-			" This is an objective list, that contains a list of tasks you need to complete.";
-	String UDSIS = 
-			"This is your computer, which you can use to access UDSIS as well as your email.";
-	String End = 
-			"Feel free to talk to other students on their tour today. For now, how about talking to a few of the other students?";
-	String s = 
-			"That girl over there seems to be interested in talking to you.";
+	Texture arrows;
+
 	
 	public Tutorial(Player player, boolean valid, int animator, String name) throws FileNotFoundException {
 		super(player, valid, animator, name);
+		arrows = new Texture(Gdx.files.internal("gfx/arrow.png"));
 //		Avatar = new Texture(Gdx.files.internal("Avatars/advisorav.png"));
 		Avatar = new Texture(Gdx.files.internal("Avatars/bluehenguide.png"));
 		tex = new Texture(Gdx.files.internal("gfx/dialog.png"));
 		diaY = 200;
 		Dias = new Array<String>();
-		Dias.add(Introduction);
-		Dias.add(Obj);
-		Dias.add(UDSIS);
-		Dias.add(End);
-		Dias.add(s);
+		try{
+			Dias.add(Data.readTutIntro());
+			Dias.add(Data.readTutObj());
+			Dias.add(Data.readUDSIS());
+			Dias.add(Data.readEnd());
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 	public void update() {
 		RemainingDia();

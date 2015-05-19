@@ -64,21 +64,22 @@ public class Backpack extends Buttons implements Interactable {
 		if (opened) {
 			sb.begin();
 			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
-			sb.draw(super.getBGImage(), 480f - getX(), getY() + 32f);
+			sb.draw(super.getBGImage(), 50f, 82f,400,230);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			for(int i=0;i<10;i++){
-				bmf.draw(sb, currText.get(i), 50, (Themis.HEIGHT-50)-((15)*i));
-			}
 			if(Gdx.input.justTouched()){
 				updateCurrText();
+			}
+			for(int i=0;i<currText.size;i++){
+				bmf.draw(sb, currText.get(i), 60, (Themis.HEIGHT-15)-((13)*i));
 			}
 			sb.end();
 		}
 	}
 
 	public void updateCurrText(){
-		for(int i=0;i<10;i++){
-			currText.insert(i, text.peek());
+		currText.clear();
+		for(int i=0;i<16;i++){
+			currText.add(text.peek());
 			text.add(text.remove());
 		}
 	}

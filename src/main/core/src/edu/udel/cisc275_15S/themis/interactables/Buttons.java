@@ -17,7 +17,7 @@ public class Buttons extends Button implements Interactable {
 	protected Texture image;
 	protected boolean clicked = false;
 	protected String string;
-	protected Texture bgImage = new Texture(Gdx.files.internal("gfx/textbox.gif"));
+	protected Texture bgImage = new Texture(Gdx.files.internal("gfx/dialog.png"));
 	BitmapFont TextButton;
 	
 	public Buttons(Texture image, float x, float y) {
