@@ -167,10 +167,12 @@ public class Play extends GameState {
 		case 3: questNPC = "doctor";
 				questSprite = "doctor";
 				player.getObjButton().updateObjective("health");
+				player.getObjButton().updateObjective("career");
 				break;
 		case 4: questNPC = "consultant";
 				questSprite = "consultant";
 				player.getObjButton().updateObjective("counsel");
+				player.getObjButton().updateObjective("career");
 				break;
 		case 5: questNPC = "counselor";
 				questSprite = "counselor";
