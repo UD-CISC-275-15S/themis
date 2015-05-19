@@ -506,8 +506,8 @@ public class Play extends GameState {
 
 		sb.setProjectionMatrix(cam.combined);
 		CIH.render(sb);
-		player.render(sb);
 		populateNPCs();
+		player.render(sb);
 		
 		sb.setProjectionMatrix(hudCam.combined);
 		if (newGame) {
