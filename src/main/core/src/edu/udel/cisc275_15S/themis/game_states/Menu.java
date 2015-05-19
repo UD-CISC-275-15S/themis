@@ -27,7 +27,7 @@ public class Menu extends GameState {
 	private TextButton play;
 	private TextButton newgame;
 
-	Texture right = new Texture("Sprites/right.png");
+	Texture right = new Texture("Sprites/bluehenright.png");
 	Texture texture;
 	float statetime = 0f;
 	TextureRegion currentFrame;
@@ -40,10 +40,10 @@ public class Menu extends GameState {
 		Gdx.input.setInputProcessor(stage);								// add an input processor to the stage to see touch
 		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));		// init the skin to load the UI settings
 		play = new TextButton("Play", skin);							// create the start button
-		play.setPosition(205, 80);										// sets the position to 320, 60, about midway at the bottom
+		play.setPosition(205, 100);										// sets the position to 320, 60, about midway at the bottom
 		play.setSize(75,25);
 		newgame = new TextButton("New Game", skin);							// create the start button
-		newgame.setPosition(205, 50);										// sets the position to 320, 60, about midway at the bottom
+		newgame.setPosition(205, 70);										// sets the position to 320, 60, about midway at the bottom
 		newgame.setSize(100,25);										// sets the size to fit the text
 		
 		play.addListener(new ClickListener() {							// adds a click listener
@@ -112,9 +112,9 @@ public class Menu extends GameState {
 		sb.draw(ud, 0, 0);
 		sb.end();
 
-		TextureRegion[][] tmp2 = TextureRegion.split(right, right.getWidth()/10,right.getHeight());
-		TextureRegion[] walkright = new TextureRegion[10];
-		for (int i = 0; i < 10; i++) {
+		TextureRegion[][] tmp2 = TextureRegion.split(right, right.getWidth()/4,right.getHeight());
+		TextureRegion[] walkright = new TextureRegion[4];
+		for (int i = 0; i < 4; i++) {
 			walkright[i] = tmp2[0][i];
 		}
 

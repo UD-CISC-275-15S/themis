@@ -1,10 +1,10 @@
 name:
 ad
 x:
-144.0
+254.0
 y:
-510.0
+444.0
 dir
-DOWN
+RIGHT
 map:
 0
