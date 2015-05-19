@@ -35,6 +35,7 @@ public class HUD {
 	boolean OpenObj = false;
 	private Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Click.mp3"));
 	public GameStateHandler gsh;
+	private Texture arrows = new Texture(Gdx.files.internal("gfx/arrow.png"));
 	private Play mplay; // used to dispose play music
 
 	Stage stage;
@@ -160,6 +161,10 @@ public class HUD {
 		if (OpenBag) bag.render(sb);
 		if (OpenObj) obj.render(sb);
 		online.render(sb);	
+		sb.begin();
+		sb.draw(arrows, 175, 10);
+		sb.end();
+		
 		stage.act();
 		stage.draw();
 	}
