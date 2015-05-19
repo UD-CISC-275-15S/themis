@@ -3,11 +3,17 @@
 Finish up in Trabant!
 0
 Check out Student Career Services!
-0
+2
 Go to the counseling center!
+<<<<<<< HEAD
 1
 Get your advisor!
 0
+=======
+2
+Get your advisor!
+2
+>>>>>>> branch 'master' of https://github.com/UD-CISC-275-15S/themis
 Get checked out in Student Health!
 0
 Talk to the new students!
