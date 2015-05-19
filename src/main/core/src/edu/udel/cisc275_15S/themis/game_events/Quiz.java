@@ -183,7 +183,7 @@ public class Quiz extends Event {
 	}
 	
 	public static void processAnswer(boolean correct, int time) throws IOException {
-		FileHandle outfile = Gdx.files.local("C:/Users/Chong/git/themis/src/main/core/Gamedata/QuestionData.txt");
+		FileHandle outfile = Gdx.files.local("Gamedata/QuestionData.txt");
 		outfile.writeString("",false);
 		for(Map.Entry<Integer, QuestionData> entry : qdata.entrySet()) {
 			outfile.writeString(entry.toString(), true);
