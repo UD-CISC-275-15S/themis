@@ -63,7 +63,7 @@ public class Backpack extends Buttons implements Interactable {
 		super.render(sb);
 		if (opened) {
 			sb.begin();
-			sb.setColor(1.0f, 1.0f, 1.0f, .5f);
+			sb.setColor(1.0f, 1.0f, 1.0f, 2.0f);
 			sb.draw(super.getBGImage(), 50f, 82f,400,230);
 			sb.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			if(Gdx.input.justTouched()){

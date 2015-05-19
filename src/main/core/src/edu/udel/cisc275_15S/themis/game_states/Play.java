@@ -66,18 +66,23 @@ public class Play extends GameState {
 	public Sound knock = Gdx.audio.newSound(Gdx.files.internal("Audio/Knock2.mp3"));
 	
 	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
+	
 
+	
+	
 	public Play(GameStateHandler gsh) throws IOException {
 		super(gsh);
 		this.gsh=gsh;
 		Data.readNewGame(this);
 		CreatePlayer();
+		if(newGame){
+			Data.makeNewObj(player.getObjButton());
+		}
 		LoadMap();
 		CreateNPCs();
 		cam = new MainCamera();
 		cam.setToOrtho(false, Themis.WIDTH, Themis.HEIGHT);
 		cam.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
-		
 		CIH = new CharacterInteractionHandler(this);
 		Tutorial = new Tutorial(player, false, 0, "tutorial");
 		hud = new HUD(player, this);
@@ -146,21 +151,31 @@ public class Play extends GameState {
 		switch (mapIndex) {
 		case 0: questNPC = "guide";
 				questSprite = "1";
+				player.getObjButton().updateObjective("trabant");
+				player.getObjButton().updateObjective("students");
 				break;
 		case 1: questNPC = "worldguide";
 				questSprite = "4";
+				player.getObjButton().updateObjective("trabant");
+				player.getObjButton().updateObjective("advisor");
 				break;
 		case 2: questNPC = "advisor";
 				questSprite = "advisor";
+				player.getObjButton().updateObjective("advisor");
+				player.getObjButton().updateObjective("health");
 				break;
 		case 3: questNPC = "doctor";
 				questSprite = "doctor";
+				player.getObjButton().updateObjective("health");
 				break;
 		case 4: questNPC = "consultant";
 				questSprite = "consultant";
+				player.getObjButton().updateObjective("counsel");
 				break;
 		case 5: questNPC = "counselor";
 				questSprite = "counselor";
+				player.getObjButton().updateObjective("counsel");
+				player.getObjButton().updateObjective("students");
 				break;
 		default: questNPC = "guide";
 				questSprite = "1";

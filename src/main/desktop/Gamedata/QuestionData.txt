@@ -1,1 +1,1 @@
-0=When's the deadline to drop/add a class for free?/5/000000/true1=What's the deadline to withdraw from a class?/5/000000/true2=I want to talk to someone about my job interests, does anyone specialize in that?/4/00000/true
+0=Which one of the following does the Center for Counseling and Student Development not deal with?/7/00000000/true1=I don't think my major is right for me, how do I change it?/1/00/true2=When does Spring Registration begin?/1/00/true

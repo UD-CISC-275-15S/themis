@@ -1,10 +1,10 @@
 name:
-mark
+c
 x:
-48.0
+226.0
 y:
-318.0
+120.0
 dir
-DOWN
+UP
 map:
-1
+0

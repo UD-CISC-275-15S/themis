@@ -14,13 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.game_states.Play;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
 import edu.udel.cisc275_15S.themis.interactables.Online;
-import edu.udel.cisc275_15S.themis.interactables.UDMail;
-import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 
 // This class draws the players backpack, Objectives, and UDSIS
 
@@ -28,13 +27,12 @@ public class HUD {
 	
 	private Backpack bag;
 	private Objectives obj;
-	private UDSIS udsis;
-	private UDMail email;
 	private Online online;
 	boolean OpenBag = false;
 	boolean OpenObj = false;
 	private Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Click.mp3"));
 	public GameStateHandler gsh;
+	private Texture arrows = new Texture(Gdx.files.internal("gfx/arrow.png"));
 	private Play mplay; // used to dispose play music
 
 	Stage stage;
@@ -46,14 +44,18 @@ public class HUD {
 	private Texture bagIcon = new Texture(Gdx.files.internal("gfx/themismenubg.jpg"));
 	private Texture objIcon = new Texture(Gdx.files.internal("gfx/themis.png"));
 	private Texture WebIcon = new Texture(Gdx.files.internal("gfx/themis.png"));
+	
+	private Texture up = new Texture(Gdx.files.internal("gfx/Ucircle.png"));
+	private Texture down = new Texture(Gdx.files.internal("gfx/Dcircle.png"));
+	private Texture left = new Texture(Gdx.files.internal("gfx/Lcircle.png"));
+	private Texture right = new Texture(Gdx.files.internal("gfx/Rcircle.png"));
+
 
 	
 	public HUD(Player player, Play play) {
 		bag = player.getBag();
 		obj = player.getObjButton();
 		online = player.getOnline();
-		udsis = player.getUDSIS();
-		email = player.getEmail();
 		gsh = play.getGsh();
 		mplay = play;
 		
@@ -159,9 +161,18 @@ public class HUD {
 	public void render(SpriteBatch sb){
 		if (OpenBag) bag.render(sb);
 		if (OpenObj) obj.render(sb);
-		online.render(sb);	
+		online.render(sb);
+		
 		stage.act();
 		stage.draw();
+		sb.begin();
+		sb.draw(up, Themis.WIDTH / 2, Themis.HEIGHT - up.getHeight());
+		sb.draw(down, Themis.WIDTH / 2, 0);
+		sb.draw(left, 0, Themis.HEIGHT /2 );
+		sb.draw(right, Themis.WIDTH - right.getWidth(), Themis.HEIGHT /2);
+		sb.end();
+
+		
 	}
 	public Backpack getbag() {
 		return bag;
