@@ -120,6 +120,13 @@ public class HUD {
 		}
 		OpenBag = !OpenBag;
 		bag.setOpened(OpenBag);
+		Bag.addListener(new ClickListener() {							
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+				openInterfaceBag();
+//				update(1/60);
+			}
+		});
 	}
 
 	private void openInterfaceObj(){
@@ -129,6 +136,13 @@ public class HUD {
 		}
 		OpenObj = !OpenObj;
 		obj.setOpened(OpenObj);
+		Obj.addListener(new ClickListener() {							
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
+				openInterfaceObj();
+//				update(1/60);
+			}
+		});
 	}
 
 	
@@ -143,8 +157,8 @@ public class HUD {
 	}
 	
 	public void render(SpriteBatch sb){
-		bag.render(sb);
-		obj.render(sb);
+		if (OpenBag) bag.render(sb);
+		if (OpenObj) obj.render(sb);
 		online.render(sb);	
 		stage.act();
 		stage.draw();
