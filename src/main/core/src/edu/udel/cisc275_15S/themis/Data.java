@@ -62,6 +62,17 @@ public class Data {
 		}
 		return(fin);
 	}
+	public static void makeNewObj(Objectives obj) throws IOException{
+		FileHandle infile = Gdx.files.local("Gamedata/Objectives.txt");
+		infile.writeString(""+obj.getText().size()+"\n",false);
+		for(int i=0;i<obj.getText().size()-1;i++){
+			infile.writeString("0\n", true);
+			infile.writeString(obj.getText().get(i)+"\n", true);
+		}
+		for(int i=0;i<obj.getTextures().size();i++){
+			obj.getTextures().set(i, obj.getIncomplete());
+		}
+	}
 	
 	public static String readEnd() throws IOException{
 		FileHandle infile = Gdx.files.internal("Gamedata/TutEnd.txt");
