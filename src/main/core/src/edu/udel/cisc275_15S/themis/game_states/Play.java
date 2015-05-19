@@ -524,9 +524,11 @@ public class Play extends GameState {
 	public void handleInput() {
 		if(player.getBag().isDown()){
 			player.getBag().setOpened(!player.getBag().isOpen());
+			return;
 		}
 		if(player.getObjButton().isDown()){
 			player.getObjButton().setOpened(!player.getObjButton().isOpen());
+			return;
 		}
 		if (newGame) {return;}
 		else if(hud.getbag().isOpen()){return;}
