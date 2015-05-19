@@ -1,10 +1,10 @@
 name:
 mark
 x:
-228.0
+48.0
 y:
-546.0
+318.0
 dir
 DOWN
 map:
-0
+1
