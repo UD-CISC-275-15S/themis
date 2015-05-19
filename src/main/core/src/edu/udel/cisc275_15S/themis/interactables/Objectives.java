@@ -66,7 +66,7 @@ public class Objectives extends Buttons implements Interactable{
 	}
 	public void updateObjective(String str){
 		for(int i=0;i<objectiveText.size();i++){
-			if(objectiveText.get(i).equals(str)){
+			if(objectiveText.get(i).contains(str.toLowerCase())){
 				if(objectiveCompleteness.get(i)==incompleteImage){
 					objectiveCompleteness.set(i, attemptedImage);
 				}

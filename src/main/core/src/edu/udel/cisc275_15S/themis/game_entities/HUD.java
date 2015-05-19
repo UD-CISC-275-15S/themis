@@ -19,8 +19,6 @@ import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.interactables.Backpack;
 import edu.udel.cisc275_15S.themis.interactables.Objectives;
 import edu.udel.cisc275_15S.themis.interactables.Online;
-import edu.udel.cisc275_15S.themis.interactables.UDMail;
-import edu.udel.cisc275_15S.themis.interactables.UDSIS;
 
 // This class draws the players backpack, Objectives, and UDSIS
 
@@ -28,8 +26,6 @@ public class HUD {
 	
 	private Backpack bag;
 	private Objectives obj;
-	private UDSIS udsis;
-	private UDMail email;
 	private Online online;
 	boolean OpenBag = false;
 	boolean OpenObj = false;
@@ -52,8 +48,6 @@ public class HUD {
 		bag = player.getBag();
 		obj = player.getObjButton();
 		online = player.getOnline();
-		udsis = player.getUDSIS();
-		email = player.getEmail();
 		gsh = play.getGsh();
 		mplay = play;
 		
