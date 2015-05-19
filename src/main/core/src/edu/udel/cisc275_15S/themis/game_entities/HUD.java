@@ -85,33 +85,14 @@ public class HUD {
 		Bag.addListener(new ClickListener() {							
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-			if (!OpenBag) {	
-				OpenBag = true;
-				click.play();
-				bag.setOpened(true);
-				System.out.println(bag.isOpen());
-			}
-			else if (OpenBag) {	
-				OpenBag = false;
-				click.play();
-				bag.setOpened(false);
-			}
+				openInterfaceBag();
 //				update(1/60);
 			}
 		});
 		Obj.addListener(new ClickListener() {							
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
-			if (!OpenObj) {
-				OpenObj = true;
-				click.play();
-				obj.setOpened(true);
-			}
-			else if (OpenObj) {
-				OpenObj = false;
-				click.play();
-				obj.setOpened(false);
-			} 
+				openInterfaceObj();
 //				update(1/60);
 			}
 		});
@@ -131,7 +112,26 @@ public class HUD {
 		stage.addActor(Obj);
 		stage.addActor(Web);
 	}
+	
+	private void openInterfaceBag(){
+		if (OpenObj){
+			OpenObj = false;
+			obj.setOpened(false);
+		}
+		OpenBag = !OpenBag;
+		bag.setOpened(OpenBag);
+	}
 
+	private void openInterfaceObj(){
+		if (OpenBag){
+			bag.setOpened(false);
+			OpenBag = false;
+		}
+		OpenObj = !OpenObj;
+		obj.setOpened(OpenObj);
+	}
+
+	
 	public void update(float dt) {
 //		So that the interfaces don't open over each other
 		if (OpenBag) {

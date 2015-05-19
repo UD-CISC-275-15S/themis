@@ -19,7 +19,7 @@ import edu.udel.cisc275_15S.themis.Themis;
 
 public class Backpack extends Buttons implements Interactable {
 	
-	private boolean opened = false;
+	private boolean opened;
 	private Queue<String> text;
 	private Array<String> currText;
 	private BitmapFont bmf;
