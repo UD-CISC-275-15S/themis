@@ -27,6 +27,8 @@ public class Web extends GameState {
 	private Texture bg = new Texture(Gdx.files.internal("gfx/udelhome.png"));
 	private Texture home = new Texture(Gdx.files.internal("gfx/udelhome.png"));
 	private Texture sispage = new Texture(Gdx.files.internal("gfx/udsis1.png"));
+	private Texture mail = new Texture(Gdx.files.internal("gfx/emailscreen.png"));
+
 	private Vector2 dragOld, dragNew;
 	int i = 0;
 	Stage stage;
@@ -77,6 +79,7 @@ public class Web extends GameState {
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int pointer, int button){
 				click.play();
+				bg = mail;
 			}
 		});
 		
