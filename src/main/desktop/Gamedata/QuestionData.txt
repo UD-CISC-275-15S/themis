@@ -1,1 +1,1 @@
-0=Which one of the following does the Center for Counseling and Student Development not deal with?/7/00000000/true1=I don't think my major is right for me, how do I change it?/1/00/true2=When does Spring Registration begin?/1/00/true
+0=When do midterm grades get released?/6/0000000/true1=Which digits of a course section number would signify a Lab course?/7/00000000/true2=When do midterm grades get released?/1/00/true
