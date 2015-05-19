@@ -168,9 +168,6 @@ public class HUD {
 		if (OpenBag) bag.render(sb);
 		if (OpenObj) obj.render(sb);
 		online.render(sb);
-		sb.begin();
-		sb.draw(arrows, 175, 10);
-		sb.end();
 		
 		stage.act();
 		stage.draw();
