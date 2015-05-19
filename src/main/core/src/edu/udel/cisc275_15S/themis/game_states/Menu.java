@@ -39,7 +39,7 @@ public class Menu extends GameState {
 		stage = new Stage();											// init the stage
 		Gdx.input.setInputProcessor(stage);								// add an input processor to the stage to see touch
 		skin = new Skin(Gdx.files.internal("Data/uiskin.json"));		// init the skin to load the UI settings
-		play = new TextButton("Play", skin);							// create the start button
+		play = new TextButton("Resume", skin);							// create the start button
 		play.setPosition(195, 70);										// sets the position to 320, 60, about midway at the bottom
 		play.setSize(100,25);
 		newgame = new TextButton("New Game", skin);							// create the start button
