@@ -27,7 +27,7 @@ public class Menu extends GameState {
 	private TextButton play;
 	private TextButton newgame;
 
-	Texture right = new Texture("Sprites/bluehenright.png");
+	Texture right = new Texture("Sprites/right.png");
 	Texture texture;
 	float statetime = 0f;
 	TextureRegion currentFrame;

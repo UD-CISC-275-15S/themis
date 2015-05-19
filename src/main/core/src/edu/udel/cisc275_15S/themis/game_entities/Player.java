@@ -30,10 +30,10 @@ public class Player extends Character {
 	public UDSIS udsis;
 	public Online online;
 	public UDMail udmail;
-	Texture left = new Texture("Sprites/bluehenleft.png");
-	Texture right = new Texture("Sprites/bluehenright.png");
-	Texture up = new Texture("Sprites/bluehenfwd.png");
-	Texture down = new Texture("Sprites/bluehenback.png");
+	Texture left = new Texture("Sprites/left.png");
+	Texture right = new Texture("Sprites/right.png");
+	Texture up = new Texture("Sprites/forward.png");
+	Texture down = new Texture("Sprites/back.png");
 	float statetime = 0f;
 	TextureRegion currentFrame;
 	
@@ -85,7 +85,8 @@ public class Player extends Character {
         }
         if (getDir() == UP && TouchInputHandler.isClicked()) {
         currentFrame = wup.getKeyFrame(statetime, true);
-        }
+        } 
+//       else currentFrame = wup.getKeyFrame(statetime,true);
         sb.begin();
         sb.draw(currentFrame, getX(), getY());             
         sb.end();

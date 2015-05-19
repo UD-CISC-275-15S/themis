@@ -451,7 +451,7 @@ public class Play extends GameState {
 			}
 		
 				try {
-//			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
+			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
 			Data.updateObjectives(player.getObjButton());
 //			Data.readObjectives(player.getObjButton());
 			gsh.setState(GameStateHandler.PLAY);
@@ -470,11 +470,11 @@ public class Play extends GameState {
 		if (!newGame) {
 			hud.update(dt);
 		}
-		try {
-			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Data.savePlayerData( player.getName() ,player.getX(), player.getY(),player.getDirString(player.getDir()),mapIndex); // TODO get name from textfield
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 		if (newGame) {
 			Tutorial.update();
@@ -506,8 +506,8 @@ public class Play extends GameState {
 
 		sb.setProjectionMatrix(cam.combined);
 		CIH.render(sb);
-		populateNPCs();
 		player.render(sb);
+		populateNPCs();
 		
 		sb.setProjectionMatrix(hudCam.combined);
 		if (newGame) {
