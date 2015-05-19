@@ -64,6 +64,7 @@ public class Play extends GameState {
 	
 	public Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
 	public Sound knock = Gdx.audio.newSound(Gdx.files.internal("Audio/Knock2.mp3"));
+	
 	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
 
 	public Play(GameStateHandler gsh) throws IOException {
@@ -259,21 +260,22 @@ public class Play extends GameState {
 				break;
 			case 2:
 				musicMap= 2;
-				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Game5.mp3"));
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
 				music.play();
 				break;
 			case 3:
 				musicMap= 3;
-				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Game5.mp3"));
 				music.play();
+				break;
 			case 4:
-				musicMap= 3;
-				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
+				musicMap= 4;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Glass.mp3"));
 				music.play();
 				break;
 			case 5:
-				musicMap= 3;
-				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/TinyPiano.mp3"));
+				musicMap= 5;
+				music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Game5.mp3"));
 				music.play();
 				break;
 			default:
@@ -542,6 +544,7 @@ public class Play extends GameState {
 		exits = null;
 		tileMap = null;
 		cam = null;
+		music = null;
 	
 	}
 	public Player getPlayer() { return player;}
