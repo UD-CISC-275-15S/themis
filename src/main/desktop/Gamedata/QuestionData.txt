@@ -1,2 +1,6 @@
+<<<<<<< HEAD
+0=I need help perfecting my resume, where should I go?/0/0/true1=I need help perfecting my resume, where should I go?/0/0/true2=When's the deadline to drop/add a class for free?/0/0/true
+=======
 0=I need help perfecting my resume, where should I go?/0/0/true1=I want to add a major, who's best to talk to?/2/000/true2=I want to practice safe sex, where can I get STD testing?/1/00/true
 0=I'm sick; Where can I see a doctor on campus?/10/00000000000/true1=When do midterm grades get released?/3/0000/true2=I'm sick; Where can I see a doctor on campus?/0/0/true
+>>>>>>> branch 'master' of https://github.com/UD-CISC-275-15S/themis
