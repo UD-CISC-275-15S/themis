@@ -66,7 +66,10 @@ public class Play extends GameState {
 	public Sound knock = Gdx.audio.newSound(Gdx.files.internal("Audio/Knock2.mp3"));
 	
 	private int musicMap = 99;	// compares to mapIndex to see if music needs to change
+	
 
+	
+	
 	public Play(GameStateHandler gsh) throws IOException {
 		super(gsh);
 		this.gsh=gsh;
