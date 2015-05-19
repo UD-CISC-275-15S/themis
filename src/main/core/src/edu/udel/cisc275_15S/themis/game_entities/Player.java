@@ -30,10 +30,10 @@ public class Player extends Character {
 	public UDSIS udsis;
 	public Online online;
 	public UDMail udmail;
-	Texture left = new Texture("Sprites/left.png");
-	Texture right = new Texture("Sprites/right.png");
-	Texture up = new Texture("Sprites/forward.png");
-	Texture down = new Texture("Sprites/back.png");
+	Texture left = new Texture("Sprites/bluehenleft.png");
+	Texture right = new Texture("Sprites/bluehenright.png");
+	Texture up = new Texture("Sprites/bluehenfwd.png");
+	Texture down = new Texture("Sprites/bluehenback.png");
 	float statetime = 0f;
 	TextureRegion currentFrame;
 	
@@ -48,24 +48,24 @@ public class Player extends Character {
 	public void render(SpriteBatch sb) {
 //		Testing Animation out, this should be structured out and optimized eventually
 //		once we know what sprites we're definitely using 
-		TextureRegion[][] tmp = TextureRegion.split(left, left.getWidth()/10,left.getHeight());
-		TextureRegion[] walkleft = new TextureRegion[10];
-		for (int i = 0; i < 10; i++) {
+		TextureRegion[][] tmp = TextureRegion.split(left, left.getWidth()/4,left.getHeight());
+		TextureRegion[] walkleft = new TextureRegion[4];
+		for (int i = 0; i < 4; i++) {
 			walkleft[i] = tmp[0][i];
 		}
-		TextureRegion[][] tmp2 = TextureRegion.split(right, right.getWidth()/10,right.getHeight());
-		TextureRegion[] walkright = new TextureRegion[10];
-		for (int i = 0; i < 10; i++) {
+		TextureRegion[][] tmp2 = TextureRegion.split(right, right.getWidth()/4,right.getHeight());
+		TextureRegion[] walkright = new TextureRegion[4];
+		for (int i = 0; i < 4; i++) {
 			walkright[i] = tmp2[0][i];
 		}
-		TextureRegion[][] tmp3 = TextureRegion.split(up, up.getWidth()/10,up.getHeight());
-		TextureRegion[] walkup = new TextureRegion[10];
-		for (int i = 0; i < 10; i++) {
+		TextureRegion[][] tmp3 = TextureRegion.split(up, up.getWidth()/4,up.getHeight());
+		TextureRegion[] walkup = new TextureRegion[4];
+		for (int i = 0; i < 4; i++) {
 			walkup[i] = tmp3[0][i];
 		}
-		TextureRegion[][] tmp4 = TextureRegion.split(down, down.getWidth()/10,down.getHeight());
-		TextureRegion[] walkdown = new TextureRegion[10];
-		for (int i = 0; i < 10; i++) {
+		TextureRegion[][] tmp4 = TextureRegion.split(down, down.getWidth()/4,down.getHeight());
+		TextureRegion[] walkdown = new TextureRegion[4];
+		for (int i = 0; i < 4; i++) {
 			walkdown[i] = tmp4[0][i];
 		}
 		Animation wleft = new Animation(1/12f, walkleft);

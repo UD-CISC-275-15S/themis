@@ -1,7 +1,6 @@
 package edu.udel.cisc275_15S.themis.game_states;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,8 +60,6 @@ public class Play extends GameState {
 	RandomEvent randomEvent;
 	ScriptedEvent QuestEvent;
 	private Tutorial Tutorial;
-	private boolean backpackOpened = false;
-	private boolean objectivesOpened = false;
 	private GameStateHandler gsh;
 	
 	public Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Annoying.mp3"));
@@ -454,7 +451,7 @@ public class Play extends GameState {
 			}
 		
 				try {
-			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
+//			Data.savePlayerData(player.getName(), x , y,player.getDirString(player.getDir()),map);
 			Data.updateObjectives(player.getObjButton());
 //			Data.readObjectives(player.getObjButton());
 			gsh.setState(GameStateHandler.PLAY);
@@ -468,8 +465,6 @@ public class Play extends GameState {
 		handleInput();
 //		player.update();
 
-		backpackOpened = player.getBag().isOpen();
-		objectivesOpened = player.getObjButton().isOpen();
 //		Comment out this line to hide quiz
 //		testQuiz();
 		if (!newGame) {
@@ -511,8 +506,8 @@ public class Play extends GameState {
 
 		sb.setProjectionMatrix(cam.combined);
 		CIH.render(sb);
-		player.render(sb);
 		populateNPCs();
+		player.render(sb);
 		
 		sb.setProjectionMatrix(hudCam.combined);
 		if (newGame) {

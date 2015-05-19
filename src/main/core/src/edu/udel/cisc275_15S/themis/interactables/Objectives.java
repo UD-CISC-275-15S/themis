@@ -27,13 +27,13 @@ public class Objectives extends Buttons implements Interactable{
 	
 	public Objectives(Texture image, float x, float y){
 		super(image,x,y);
-		incompleteImage = new Texture(Gdx.files.internal("gfx/incomplete.gif"));
-		attemptedImage = new Texture(Gdx.files.internal("gfx/attempted.gif"));
-		completedImage = new Texture(Gdx.files.internal("gfx/completed.gif"));
+		incompleteImage = new Texture(Gdx.files.internal("gfx/obj-notComplete.png"));
+		attemptedImage = new Texture(Gdx.files.internal("gfx/obj-attempted.png"));
+		completedImage = new Texture(Gdx.files.internal("gfx/obj-completed.png"));
 		objectiveText = new ArrayList<String>();
 		objectiveCompleteness = new ArrayList<Texture>();
 		opened = false;
-		text = new BitmapFont();
+		text = Themis.getBitmapFont();
 		try{
 			Data.readObjectives(this);
 		}

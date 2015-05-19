@@ -34,7 +34,7 @@ public class Quiz extends Event {
 	public boolean complete = false;//Checks if the Quiz has been completed 
 	public boolean qVal = false;//Checks if the current question was answered correctly
 	static Data d;
-	BitmapFont q = new BitmapFont();
+	BitmapFont q;
 	public Sound right = Gdx.audio.newSound(Gdx.files.internal("Audio/Bright.mp3"));
 	public Sound wrong = Gdx.audio.newSound(Gdx.files.internal("Audio/WallHit.mp3"));
 	public static Map<Integer, QuestionData> qdata = new HashMap<Integer, QuestionData>();
@@ -51,6 +51,7 @@ public class Quiz extends Event {
 		for(int i = 0; i < questions.size; i++) {
 			qdata.put(i, new QuestionData(questions.get(i).getQ()));
 		}
+		q=Themis.getBitmapFont();
 	}
 	public void update() {
 		nextQ();

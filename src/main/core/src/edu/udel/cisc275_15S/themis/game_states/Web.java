@@ -19,12 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import edu.udel.cisc275_15S.themis.Themis;
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
 import edu.udel.cisc275_15S.themis.handlers.MainCamera;
-import edu.udel.cisc275_15S.themis.interactables.Buttons;
 public class Web extends GameState {
 
-	private Buttons UDSIS;
-	private Buttons UDMail;
-	private Buttons back;
 	private Texture backicon = new Texture(Gdx.files.internal("gfx/backicon.png"));
 	private Texture email = new Texture(Gdx.files.internal("gfx/email2.png"));
 	private Texture sis = new Texture(Gdx.files.internal("gfx/UDSISicon.png"));
@@ -32,7 +28,6 @@ public class Web extends GameState {
 	private Texture home = new Texture(Gdx.files.internal("gfx/udelhome.png"));
 	private Texture sispage = new Texture(Gdx.files.internal("gfx/udsis1.png"));
 	private Vector2 dragOld, dragNew;
-	private boolean udsis = false;
 	int i = 0;
 	Stage stage;
 	Skin skin;

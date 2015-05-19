@@ -1,10 +1,10 @@
 name:
-asd
+ad
 x:
-210.0
+144.0
 y:
-450.0
+510.0
 dir
-UP
+DOWN
 map:
 0

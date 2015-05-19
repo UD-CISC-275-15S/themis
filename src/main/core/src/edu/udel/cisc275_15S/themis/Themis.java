@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import edu.udel.cisc275_15S.themis.handlers.GameStateHandler;
@@ -32,6 +33,7 @@ public class Themis implements ApplicationListener {
 	private OrthographicCamera hudcam; // our HUD which will display the backpack, UDSIS, resources, info etc. Does not move
 	private MainCamera cam; // main game camera
 	private GameStateHandler gsh;
+	private static BitmapFont bmf;
 	public SpriteBatch getSpriteBatch() {return sb;}
 	public MainCamera getCamera() {return cam;}
 	public OrthographicCamera getHUDCamera() {return hudcam;}
@@ -48,6 +50,7 @@ public class Themis implements ApplicationListener {
 		cam.setToOrtho(false, WIDTH, HEIGHT);
 		hudcam = new OrthographicCamera();
 		hudcam.setToOrtho(false,WIDTH,HEIGHT);
+		bmf=new BitmapFont();
 		try {
 			gsh = new GameStateHandler(this);
 		} catch (IOException e) {
@@ -95,5 +98,6 @@ public class Themis implements ApplicationListener {
 		// AUTO Auto-generated method stub
 		
 	}
+	public static BitmapFont getBitmapFont(){return bmf;}
 		
 }
