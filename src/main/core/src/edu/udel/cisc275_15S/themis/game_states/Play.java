@@ -148,7 +148,7 @@ public class Play extends GameState {
 				questSprite = "1";
 				break;
 		case 1: questNPC = "worldguide";
-				questSprite = "2";
+				questSprite = "4";
 				break;
 		case 2: questNPC = "advisor";
 				questSprite = "advisor";
