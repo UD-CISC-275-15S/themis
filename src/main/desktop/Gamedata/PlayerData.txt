@@ -1,10 +1,10 @@
 name:
-asdf
+chris
 x:
-226.0
+228.0
 y:
-120.0
+546.0
 dir
-UP
+DOWN
 map:
 0
